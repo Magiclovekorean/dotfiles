@@ -1,3 +1,12 @@
-[flavour]
+[flavor]
 dark = "rose-pine"
-light = "rose-pine"
+
+[app]
+overall = { }
+
+[status]
+overall = { }
+
+[tabs]
+active = { }
+inactive = { }
