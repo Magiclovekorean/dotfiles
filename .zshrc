@@ -214,3 +214,8 @@ function y() {
 }
 
 export EDITOR=nvim
+
+# Limpiar la pantalla al iniciar Zsh en sesiones SSH dentro de WezTerm
+if [[ "$TERM_PROGRAM" == "WezTerm" && -n "$SSH_CONNECTION" ]]; then
+  clear
+fi
