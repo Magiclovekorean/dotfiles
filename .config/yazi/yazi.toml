@@ -21,6 +21,7 @@ title_format   = "Yazi: {cwd}"
 [preview]
 wrap            = "yes"
 tab_size        = 2
+image_protocol = "kitty"
 
 max_width       = 1200
 max_height      = 1000
