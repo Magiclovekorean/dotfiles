@@ -7,7 +7,7 @@ description: >-
   Y implemented", "can you explain Z", or any query requiring analysis or
   explanation of existing code. It should not be used for writing new code,
   debugging code, or executing commands.
-mode: primary, secondary
+mode: all
 tools:
   bash: false
   read: false
