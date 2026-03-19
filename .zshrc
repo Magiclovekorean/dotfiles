@@ -113,6 +113,7 @@ alias vim='nvim'
 alias vi='nvim'
 alias v='nvim'
 alias lg='lazygit'
+alias oc = opencode
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
