@@ -1,225 +1,192 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+#  ╔═╗╔═╗╦ ╦╦═╗╔═╗  ╔═╗╔═╗╔╗╔╔═╗╦╔═╗	- z0mbi3
+#  ╔═╝╚═╗╠═╣╠╦╝║    ║  ║ ║║║║╠╣ ║║ ╦	- https://github.com/gh0stzk/dotfiles
+#  ╚═╝╚═╝╩ ╩╩╚═╚═╝  ╚═╝╚═╝╝╚╝╚  ╩╚═╝	- My zsh conf
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+#  ┬  ┬┌─┐┬─┐┌─┐
+#  └┐┌┘├─┤├┬┘└─┐
+#   └┘ ┴ ┴┴└─└─┘
+export VISUAL="${EDITOR}"
+export EDITOR='geany'
+export BROWSER='firefox'
+export HISTORY_IGNORE="(ls|cd|pwd|exit|sudo reboot|history|cd -|cd ..)"
+export SUDO_PROMPT="Deploying root access for %u. Password pls: "
+export BAT_THEME="base16"
+export TERMINAL=kitty
+
+if [ -d "$HOME/.local/bin" ] ;
+  then PATH="$HOME/.local/bin:$PATH"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+#  ┬  ┌─┐┌─┐┌┬┐  ┌─┐┌┐┌┌─┐┬┌┐┌┌─┐
+#  │  │ │├─┤ ││  ├┤ ││││ ┬││││├┤
+#  ┴─┘└─┘┴ ┴─┴┘  └─┘┘└┘└─┘┴┘└┘└─┘
+autoload -Uz compinit
 
-# Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+local zcompdump="$HOME/.config/zsh/zcompdump"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+if [[ -n "$zcompdump"(#qN.mh+24) ]]; then
+    compinit -i -d "$zcompdump"
+else
+    compinit -C -d "$zcompdump"
+fi
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
-
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vim='nvim'
-alias vi='nvim'
-alias v='nvim'
-alias lg='lazygit'
-alias oc='opencode'
-alias py='python3'
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
-source /home/linuxbrew/.linuxbrew/share/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [[ ! -f "${zcompdump}.zwc" || "$zcompdump" -nt "${zcompdump}.zwc" ]]; then
+    zcompile -U "$zcompdump"
+fi
 
 
-# history setup
-HISTFILE=$HOME/.zhistory
-SAVEHIST=1000
-HISTSIZE=999
-setopt share_history
-setopt hist_expire_dups_first
+autoload -Uz add-zsh-hook
+autoload -Uz vcs_info
+precmd () { vcs_info }
+_comp_options+=(globdots)
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' matcher-list \
+		'm:{a-zA-Z}={A-Za-z}' \
+		'+r:|[._-]=* r:|=*' \
+		'+l:|=*'
+zstyle ':vcs_info:*' formats ' %B%s-[%F{magenta}%f %F{yellow}%b%f]-'
+zstyle ':fzf-tab:*' fzf-flags --style=full --height=90% --pointer '>' \
+                --color 'pointer:green:bold,bg+:-1:,fg+:green:bold,info:blue:bold,marker:yellow:bold,hl:gray:bold,hl+:yellow:bold' \
+                --input-label ' Search ' --color 'input-border:blue,input-label:blue:bold' \
+                --list-label ' Results ' --color 'list-border:green,list-label:green:bold' \
+                --preview-label ' Preview ' --color 'preview-border:magenta,preview-label:magenta:bold'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza -1 --icons=always --color=always -a $realpath'
+zstyle ':fzf-tab:complete:eza:*' fzf-preview 'eza -1 --icons=always --color=always -a $realpath'
+zstyle ':fzf-tab:complete:bat:*' fzf-preview 'bat --color=always --theme=base16 $realpath'
+zstyle ':fzf-tab:*' fzf-bindings 'space:accept'
+zstyle ':fzf-tab:*' accept-line enter
+
+#  ┬ ┬┌─┐┬┌┬┐┬┌┐┌┌─┐  ┌┬┐┌─┐┌┬┐┌─┐
+#  │││├─┤│ │ │││││ ┬   │││ │ │ └─┐
+#  └┴┘┴ ┴┴ ┴ ┴┘└┘└─┘  ─┴┘└─┘ ┴ └─┘
+expand-or-complete-with-dots() {
+  echo -n "\e[31m…\e[0m"
+  zle expand-or-complete
+  zle redisplay
+}
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
+
+#  ┬ ┬┬┌─┐┌┬┐┌─┐┬─┐┬ ┬
+#  ├─┤│└─┐ │ │ │├┬┘└┬┘
+#  ┴ ┴┴└─┘ ┴ └─┘┴└─ ┴
+HISTFILE=~/.config/zsh/zhistory
+HISTSIZE=5000
+SAVEHIST=5000
+HISTDUP=erase
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
 setopt hist_ignore_dups
-setopt hist_verify
+setopt hist_find_no_dups
 
+#  ┌─┐┌─┐┬ ┬  ┌─┐┌─┐┌─┐┬    ┌─┐┌─┐┌┬┐┬┌─┐┌┐┌┌─┐
+#  ┌─┘└─┐├─┤  │  │ ││ ││    │ │├─┘ │ ││ ││││└─┐
+#  └─┘└─┘┴ ┴  └─┘└─┘└─┘┴─┘  └─┘┴   ┴ ┴└─┘┘└┘└─┘
+setopt AUTOCD              # change directory just by typing its name
+setopt PROMPT_SUBST        # enable command substitution in prompt
+setopt MENU_COMPLETE       # Automatically highlight first element of completion menu
+setopt LIST_PACKED		   # The completion menu takes less space.
+setopt AUTO_LIST           # Automatically list choices on ambiguous completion.
+setopt COMPLETE_IN_WORD    # Complete from both ends of a word.
 
-bindkey "^[[A" history-search-backward
-bindkey "^[[B" history-search-forward
-source /home/linuxbrew/.linuxbrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#b3b3b3'
-
-source /home/linuxbrew/.linuxbrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-
-# ---- Eza (better ls) -----
-
-alias ls="eza --icons=always"
-
-# ---- Zoxide (better cd) ----
-eval "$(zoxide init zsh)"
-
-alias cd="z"
-
-# ---- FZF -----
-
-# Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"
-
-
-# Use fd (https://github.com/sharkdp/fd) for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
-_fzf_compgen_path() {
-  fd --hidden --exclude .git . "$1"
+#  ┌┬┐┬ ┬┌─┐  ┌─┐┬─┐┌─┐┌┬┐┌─┐┌┬┐
+#   │ ├─┤├┤   ├─┘├┬┘│ ││││├─┘ │
+#   ┴ ┴ ┴└─┘  ┴  ┴└─└─┘┴ ┴┴   ┴
+function dir_icon {
+  if [[ "$PWD" == "$HOME" ]]; then
+    echo "%B%F{cyan}%f%b"
+  else
+    echo "%B%F{cyan}%f%b"
+  fi
 }
 
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type=d --hidden --exclude .git . "$1"
+PS1='%B%F{blue}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
+
+#  ┌─┐┬  ┬ ┬┌─┐┬┌┐┌┌─┐
+#  ├─┘│  │ ││ ┬││││└─┐
+#  ┴  ┴─┘└─┘└─┘┴┘└┘└─┘
+source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+bindkey '^[[3~' delete-char
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+
+# Sudo plugin replacement - press ESC ESC to prepend sudo
+sudo-command-line() {
+  [[ -z $BUFFER ]] && zle up-history
+  [[ $BUFFER != sudo\ * ]] && BUFFER="sudo $BUFFER"
+  zle end-of-line
 }
-export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
+zle -N sudo-command-line
+bindkey '\e\e' sudo-command-line
 
-# -- Use fd instead of fzf --
-
-
-# --- setup fzf theme ---
-fg="#CBE0F0"
-bg="#011628"
-bg_highlight="#143652"
-purple="#B388FF"
-blue="#06BCE4"
-cyan="#2CF9ED"
-
-export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
-
-
-# thefuck alias
-eval $(thefuck --alias)
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-alias fk="fuck"
-
-# opencode
-export PATH=/home/magictt/.opencode/bin:$PATH
-
-# bun completions
-[ -s "/home/magictt/.bun/_bun" ] && source "/home/magictt/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
+#  ┌─┐┬ ┬┌─┐┌┐┌┌─┐┌─┐  ┌┬┐┌─┐┬─┐┌┬┐┬┌┐┌┌─┐┬  ┌─┐  ┌┬┐┬┌┬┐┬  ┌─┐
+#  │  ├─┤├─┤││││ ┬├┤    │ ├┤ ├┬┘│││││││├─┤│  └─┐   │ │ │ │  ├┤
+#  └─┘┴ ┴┴ ┴┘└┘└─┘└─┘   ┴ └─┘┴└─┴ ┴┴┘└┘┴ ┴┴─┘└─┘   ┴ ┴ ┴ ┴─┘└─┘
+function xterm_title_precmd () {
+	print -Pn -- '\e]2;%n@%m %~\a'
+	[[ "$TERM" == 'screen'* ]] && print -Pn -- '\e_\005{g}%n\005{-}@\005{m}%m\005{-} \005{B}%~\005{-}\e\\'
 }
 
-export EDITOR=nvim
+function xterm_title_preexec () {
+	print -Pn -- '\e]2;%n@%m %~ %# ' && print -n -- "${(q)1}\a"
+	[[ "$TERM" == 'screen'* ]] && { print -Pn -- '\e_\005{g}%n\005{-}@\005{m}%m\005{-} \005{B}%~\005{-} %# ' && print -n -- "${(q)1}\e\\"; }
+}
 
-# Limpiar la pantalla al iniciar Zsh en sesiones SSH dentro de WezTerm
-if [[ "$TERM_PROGRAM" == "WezTerm" && -n "$SSH_CONNECTION" ]]; then
-  clear
+if [[ "$TERM" == (kitty*|alacritty*|tmux*|screen*|xterm*) ]]; then
+	add-zsh-hook -Uz precmd xterm_title_precmd
+	add-zsh-hook -Uz preexec xterm_title_preexec
 fi
 
+#  ┌─┐┬  ┬┌─┐┌─┐
+#  ├─┤│  │├─┤└─┐
+#  ┴ ┴┴─┘┴┴ ┴└─┘
+alias mirrors="sudo reflector --verbose --latest 5 --country 'United States' --age 6 --sort rate --save /etc/pacman.d/mirrorlist"
+alias update="paru -Syu --nocombinedupgrade"
+alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+
+alias music="ncmpcpp"
+
+alias cat="bat --theme=base16"
+alias ls='eza --icons=always --color=always -a'
+alias ll='eza --icons=always --color=always -la'
+
+alias vi='nvim'
+alias vim='nvim'
+
+alias oc='opencode'
+
+#  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
+#  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │
+#  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴
+#disable-fzf-tab
+
+# fnm
+FNM_PATH="/home/magictt/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "$(fnm env --shell zsh)"
+fi
+
+# pnpm
+export PNPM_HOME="/home/magictt/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+alias chrome-debug="google-chrome-stable --remote-debugging-port=9222"
