@@ -281,6 +281,12 @@ When finished, run:
 git status --short
 ```
 
+Then push:
+
+```bash
+git push
+```
+
 Then report as less words as possible:
 
 - commits created
