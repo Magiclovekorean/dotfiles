@@ -190,3 +190,9 @@ case ":$PATH:" in
 esac
 # pnpm end
 alias chrome-debug="google-chrome-stable --remote-debugging-port=9222"
+
+# opencode
+export PATH=/home/magictt/.opencode/bin:$PATH
+
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
