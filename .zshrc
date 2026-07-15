@@ -118,14 +118,7 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 
-sudo-command-line() {
-    [[ -z $BUFFER ]] && zle up-history
-    BUFFER="sudo $BUFFER"
-    CURSOR=$#BUFFER
-}
-
-zle -N sudo-command-line
-bindkey '\e\e' sudo-command-line
+source ~/.config/zsh/plugins/sudo.plugin.zsh
 
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
@@ -154,15 +147,15 @@ fi
 #  ┌─┐┬  ┬┌─┐┌─┐
 #  ├─┤│  │├─┤└─┐
 #  ┴ ┴┴─┘┴┴ ┴└─┘
-alias mirrors="sudo reflector --verbose --latest 5 --country 'United States' --age 6 --sort rate --save /etc/pacman.d/mirrorlist"
-alias update="paru -Syu --nocombinedupgrade"
-alias grub-update="sudo grub-mkconfig -o /boot/grub/grub.cfg"
-
-alias music="ncmpcpp"
-
 alias cat="bat --theme=base16"
 alias ls='eza --icons=always --color=always -a'
 alias ll='eza --icons=always --color=always -la'
+
+alias oc='opencode'
+alias lg='lazygit'
+alias tmuxs='tmux-sessionizer'
+alias tmuxd='tmux kill-server'
+alias tmuxe='tmux detach'
 
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │
