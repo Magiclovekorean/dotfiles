@@ -7,6 +7,12 @@
 
 export SUDO_PROMPT="Deploying root access for %u. Password pls: "
 export BAT_THEME="base16"
+export QT_QPA_PLATFORMTHEME=qt6ct
+
+# Refresh Hyprland socket signature on every shell
+if [ -d "/run/user/$(id -u)/hypr" ]; then
+    export HYPRLAND_INSTANCE_SIGNATURE=$(ls -t /run/user/$(id -u)/hypr/ | head -1)
+fi
 
 if [ -d "$HOME/.local/bin" ] ;
   then PATH="$HOME/.local/bin:$PATH"
@@ -144,6 +150,7 @@ alias cat="bat --theme=base16"
 alias ls='eza --icons=always --color=always -a'
 alias ll='eza --icons=always --color=always -la'
 
+alias vlc='QT_QPA_PLATFORMTHEME=qt5ct vlc'
 alias oc='opencode'
 alias lg='lazygit'
 alias tmuxs='tmux-sessionizer'
@@ -152,6 +159,8 @@ alias tmuxe='tmux detach'
 
 alias night='hyprsunset --temperature 4500 & disown'
 alias undo-night='killall hyprsunset'
+
+alias kb-toggle='hyprctl switchxkblayout at-translated-set-2-keyboard next'
 
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │
