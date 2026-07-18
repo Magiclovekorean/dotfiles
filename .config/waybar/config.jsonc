@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "modules-left": ["hyprland/workspaces", "group/media"],
-    "modules-center": ["clock"],
+    "modules-center": ["custom/wlogout", "custom/airplane-mode", "clock"],
     "modules-right": ["hyprland/submap", "group/volume", "battery", "bluetooth", "network", "cpu", "memory"],
     "hyprland/window": {
         "max-length": 50
@@ -104,5 +104,15 @@
       "escape": true,
       "interval": 1,
       "tooltip": false,
-    }
+    },
+    "custom/wlogout": {
+            "exec": "~/.config/waybar/custom_modules/wlogout/wlogout.sh",
+            "tooltip": false,
+            "on-click": "wlogout"
+     },
+     "custom/airplane-mode": {
+             "exec": "~/.config/waybar/custom_modules/airplane-mode/airplane-mode.sh",
+             "tooltip": false,
+             "on-click": "toggle-airplane"
+     }
 }

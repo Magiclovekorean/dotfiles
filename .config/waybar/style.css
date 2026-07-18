@@ -8,7 +8,7 @@
 * {
   /* `otf-font-awesome` is required to be installed for icons */
   font-family: JetBrainsMono Nerd Font Propo;
-  font-size: 17px;
+  font-size: 15px;
 }
 
 window#waybar {
@@ -36,7 +36,9 @@ window#waybar {
 #network,
 #cpu,
 #memory,
-#volume {
+#volume,
+#custom-wlogout,
+#custom-airplane-mode {
   border-radius: 8px;
   padding: 5px 8px;
   background: @dark-8;
