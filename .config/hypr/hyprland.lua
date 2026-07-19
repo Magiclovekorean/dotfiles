@@ -317,7 +317,7 @@ hl.bind(secondMod .. " + S", hl.dsp.exec_cmd(screenshot_and_edit))
 hl.bind(mainMod .. " + K", hl.dsp.exec_cmd(kb_toggle))
 
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(secondMod .. " + Q", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
+hl.bind(secondMod .. " + Q", hl.dsp.exec_cmd("uwsm stop"))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(launcher))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 
