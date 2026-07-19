@@ -36,13 +36,22 @@ local brave = "brave-origin"
 local music = "spotify-launcher"
 local notion = brave .. " --app=https://notion.so"
 
---airplane mode
+-- airplane mode
 local airplane_mode = "toggle-airplane"
 
---  rofi
+-- rofi
 local launcher = "rofi -show drun -show-icons"
 local runner = "rofi -show run"
+local calculator = "rofi -show calc -modi calc -no-show-match -no-sort"
+local emojiSearch = "rofi -modi emoji -show emoji"
+local clipboard_history = "cliphist list | rofi -dmenu | cliphist decode | wl-copy"
 
+-- color picker
+local color_picker = "hyprpicker | wl-copy"
+
+-- screenshots
+local screenshot = 'f="$HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"; grim -g "$(slurp)" "$f" && wl-copy < "$f"'
+local screenshot_and_edit = 'grim -g "$(slurp)" | satty'
 
 -------------------
 ---- AUTOSTART ----
@@ -58,6 +67,10 @@ hl.on("hyprland.start", function ()
    hl.exec_cmd("hypridle")
    hl.exec_cmd("hyprpaper")
    hl.exec_cmd("systemctl --user start hyprpolkitagent")
+   hl.exec_cmd("wl-paste --type text --watch cliphist store")
+   hl.exec_cmd("wl-paste --type image --watch cliphist store")
+   -- clear clipboard history
+   hl.exec_cmd("cliphist wipe")
  end)
 
 
@@ -287,6 +300,16 @@ hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(notion))
 -- rofi
 hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(launcher))
 hl.bind(secondMod .. " + Space", hl.dsp.exec_cmd(runner))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(calculator))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(emojiSearch))
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(clipboard_history))
+
+-- color picker
+hl.bind(secondMod .. " + C", hl.dsp.exec_cmd(color_picker))
+
+-- screenshots
+hl.bind(mainMod .. " + S", hl.dsp.exec_cmd(screenshot))
+hl.bind(secondMod .. " + S", hl.dsp.exec_cmd(screenshot_and_edit))
 
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(secondMod .. " + Q", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
