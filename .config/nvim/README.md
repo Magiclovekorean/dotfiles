@@ -2,43 +2,26 @@
 
 ## Requirements
 
-### Core
+| Dependency | Purpose |
+|---|---|
+| **Neovim** >= 0.11 | `vim.lsp.config`, `vim.lsp.enable`, `vim.diagnostic.jump` |
+| **git** | `lazy.nvim`, nvim-tree, `99` plugin |
+| **make** | Builds `telescope-fzf-native.nvim`, `LuaSnip` |
+| **C compiler** (`gcc`/`clang`) | Treesitter parsers, `telescope-fzf-native` |
+| **node / npm** | LSPs, `prettier`, `eslint_d`, `LuaSnip` jsregexp |
+| **python3 / pip** | `black`, `isort`, `pylint`, `ipynb.nvim` |
+| **lazygit** | `lazygit.nvim` |
+| **tmux** | `vim-tmux-navigator` |
+| **xclip / xsel** | Clipboard (`unnamedplus`) |
+| **opencode** | `99v` AI integration |
 
-- **Neovim** >= 0.11 (uses `vim.lsp.config`, `vim.lsp.enable`, `vim.diagnostic.jump`)
-- **git** - plugin manager (`lazy.nvim`), nvim-tree git integration, `99` plugin
-- **make** - builds for `telescope-fzf-native.nvim` and `LuaSnip`
-- **C compiler** (`gcc` or `clang`) - compiles treesitter parsers and telescope-fzf-native
-
-### Node.js
-
-- **node / npm** - required by nearly all LSP servers and tools below
-  - LSPs: `ts_ls`, `html`, `cssls`, `tailwindcss`, `svelte`, `graphql`, `emmet_ls`, `prismals`, `pyright`, `eslint`
-  - Tools: `prettier`, `eslint_d`, `LuaSnip` jsregexp build
-
-### Python
-
-- **python3 / pip** - required by:
-  - `black` (formatter)
-  - `isort` (import sorting)
-  - `pylint` (linter)
-  - `ipynb.nvim` (Jupyter notebooks, expects a `venv/bin/python` per-project)
-
-### CLI tools
-
-- **lazygit** - used by `lazygit.nvim`
-- **tmux** - used by `vim-tmux-navigator`
-- **xclip** or **xsel** - clipboard provider (`clipboard = "unnamedplus"`)
-- **opencode** - used by `99v`(ai integration)
- 
-
-### Treesitter parsers (compiled from source, need C compiler)
+### Treesitter parsers
 
 json, javascript, typescript, tsx, jsx, yaml, html, css, prisma, markdown, markdown_inline, svelte, graphql, bash, lua, vim, dockerfile, gitignore, query, vimdoc, c, astro
 
 ### Mason-managed formatters/linters
 
-- **prettier** (Node.js) - JS/TS/HTML/CSS/Svelte/JSON
+- **prettier** - JS/TS/HTML/CSS/Svelte/JSON
 - **stylua** - Lua
-- **isort** / **black** / **pylint** - Python (via pip)
-- **eslint_d** - JS/TS linting daemon
-```
+- **isort** / **black** / **pylint** - Python
+- **eslint_d** - JS/TS
