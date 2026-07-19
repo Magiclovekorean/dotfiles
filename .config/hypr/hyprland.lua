@@ -53,6 +53,9 @@ local color_picker = "hyprpicker | wl-copy"
 local screenshot = 'f="$HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"; grim -g "$(slurp)" "$f" && wl-copy < "$f"'
 local screenshot_and_edit = 'grim -g "$(slurp)" | satty'
 
+-- Change keyboard layout
+local kb_toggle = "hyprctl switchxkblayout at-translated-set-2-keyboard next"
+
 -------------------
 ---- AUTOSTART ----
 -------------------
@@ -310,6 +313,8 @@ hl.bind(secondMod .. " + C", hl.dsp.exec_cmd(color_picker))
 -- screenshots
 hl.bind(mainMod .. " + S", hl.dsp.exec_cmd(screenshot))
 hl.bind(secondMod .. " + S", hl.dsp.exec_cmd(screenshot_and_edit))
+
+hl.bind(mainMod .. " + K", hl.dsp.exec_cmd(kb_toggle))
 
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(secondMod .. " + Q", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
