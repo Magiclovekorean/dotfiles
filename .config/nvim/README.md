@@ -13,7 +13,7 @@
 | **lazygit** | `lazygit.nvim` |
 | **tmux** | `vim-tmux-navigator` |
 | **xclip / xsel** | Clipboard (`unnamedplus`) |
-| **opencode** | `99v` AI integration |
+| **opencode** | `99` AI integration |
 
 ### Treesitter parsers
 
