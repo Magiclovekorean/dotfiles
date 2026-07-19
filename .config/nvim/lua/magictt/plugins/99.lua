@@ -91,6 +91,10 @@ return{
 			vim.keymap.set("n", "<leader>9x", function()
 				_99.stop_all_requests()
 			end)
+            
+            vim.keymap.set("v", "<leader>9e", function()
+              _99.visual({ additional_prompt = " " })
+            end)
 
 			vim.keymap.set("n", "<leader>9s", function()
 				_99.search()
