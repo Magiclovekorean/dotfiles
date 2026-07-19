@@ -38,7 +38,8 @@ window#waybar {
 #memory,
 #volume,
 #custom-wlogout,
-#custom-airplane-mode {
+#custom-airplane-mode,
+#custom-kb-toggle {
   border-radius: 8px;
   padding: 5px 8px;
   background: @dark-8;
