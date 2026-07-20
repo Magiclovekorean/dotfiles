@@ -118,6 +118,6 @@
      "custom/kb-toggle": {
          "exec": "~/.config/waybar/custom_modules/kb-toggle/kb-toggle.sh",
          "kb-toggle": false,
-         "on-click": "hyprctl switchxkblayout at-translated-set-2-keyboard next"
+         "on-click": "hyprctl switchxkblayout all next"
      }
 }
