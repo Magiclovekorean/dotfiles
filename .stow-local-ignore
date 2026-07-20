@@ -1,6 +1,7 @@
 ^bin$
 ^bin$
 ^\.gitignore$
+^LICENSE\.md$
 ^README\.md$
 ^tmp$
 ^\.git$
