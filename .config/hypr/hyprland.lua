@@ -51,7 +51,7 @@ local color_picker = "hyprpicker | wl-copy"
 
 -- screenshots
 local screenshot = 'f="$HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"; grim -g "$(slurp)" "$f" && wl-copy < "$f"'
-local screenshot_and_edit = 'grim -g "$(slurp)" | satty'
+local screenshot_and_edit = 'grim -g "$(slurp)" - | satty --filename -'
 
 -- Change keyboard layout
 local kb_toggle = "hyprctl switchxkblayout all next && notify-send 'Keyboard layout switched'"
