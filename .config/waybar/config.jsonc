@@ -55,7 +55,7 @@
           "today": "<span color='#75f1fa'><b>{}</b></span>"
         }
       },
-      "on-click": "exec brave-origin --app=https://calendar.google.com"
+      "on-click": "brave-origin --app=https://calendar.notion.so"
     },
     "pulseaudio": {
         "format": "{volume}% {icon}",
