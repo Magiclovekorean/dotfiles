@@ -54,7 +54,7 @@ local screenshot = 'f="$HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"
 local screenshot_and_edit = 'grim -g "$(slurp)" | satty'
 
 -- Change keyboard layout
-local kb_toggle = "hyprctl switchxkblayout all next"
+local kb_toggle = "hyprctl switchxkblayout all next && notify-send 'Keyboard layout switched'"
 
 -------------------
 ---- AUTOSTART ----
