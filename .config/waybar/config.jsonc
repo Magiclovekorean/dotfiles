@@ -118,6 +118,6 @@
      "custom/kb-toggle": {
          "exec": "~/.config/waybar/custom_modules/kb-toggle/kb-toggle.sh",
          "kb-toggle": false,
-         "on-click": "hyprctl switchxkblayout all next"
+         "on-click": "hyprctl switchxkblayout all next && notify-send 'Keyboard layout switched'"
      }
 }
