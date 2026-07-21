@@ -160,7 +160,7 @@ alias tmuxe='tmux detach'
 alias night='hyprsunset --temperature 4500 & disown'
 alias undo-night='killall hyprsunset'
 
-alias kb-toggle='hyprctl switchxkblayout all next'
+alias kb-toggle='hyprctl switchxkblayout all next && notify-send "Keyboard layout switched"'
 
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │
