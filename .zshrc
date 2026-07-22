@@ -163,6 +163,7 @@ alias undo-night='killall hyprsunset'
 alias kb-toggle='hyprctl switchxkblayout all next && notify-send "Keyboard layout switched"'
 
 alias nix-update='home-manager switch'
+alias nvim-nix='nvim  ~/.config/home-manager'
 
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │
