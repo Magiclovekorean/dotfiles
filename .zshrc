@@ -9,13 +9,8 @@ export SUDO_PROMPT="Deploying root access for %u. Password pls: "
 export BAT_THEME="base16"
 export QT_QPA_PLATFORMTHEME=qt6ct
 
-# Refresh Hyprland socket signature on every shell
-if [ -d "/run/user/$(id -u)/hypr" ]; then
-    export HYPRLAND_INSTANCE_SIGNATURE=$(ls -t /run/user/$(id -u)/hypr/ | head -1)
-fi
-
-if [ -d "$HOME/.local/bin" ] ;
-  then PATH="$HOME/.local/bin:$PATH"
+    if [ -d "$HOME/.local/bin" ] ;
+      then PATH="$HOME/.local/bin:$PATH"
 fi
 
 #  ┬  ┌─┐┌─┐┌┬┐  ┌─┐┌┐┌┌─┐┬┌┐┌┌─┐
