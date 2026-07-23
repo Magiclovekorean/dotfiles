@@ -87,6 +87,9 @@ hl.env("HYPRCURSOR_SIZE", "30")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 hl.env("XCURSOR_THEME", "BreezeX-RosePine-Linux")
 hl.env("QT_QPA_PLATFORMTHEME", "qt5ct")
+hl.env("GNOME_KEYRING_CONTROL", "/run/user/1000/keyring")
+hl.env("DBUS_SESSION_BUS_ADDRESS", "unix:path=/run/user/1000/bus")
+hl.env("ELECTRON_USE_OS_KEYRING", "true")
 
 
 -----------------------
