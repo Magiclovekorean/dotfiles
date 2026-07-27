@@ -73,6 +73,7 @@ hl.on("hyprland.start", function ()
    hl.exec_cmd("wl-paste --type image --watch cliphist store")
    -- clear clipboard history
    hl.exec_cmd("cliphist wipe")
+   hl.exec_cmd("batsignal")
  end)
 
 
