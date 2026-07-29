@@ -1,7 +1,3 @@
--- This is an example Hyprland Lua config file.
--- Refer to the wiki for more information.
--- https://wiki.hypr.land/Configuring/Start/
-
 -- Please note not all available settings / options are set here.
 -- For a full list, see the wiki
 
@@ -55,6 +51,8 @@ local screenshot_and_edit = 'grim -g "$(slurp)" - | satty --filename -'
 
 -- Change keyboard layout
 local kb_toggle = "hyprctl switchxkblayout all next && notify-send 'Keyboard layout switched'"
+
+local screenshot_ocr = os.getenv("HOME") .. "/.config/hypr/scripts/ocr.sh"
 
 -------------------
 ---- AUTOSTART ----
@@ -316,6 +314,7 @@ hl.bind(secondMod .. " + C", hl.dsp.exec_cmd(color_picker))
 -- screenshots
 hl.bind(mainMod .. " + S", hl.dsp.exec_cmd(screenshot))
 hl.bind(secondMod .. " + S", hl.dsp.exec_cmd(screenshot_and_edit))
+hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(screenshot_ocr))
 
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(kb_toggle))
 
