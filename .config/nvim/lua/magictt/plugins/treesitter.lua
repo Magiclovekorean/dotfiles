@@ -1,3 +1,4 @@
+
 return {
   "nvim-treesitter/nvim-treesitter",
   lazy = false,
@@ -26,6 +27,7 @@ return {
       "graphql",
       "bash",
       "lua",
+      "latex",
       "vim",
       "dockerfile",
       "gitignore",
@@ -33,16 +35,19 @@ return {
       "vimdoc",
       "c",
       "astro",
+      "typst",
+      "comment",
     })
 
     -- Enable treesitter features for supported filetypes
     vim.api.nvim_create_autocmd('FileType', {
       pattern = {
         'json', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'tsx',
-        'yaml', 'html', 'css', 'prisma', 'markdown',
-        'svelte', 'graphql', 'bash', 'lua', 'vim',
-        'dockerfile', 'gitignore', 'c', 'astro'
+        'yaml', 'html', 'css', 'prisma', 'markdown', 'markdown_inline',
+        'svelte', 'graphql', 'bash', 'lua', 'latex', 'vim',
+        'dockerfile', 'gitignore', 'c', 'astro', 'typst', 'comment'
       },
+
       callback = function(args)
         -- Enable syntax highlighting
         vim.treesitter.start()
