@@ -162,6 +162,8 @@ alias nix-update='nix-channel --update && home-manager switch'
 alias nvim-nix='nvim  ~/.config/home-manager'
 alias cdnix='cd ~/.config/home-manager'
 
+alias wifi-passwd='sudo nvim /etc/NetworkManager/system-connections'
+
 #  ┌─┐┬ ┬┌┬┐┌─┐  ┌─┐┌┬┐┌─┐┬─┐┌┬┐
 #  ├─┤│ │ │ │ │  └─┐ │ ├─┤├┬┘ │
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴
