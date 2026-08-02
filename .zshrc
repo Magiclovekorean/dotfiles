@@ -1,3 +1,10 @@
+# My customized version of the original configuration.
+# Modified by Magiclovekorean, 2026.
+#
+# Originally based on <https://github.com/gh0stzk/dotfiles>,
+# originally licensed under the GNU GPL v3.0.
+# This modified version is also licensed under the GNU GPL v3.0.
+
 #  ╔═╗╔═╗╦ ╦╦═╗╔═╗  ╔═╗╔═╗╔╗╔╔═╗╦╔═╗	- z0mbi3
 #  ╔═╝╚═╗╠═╣╠╦╝║    ║  ║ ║║║║╠╣ ║║ ╦	- https://github.com/gh0stzk/dotfiles
 #  ╚═╝╚═╝╩ ╩╩╚═╚═╝  ╚═╝╚═╝╝╚╝╚  ╩╚═╝	- My zsh conf
@@ -11,6 +18,10 @@ export QT_QPA_PLATFORMTHEME=qt6ct
 
     if [ -d "$HOME/.local/bin" ] ;
       then PATH="$HOME/.local/bin:$PATH"
+fi
+
+if [ -d "$HOME/.cargo/bin" ]; then
+    PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 #  ┬  ┌─┐┌─┐┌┬┐  ┌─┐┌┐┌┌─┐┬┌┐┌┌─┐
@@ -146,7 +157,6 @@ alias cat="bat --theme=base16"
 alias ls='eza --icons=always --color=always -a'
 alias ll='eza --icons=always --color=always -la'
 
-alias vlc='QT_QPA_PLATFORMTHEME=qt5ct vlc'
 alias oc='opencode'
 alias lg='lazygit'
 alias tmuxs='tmux-sessionizer'
@@ -161,6 +171,7 @@ alias kb-toggle='hyprctl switchxkblayout all next && notify-send "Keyboard layou
 alias nix-update='nix-channel --update && home-manager switch'
 alias nvim-nix='nvim  ~/.config/home-manager'
 alias cdnix='cd ~/.config/home-manager'
+alias nix-clean='nix-collect-garbage -d'
 
 alias wifi-passwd='sudo nvim /etc/NetworkManager/system-connections'
 
@@ -169,9 +180,6 @@ alias wifi-passwd='sudo nvim /etc/NetworkManager/system-connections'
 #  ┴ ┴└─┘ ┴ └─┘  └─┘ ┴ ┴ ┴┴└─ ┴
 
 #disable-fzf-tab
-
-
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 
 # fnm
 FNM_PATH="/home/magictt/.local/share/fnm"
@@ -189,3 +197,4 @@ esac
 # pnpm end
 
 autoload -Uz compinit && compinit -C
+
