@@ -1,12 +1,19 @@
 # My current setup for arch linux + hyprland
 
 ## Instalation
+I made an autoSetup script that does everything automaticly for you:
+```bash
+chmod +x autoSetup.sh
+./autoSetup.sh
+```
+
+If you just want to stow the dotfiles, run
+
 ```bash
 stow -t ~ .
 ```
 This will symlink all these dotfiles to the home directory. 
 
-I'm currently working on an autoSetup script, if you use it, for tmux, you will have to run it and press `prefix` + `I` and `prefix` + r
 
 - The wallpapers I have are [Archie Chrisanthou's Digitally Painted Desktop Wallpapers](https://archdrawsalot.gumroad.com/l/arcnar), I have them In ~/Desktop/walls/ move the wallpapers of your choice there and change ~/.config/hypr/hyprpaper.conf to modify the path option.
 
