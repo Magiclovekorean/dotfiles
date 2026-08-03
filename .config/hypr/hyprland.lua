@@ -10,7 +10,7 @@
 ---- MONITORS ----
 ------------------
 
-    -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
+-- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
     output   = "",
     mode     = "preferred",
@@ -18,6 +18,12 @@ hl.monitor({
     scale    = "auto",
 })
 
+hl.monitor({
+    output   = "HDMI-A-1",
+    mode     = "preferred",
+    position = "auto-left",
+    scale    = "auto",
+})
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -293,6 +299,29 @@ local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 local secondMod = "SUPER + SHIFT"
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
+
+-- Disable eDP-1 monitor when laptop's lid is closed
+hl.bind(
+    "switch:on:Lid Switch",
+    function()
+        hl.monitor({
+            output = "eDP-1",
+            disabled = true,
+        })
+    end,
+    { locked = true }
+)
+
+hl.bind(
+    "switch:off:Lid Switch",
+    function()
+        hl.monitor({
+            output = "eDP-1",
+            disabled = false,
+        })
+    end,
+    { locked = true }
+)
 
 -- apps
 
