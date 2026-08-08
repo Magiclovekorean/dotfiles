@@ -1,6 +1,8 @@
 {
     "version": "2.2.1",
     "autoload": {
-        "Razer Razer DeathAdder Essential": "normal"
+        "Razer Razer DeathAdder Essential": "normal",
+        "SIGMACHIP Trust Keyboard": "new preset",
+        "Bluetooth Keyboard": "new preset"
     }
 }
