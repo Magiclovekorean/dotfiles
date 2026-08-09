@@ -30,3 +30,5 @@ hl.window_rule({
     no_focus = true,
 })
 
+hl.workspace_rule({ workspace = "10", monitor = "eDP-1" })
+hl.workspace_rule({ workspace = "1", monitor = "HDMI-A-1" })
