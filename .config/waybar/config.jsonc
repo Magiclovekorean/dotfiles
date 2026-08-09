@@ -45,7 +45,7 @@
         "tooltip-format-ethernet": "{ifname} ",
         "tooltip-format-disconnected": "󰖪",
         "max-length": 50,
-        "on-click": "exec nmrs-gui",
+        "on-click": "exec nmrs",
     },
     "clock": {
       "format": "󰥔 {:%a, %d. %b %H:%M}",
