@@ -6,5 +6,9 @@ return {
     "nvim-tree/nvim-web-devicons",
     "folke/snacks.nvim",
   },
-  opts = {},
+  opts = {
+    shadow = {
+      location = "workspace",
+    },
+  },
 }
