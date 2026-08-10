@@ -163,6 +163,8 @@ alias tmuxs='tmux-sessionizer'
 alias tmuxd='tmux kill-server'
 alias tmuxe='tmux detach'
 
+alias l='clear'
+
 alias night='hyprsunset --temperature 4500 & disown'
 alias undo-night='killall hyprsunset'
 
