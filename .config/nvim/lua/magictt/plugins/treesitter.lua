@@ -12,6 +12,7 @@ return {
     
     -- Install required parsers asynchronously
     treesitter.install({ 
+      "python",
       "json",
       "javascript",
       "typescript",
@@ -42,7 +43,7 @@ return {
     -- Enable treesitter features for supported filetypes
     vim.api.nvim_create_autocmd('FileType', {
       pattern = {
-        'json', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'tsx',
+        'python', 'json', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'tsx',
         'yaml', 'html', 'css', 'prisma', 'markdown', 'markdown_inline',
         'svelte', 'graphql', 'bash', 'lua', 'latex', 'vim',
         'dockerfile', 'gitignore', 'c', 'astro', 'typst', 'comment'
