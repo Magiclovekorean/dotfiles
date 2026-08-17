@@ -1,0 +1,14 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 58,
+                "origin_hash": "e5c4efbf067a20e4d75e4fd485634437"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_RIGHTALT + KEY_GRAVE",
+        "mapping_type": "key_macro"
+    }
+]
