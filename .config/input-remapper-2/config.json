@@ -3,6 +3,7 @@
     "autoload": {
         "Razer Razer DeathAdder Essential": "normal",
         "SIGMACHIP Trust Keyboard": "new preset",
-        "Bluetooth Keyboard": "new preset"
+        "Bluetooth Keyboard": "new preset",
+        "AT Translated Set 2 keyboard": "new preset"
     }
 }
