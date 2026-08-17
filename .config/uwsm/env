@@ -3,6 +3,7 @@ export XCURSOR_THEME=BreezeX-RosePine-Linux
 
 # Toolkit backend
 export GDK_BACKEND=wayland,x11,*
+export GTK_IM_MODULE=simple
 export QT_QPA_PLATFORM="wayland;xcb"
 export SDL_VIDEODRIVER=wayland
 export CLUTTER_BACKEND=wayland
