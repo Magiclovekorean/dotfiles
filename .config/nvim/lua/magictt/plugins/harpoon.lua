@@ -1,11 +1,12 @@
 return {
   "ThePrimeagen/harpoon",
   branch = "harpoon2",
-  dependencies = { "nvim-lua/plenary.nvim" },
+  dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
 
   config = function()
     local harpoon = require("harpoon")
     harpoon:setup()
+    require("telescope").load_extension("harpoon")
     require("which-key").add({
       { "<leader>h", group = "Harpoon" },
     })
@@ -23,6 +24,8 @@ return {
     vim.keymap.set("n", "<C-n>", function()
       harpoon:list():next()
     end, { desc = "Harpoon: Next file" })
+
+    vim.keymap.set('n', '<leader>fh', function() require("telescope").extensions.harpoon.marks(harpoon:list()) end, { desc = "Telescope harpoon" })
 
     -- NEW: Remove current file from Harpoon list
     vim.keymap.set("n", "<leader>hr", function()
