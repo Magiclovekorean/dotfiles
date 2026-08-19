@@ -49,6 +49,22 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
     opts.desc = "Restart LSP"
     keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+
+    -- highlight references under cursor
+    local client = vim.lsp.get_client_by_id(ev.data.client_id)
+    if client and client:supports_method("textDocument/documentHighlight") then
+      local highlight_augroup = vim.api.nvim_create_augroup("UserLspHighlight", { clear = false })
+      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+        buffer = ev.buf,
+        group = highlight_augroup,
+        callback = vim.lsp.buf.document_highlight,
+      })
+      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+        buffer = ev.buf,
+        group = highlight_augroup,
+        callback = vim.lsp.buf.clear_references,
+      })
+    end
   end,
 })
 
@@ -57,6 +73,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
 local severity = vim.diagnostic.severity
 
 vim.diagnostic.config({
+  virtual_text = true,
+  severity_sort = true,
+  float = {
+    style = "minimal",
+    border = "rounded",
+    source = "if_many",
+    header = "",
+    prefix = "",
+  },
   signs = {
     text = {
       [severity.ERROR] = " ",
@@ -66,3 +91,15 @@ vim.diagnostic.config({
     },
   },
 })
+
+-- nicer floating previews (hover, signature help, etc.)
+local orig = vim.lsp.util.open_floating_preview
+---@diagnostic disable-next-line: duplicate-set-field
+function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
+  opts = opts or {}
+  opts.border = opts.border or "rounded"
+  opts.max_width = opts.max_width or 80
+  opts.max_height = opts.max_height or 24
+  opts.wrap = opts.wrap ~= false
+  return orig(contents, syntax, opts, ...)
+end
