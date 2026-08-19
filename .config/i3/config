@@ -184,6 +184,9 @@ bindsym $mod+r mode "resize"
 exec --no-startup-id setxkbmap -layout us
 bindsym $mod+t exec --no-startup-id sh -c 'setxkbmap -query | grep -q "layout: *us" && setxkbmap -layout es || setxkbmap -layout us'
 
+# cursor size 30
+exec --no-startup-id xsetroot -xcf /usr/share/icons/Adwaita/cursors/left_ptr 30
+
 # finds out, if available)
 bar {
         status_command i3status
