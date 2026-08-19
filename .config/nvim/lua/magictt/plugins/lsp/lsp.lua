@@ -12,12 +12,27 @@ return {
 
       local capabilities = cmp_nvim_lsp.default_capabilities()
 
+      vim.lsp.config("lua_ls", {
+        capabilities = capabilities,
+      })
+
       vim.lsp.config("pyright", {
         capabilities = capabilities,
       })
 
+      vim.lsp.config("texlab", {
+        settings = {
+          texlab = {
+            chktex = { onOpenAndSave = true, onEdit = false },
+            build = { onSave = false },
+          },
+        },
+      })
+
       vim.lsp.enable("pyright")
       vim.lsp.enable("tailwindcss")
+      vim.lsp.enable("texlab")
+      vim.lsp.enable("ltex")
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufNewFile" }, {
         pattern = "*/waybar/*",
