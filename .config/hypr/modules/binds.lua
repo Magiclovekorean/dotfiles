@@ -4,6 +4,7 @@
 
 --apps
 local terminal    = "ghostty"
+local terminal_tmux    = terminal .. " -e tmux"
 local fileManager = "dolphin"
 local browser = "zen-browser"
 local brave = "brave-origin"
@@ -66,7 +67,7 @@ hl.bind(
 
 -- apps
 
-hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal_tmux))
 hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(music))
