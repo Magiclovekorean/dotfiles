@@ -157,6 +157,6 @@ seat seat0 xcursor_theme BreezeX-RosePine-Linux 30
 
 # swaybar configuration
 bar {
-    status_command i3status
+    status_command i3status -c ~/.config/i3status/config
     position bottom
 }
