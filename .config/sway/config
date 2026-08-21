@@ -255,8 +255,6 @@ bindsym $mod+button3 resize
 # Brightness
 bindsym XF86MonBrightnessUp exec brightnessctl -e4 -n2 set 5%+
 bindsym XF86MonBrightnessDown exec brightnessctl -e4 -n2 set 5%-
-bindsym XF86MonBrightnessUp exec brightnessctl -e4 -n2 set 5%+
-bindsym XF86MonBrightnessDown exec brightnessctl -e4 -n2 set 5%-
 bindsym $mod+F3 exec brightnessctl -e4 -n2 set 5%+
 bindsym $mod+F2 exec brightnessctl -e4 -n2 set 5%-
 
