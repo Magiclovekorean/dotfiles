@@ -7,7 +7,7 @@
         "max-length": 50
     },
     "sway/mode": {
-        "format": "",
+        "format": " {}",
         "max-length": 50,
         "tooltip": false
     },
@@ -93,7 +93,7 @@
       ]
     },
     "custom/media-now-playing": {
-      "exec": "~/.config/waybar/custom_modules/media/media-now-playing.sh",
+      "exec": "~/.config/waybar-sway/custom_modules/media/media-now-playing.sh",
       "escape": true,
       "tooltip": false,
       "on-click": "playerctl play-pause",
@@ -101,28 +101,28 @@
       "on-click-right": "playerctl next",
     },
     "custom/media-animation": {
-      "exec": "~/.config/waybar/custom_modules/media/media-animation.sh",
+      "exec": "~/.config/waybar-sway/custom_modules/media/media-animation.sh",
       "tooltip": false,
     },
     "custom/media-time": {
-      "exec": "~/.config/waybar/custom_modules/media/media-time.sh",
+      "exec": "~/.config/waybar-sway/custom_modules/media/media-time.sh",
       "escape": true,
       "interval": 1,
       "tooltip": false,
     },
     "custom/wlogout": {
-            "exec": "~/.config/waybar/custom_modules/wlogout/wlogout.sh",
+            "exec": "~/.config/waybar-sway/custom_modules/wlogout/wlogout.sh",
             "tooltip": false,
             "on-click": "wlogout"
      },
      "custom/airplane-mode": {
-             "exec": "~/.config/waybar/custom_modules/airplane-mode/airplane-mode.sh",
+             "exec": "~/.config/waybar-sway/custom_modules/airplane-mode/airplane-mode.sh",
              "tooltip": false,
              "on-click": "toggle-airplane"
      },
      "custom/kb-toggle": {
-         "exec": "~/.config/waybar/custom_modules/kb-toggle/kb-toggle.sh",
-         "kb-toggle": false,
+         "exec": "~/.config/waybar-sway/custom_modules/kb-toggle/kb-toggle.sh",
+         "tooltip": false,
          "on-click": "swaymsg input type:keyboard xkb_switch_layout next && notify-send 'Keyboard layout switched'"
      }
 }
