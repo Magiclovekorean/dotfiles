@@ -31,7 +31,7 @@ window#waybar {
   font-weight: 700;
 }
 
-#submap,
+#mode,
 #battery,
 #bluetooth,
 #network,
@@ -47,7 +47,7 @@ window#waybar {
   margin: 5px 10px 5px 0px;
 }
 
-#submap,
+#mode,
 #workspaces button.urgent {
   background: rgba(227, 81, 73, 1);
   color: black;
