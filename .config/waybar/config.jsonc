@@ -10,8 +10,8 @@
         "format": "{icon}",
         "tooltip": false,
         "icons": {
-            "resize": "",
-        },
+            "resize": ""
+        }
     },
     "battery": {
         "interval": 1,
