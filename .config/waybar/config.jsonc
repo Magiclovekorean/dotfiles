@@ -1,10 +1,17 @@
 {
     "layer": "top",
     "modules-left": ["hyprland/workspaces", "group/media"],
-    "modules-center": ["custom/wlogout", "custom/airplane-mode", "custom/kb-toggle", "clock"],
-    "modules-right": ["hyprland/submap", "group/volume", "battery", "bluetooth", "network", "cpu", "memory"],
+    "modules-center": ["custom/wlogout", "custom/airplane-mode", "custom/kb-toggle", "hyprland/submap", "clock"],
+    "modules-right": [ "group/volume", "battery", "bluetooth", "network", "cpu", "memory"],
     "hyprland/window": {
         "max-length": 50
+    },
+    "hyprland/submap": {
+        "format": "{icon}",
+        "tooltip": false,
+        "icons": {
+            "resize": "",
+        },
     },
     "battery": {
         "interval": 1,
