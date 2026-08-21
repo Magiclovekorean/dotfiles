@@ -148,6 +148,7 @@ bindsym $mod+t exec swaymsg input type:keyboard xkb_switch_layout next
 
 # natural scrolling on touchpad
 input type:touchpad {
+    tap enabled
     natural_scroll enabled
 }
 
