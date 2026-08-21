@@ -1,0 +1,10 @@
+[default]
+duration = "10m"
+sorting = "ascending"
+
+[any]
+path = "~/Desktop/walls/"
+
+[default.transition.directional-wipe]
+direction = [1.0, 0.0]
+
