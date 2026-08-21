@@ -92,7 +92,6 @@ hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(kb_toggle))
 
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(secondMod .. " + Q", hl.dsp.exec_cmd("uwsm stop"))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(launcher))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 
 -- Move focus with mainMod + hljk keys
@@ -145,4 +144,22 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 
 
 hl.bind(mainMod .. " + F12", hl.dsp.exec_cmd(airplane_mode))
+
+-- Resize mode (mainMod + R to enter, Escape to exit)
+hl.bind(mainMod .. " + R", hl.dsp.submap("resize"))
+
+hl.define_submap("resize", function()
+    hl.bind("h", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
+    hl.bind("j", hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
+    hl.bind("k", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
+    hl.bind("l", hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
+
+    hl.bind("Left",   hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
+    hl.bind("Down",   hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
+    hl.bind("Up",     hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
+    hl.bind("Right",  hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
+
+    hl.bind("Return", hl.dsp.submap("reset"))
+    hl.bind("Escape", hl.dsp.submap("reset"))
+end)
 
