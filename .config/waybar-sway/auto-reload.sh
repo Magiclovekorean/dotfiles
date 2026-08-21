@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-while inotifywait -e close_write ~/.config/waybar; do killall -SIGUSR2 waybar; done
+while inotifywait -e close_write ~/.config/waybar-sway/; do killall -SIGUSR2 waybar; done
