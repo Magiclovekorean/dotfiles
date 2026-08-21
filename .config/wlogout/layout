@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "uwsm stop",
+    "action" : "hyprlock",
     "text" : "Lock",
     "keybind" : "l"
 }
@@ -12,7 +12,7 @@
 }
 {
     "label" : "logout",
-    "action" : "hyprshutdown",
+    "action" : "logout",
     "text" : "Logout",
     "keybind" : "e"
 }
