@@ -235,6 +235,18 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+mode "system" {
+    bindsym s exec systemctl poweroff
+    bindsym r exec systemctl reboot
+    bindsym l exec hyprlock
+    bindsym Shift+l exec swaymsg exit
+
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Escape mode "system"
+
+
 # -----------------------
 # ----    MOUSE      ----
 # -----------------------
