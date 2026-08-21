@@ -141,7 +141,7 @@ bindsym $mod+r mode "resize"
 
 # en/es keyboard layout toggle with Super+t
 input type:keyboard {
-    xkb_layout us,es
+    xkb_layout es,us
 }
 
 bindsym $mod+t exec swaymsg input type:keyboard xkb_switch_layout next
