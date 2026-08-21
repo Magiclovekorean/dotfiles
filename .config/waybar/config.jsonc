@@ -10,7 +10,9 @@
         "format": "{icon}",
         "tooltip": false,
         "icons": {
-            "resize": ""
+            "resize": "",
+            "wallpaper": "",
+            "system": "⏻"
         }
     },
     "battery": {
