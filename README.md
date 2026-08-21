@@ -1,5 +1,10 @@
 # My current setup for arch linux + hyprland
 
+## About
+These are the dotfiles I use primarily on arch linux. 
+The dotfiles contain config for nvim, hyprland and sway(hyprland is much better configured and has much more features, it's the compositor I use the most,
+however, I sometimes enjoy the minimalism I can achive with sway), openrazer, tmux, etc.
+
 ## Instalation
 I made an autoSetup script that does everything automaticly for you:
 ```bash
