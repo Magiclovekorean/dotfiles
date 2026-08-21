@@ -32,6 +32,17 @@ local kb_toggle = "hyprctl switchxkblayout all next && notify-send 'Keyboard lay
 
 local screenshot_ocr = os.getenv("HOME") .. "/.config/hypr/scripts/ocr.sh"
 
+-- wallpaper
+local next_wallpaper = "wpaperctl next"
+local previous_wallpaper = "wpaperctl previous"
+local toggle_cycling_wallpaper = "wpaperctl toggle-pause"
+
+-- power options
+local shutdown = "systemctl poweroff"
+local reboot = "systemctl reboot"
+local lock = "hyprlock"
+local logout = "uwsm stop"
+
 ---------------------
 ---- KEYBINDINGS ----
 ---------------------
@@ -154,12 +165,29 @@ hl.define_submap("resize", function()
     hl.bind("k", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
     hl.bind("l", hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
 
-    hl.bind("Left",   hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
-    hl.bind("Down",   hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
-    hl.bind("Up",     hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
-    hl.bind("Right",  hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
-
-    hl.bind("Return", hl.dsp.submap("reset"))
     hl.bind("Escape", hl.dsp.submap("reset"))
+end)
+
+-- Wallpaper mode (mainMod + W to enter, Escape to exit)
+hl.bind(mainMod .. " + W", hl.dsp.submap("wallpaper"))
+
+hl.define_submap("wallpaper", function()
+    hl.bind("l", hl.dsp.exec_cmd(next_wallpaper))
+    hl.bind("h", hl.dsp.exec_cmd(previous_wallpaper))
+    hl.bind("Space", hl.dsp.exec_cmd(toggle_cycling_wallpaper))
+
+    hl.bind("escape", hl.dsp.submap("reset"))
+end)
+
+-- System mode (secondMod + escape to enter, Escape to exit)
+hl.bind(mainMod .. " + escape", hl.dsp.submap("system"))
+
+hl.define_submap("system", function()
+    hl.bind("s", hl.dsp.exec_cmd(shutdown))
+    hl.bind("r", hl.dsp.exec_cmd(reboot))
+    hl.bind("l", hl.dsp.exec_cmd(lock))
+    hl.bind("SHIFT + L", hl.dsp.exec_cmd(logout))
+
+    hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
