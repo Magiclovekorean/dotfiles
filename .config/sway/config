@@ -50,6 +50,9 @@ exec wl-paste --type image --watch cliphist store
 # Battery notifications
 exec batsignal
 
+# Polkit agent
+exec /usr/lib/polkit-kde-authentication-agent-1
+
 # -----------------------
 # ----     INPUT     ----
 # -----------------------
