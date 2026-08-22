@@ -30,5 +30,17 @@ hl.window_rule({
     no_focus = true,
 })
 
+hl.window_rule({
+    name = "zen-browser-on-w1",
+    match = { class = "^(zen)$" },
+    workspace = "1"
+})
+
+hl.window_rule({
+    name = "brave-origin-browser-on-w1",
+    match = { class = "^(brave-origin)$" },
+    workspace = "1"
+})
+
 hl.workspace_rule({ workspace = "10", monitor = "eDP-1" })
 hl.workspace_rule({ workspace = "1", monitor = "HDMI-A-1" })
