@@ -15,9 +15,34 @@ Scope {
         imageSupported: true
 
         onNotification: n => {
-            console.log("Got:", n.summary, "---", n.body)
+            history.insert(0, {
+                summary: n.summary,
+                body: n.body,
+                appName: n.appName,
+                urgency: n.urgency,
+                time: Qt.formatDateTime(new Date(), "HH:mm")
+            })
             n.tracked = true
         }
+    }
+
+    IpcHandler {
+        target: "notifications"
+        function toggle() : void { root.centerOpen = !root.centerOpen}
+        function show() : void { root.centerOpen = true }
+        function hide() : void { root.centerOpen = false}
+    }
+
+    // Notification center 
+    PanelWindow {
+        anchors { top: true; right: true}
+        margins { top: 12; right: 12 }
+
+        implicitWidth: 380
+        implicitHeight: Math.max(1, column.implicitHeight)
+        color: "transparent"
+
+        exclusionMode: ExclusionMode.Ignore
     }
 
     PanelWindow {
