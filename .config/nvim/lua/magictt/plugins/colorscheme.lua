@@ -9,7 +9,21 @@ return {
           transparency = true,
         },
       })
-      vim.cmd("colorscheme rose-pine")
+      -- vim.cmd("colorscheme rose-pine")
+    end,
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    config = function()
+      require("tokyonight").setup({
+        transparent = true,
+        styles = {
+          sidebars = "transparent",
+          floats = "transparent",
+        },
+      })
+      vim.cmd[[colorscheme tokyonight]]
     end,
   },
 }
