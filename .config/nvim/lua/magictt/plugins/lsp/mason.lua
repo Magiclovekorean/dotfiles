@@ -17,7 +17,6 @@ return {
         "pyright",
         "eslint",
         "texlab",
-        "ltex",
       },
     },
     dependencies = {
