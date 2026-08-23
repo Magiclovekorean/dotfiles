@@ -2,6 +2,7 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     opts = {
+      automatic_enable = true,
       -- list of servers for mason to install
       ensure_installed = {
         "ts_ls",
