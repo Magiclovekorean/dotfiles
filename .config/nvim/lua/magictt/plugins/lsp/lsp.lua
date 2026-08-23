@@ -29,10 +29,7 @@ return {
         },
       })
 
-      vim.lsp.enable("pyright")
-      vim.lsp.enable("tailwindcss")
-      vim.lsp.enable("texlab")
-      vim.lsp.enable("ltex")
+
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufNewFile" }, {
         pattern = "*/waybar/*",
