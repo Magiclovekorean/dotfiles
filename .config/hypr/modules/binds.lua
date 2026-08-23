@@ -32,10 +32,23 @@ local kb_toggle = "hyprctl switchxkblayout all next && notify-send 'Keyboard lay
 
 local screenshot_ocr = os.getenv("HOME") .. "/.config/hypr/scripts/ocr.sh"
 
--- wallpaper
+-- wallpaper and asthetics
 local next_wallpaper = "wpaperctl next"
 local previous_wallpaper = "wpaperctl previous"
 local toggle_cycling_wallpaper = "wpaperctl toggle-pause"
+-- toggle blur
+local blur_enabled = true
+local toggle_blur = function ()
+    blur_enabled = not blur_enabled
+
+    hl.config({
+        decoration =  {
+            blur = {
+                enabled = blur_enabled
+            }
+        }
+    })
+end
 
 -- power options
 local shutdown = "systemctl poweroff"
@@ -175,6 +188,7 @@ hl.define_submap("wallpaper", function()
     hl.bind("l", hl.dsp.exec_cmd(next_wallpaper))
     hl.bind("h", hl.dsp.exec_cmd(previous_wallpaper))
     hl.bind("Space", hl.dsp.exec_cmd(toggle_cycling_wallpaper))
+    hl.bind("b", toggle_blur)
 
     hl.bind("escape", hl.dsp.submap("reset"))
 end)
