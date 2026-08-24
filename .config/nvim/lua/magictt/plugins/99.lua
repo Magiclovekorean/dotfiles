@@ -6,7 +6,7 @@ return{
             -- For logging that is to a file if you wish to trace through requests
             -- for reporting bugs, i would not rely on this, but instead the provided
             -- logging mechanisms within 99.  This is for more debugging purposes
-            local cwd = vim.uv.cwd()
+            local cwd = vim.uv.cwd() or "/tmp"
             local basename = vim.fs.basename(cwd)
 			_99.setup({
                 -- provider = _99.Providers.ClaudeCodeProvider,  -- default: OpenCodeProvider
