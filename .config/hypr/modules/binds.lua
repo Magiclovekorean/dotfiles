@@ -53,6 +53,7 @@ end
 -- power options
 local shutdown = "systemctl poweroff"
 local reboot = "systemctl reboot"
+local sleep = "systemctl suspend"
 local lock = "hyprlock"
 local logout = "uwsm stop"
 
@@ -90,7 +91,7 @@ hl.bind(
 
 -- apps
 
-hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(music))
@@ -98,8 +99,8 @@ hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(notion))
 
 
 -- rofi
-hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(launcher))
-hl.bind(secondMod .. " + Space", hl.dsp.exec_cmd(runner))
+hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(launcher))
+hl.bind(secondMod .. " + SPACE", hl.dsp.exec_cmd(runner))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(calculator))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(emojiSearch))
 hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(clipboard_history))
@@ -119,18 +120,18 @@ hl.bind(secondMod .. " + Q", hl.dsp.exec_cmd("uwsm stop"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 
 -- Move focus with mainMod + hljk keys
-hl.bind(mainMod .. " + h",  hl.dsp.focus({ direction = "left" }))
-hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + k",    hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + j",  hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + H",  hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
+hl.bind(mainMod .. " + K",    hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + J",  hl.dsp.focus({ direction = "down" }))
 
 hl.bind(secondMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(secondMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 
-hl.bind(secondMod .. " + h",  hl.dsp.window.move({ direction = "left" }))
-hl.bind(secondMod .. " + l", hl.dsp.window.move({ direction = "right" }))
-hl.bind(secondMod .. " + k",    hl.dsp.window.move({ direction = "up" }))
-hl.bind(secondMod .. " + j",  hl.dsp.window.move({ direction = "down" }))
+hl.bind(secondMod .. " + H",  hl.dsp.window.move({ direction = "left" }))
+hl.bind(secondMod .. " + L", hl.dsp.window.move({ direction = "right" }))
+hl.bind(secondMod .. " + K",    hl.dsp.window.move({ direction = "up" }))
+hl.bind(secondMod .. " + J",  hl.dsp.window.move({ direction = "down" }))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
@@ -173,35 +174,36 @@ hl.bind(mainMod .. " + F12", hl.dsp.exec_cmd(airplane_mode))
 hl.bind(mainMod .. " + R", hl.dsp.submap("resize"))
 
 hl.define_submap("resize", function()
-    hl.bind("h", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
-    hl.bind("j", hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
-    hl.bind("k", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
-    hl.bind("l", hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
+    hl.bind("H", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
+    hl.bind("J", hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
+    hl.bind("K", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
+    hl.bind("L", hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
 
-    hl.bind("Escape", hl.dsp.submap("reset"))
+    hl.bind("ESCAPE", hl.dsp.submap("reset"))
 end)
 
 -- Wallpaper mode (mainMod + W to enter, Escape to exit)
 hl.bind(mainMod .. " + W", hl.dsp.submap("wallpaper"))
 
 hl.define_submap("wallpaper", function()
-    hl.bind("l", hl.dsp.exec_cmd(next_wallpaper))
-    hl.bind("h", hl.dsp.exec_cmd(previous_wallpaper))
-    hl.bind("Space", hl.dsp.exec_cmd(toggle_cycling_wallpaper))
-    hl.bind("b", toggle_blur)
+    hl.bind("L", hl.dsp.exec_cmd(next_wallpaper))
+    hl.bind("H", hl.dsp.exec_cmd(previous_wallpaper))
+    hl.bind("SPACE", hl.dsp.exec_cmd(toggle_cycling_wallpaper))
+    hl.bind("B", toggle_blur)
 
-    hl.bind("escape", hl.dsp.submap("reset"))
+    hl.bind("ESCAPE", hl.dsp.submap("reset"))
 end)
 
 -- System mode (secondMod + escape to enter, Escape to exit)
-hl.bind(mainMod .. " + escape", hl.dsp.submap("system"))
+hl.bind(mainMod .. " + ESCAPE", hl.dsp.submap("system"))
 
 hl.define_submap("system", function()
-    hl.bind("s", hl.dsp.exec_cmd(shutdown))
-    hl.bind("r", hl.dsp.exec_cmd(reboot))
-    hl.bind("l", hl.dsp.exec_cmd(lock))
+    hl.bind("S", hl.dsp.exec_cmd(shutdown))
+    hl.bind("R", hl.dsp.exec_cmd(reboot))
+    hl.bind("SHIFT + S", hl.dsp.exec_cmd(sleep))
+    hl.bind("L", hl.dsp.exec_cmd(lock))
     hl.bind("SHIFT + L", hl.dsp.exec_cmd(logout))
 
-    hl.bind("escape", hl.dsp.submap("reset"))
+    hl.bind("ESCAPE", hl.dsp.submap("reset"))
 end)
 
