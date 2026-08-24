@@ -20,15 +20,6 @@ return {
         capabilities = capabilities,
       })
 
-      vim.lsp.config("texlab", {
-        settings = {
-          texlab = {
-            chktex = { onOpenAndSave = true, onEdit = false },
-            build = { onSave = false },
-          },
-        },
-      })
-
 
 
       vim.api.nvim_create_autocmd({ "BufEnter", "BufNewFile" }, {
