@@ -132,6 +132,7 @@ hl.bind(secondMod .. " + H",  hl.dsp.window.move({ direction = "left" }))
 hl.bind(secondMod .. " + L", hl.dsp.window.move({ direction = "right" }))
 hl.bind(secondMod .. " + K",    hl.dsp.window.move({ direction = "up" }))
 hl.bind(secondMod .. " + J",  hl.dsp.window.move({ direction = "down" }))
+hl.bind(mainMod .. " + Y", hl.dsp.layout("togglesplit"))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
