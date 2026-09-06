@@ -22,6 +22,13 @@
 
   networking.networkmanager.enable = true;
 
+  zramSwap = {
+    enable = true;
+    priority = 100;
+    algorithm = "lz4";
+    memoryPercent = 50;
+  };
+
   hardware.bluetooth.enable = true;
 
   time.timeZone = "Europe/Madrid";
