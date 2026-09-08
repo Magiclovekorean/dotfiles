@@ -112,28 +112,33 @@ in {
 
   qt = {
     enable = true;
-    platformTheme.name = "qtct";
-
-    style = {
-      name = "adwaita-dark";
-      package = pkgs.adwaita-qt;
+    platformTheme = {
+      name = "kde";
+      package = [
+        pkgs.kdePackages.plasma-integration
+        pkgs.kdePackages.plasma-integration.qt5
+      ];
     };
 
-    qt5ctSettings = {
-      Appearance = {
-        icon_theme = "Papirus-Dark";
-        standard_dialogs = "xdgdesktopportal";
-        style = "adwaita-dark";
-      };
-    };
-    qt6ctSettings = {
-      Appearance = {
-        icon_theme = "Papirus-Dark";
-        standard_dialogs = "xdgdesktopportal";
-        style = "adwaita-dark";
+    kde.settings = {
+      kdeglobals = {
+        Icons = {
+          Theme = "Papirus-Dark";
+        };
+        General = {
+          ColorScheme = "BreezeDark";
+        };
+        UiSettings = {
+          ColorScheme = "BreezeDark";
+        };
+        KDE = {
+          widgetStyle = "breeze";
+        };
       };
     };
   };
+
+  xdg.dataFile."color-schemes/BreezeDark.colors".source = "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors";
 
   gtk = {
     enable = true;
@@ -238,6 +243,8 @@ in {
     localsend
     ghostty
     rose-pine-cursor
+    libsForQt5.qt5ct
+    papirus-icon-theme
 
     pavucontrol
 
@@ -246,14 +253,15 @@ in {
     brightnessctl
     xdg-desktop-portal-hyprland
     satty
+    kdePackages.plasma-integration
     kdePackages.dolphin
     imv
     mpv
-    vlc
     spotify
     hyprpicker
     grim
     slurp
+    kdePackages.breeze
     (tesseract.override {
       enableLanguages = ["eng" "spa" "cat" "kor"];
     })
