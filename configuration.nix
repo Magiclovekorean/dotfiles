@@ -36,6 +36,9 @@
   nixpkgs.config.allowUnfree = true;
 
   security.polkit.enable = true;
+  # pkexec needs the setuid wrapper for input-remapper's GUI
+  # (pkexec not setuid root -> "pkexec must be setuid root", exit 32512)
+  security.polkit.enablePkexecWrapper = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
