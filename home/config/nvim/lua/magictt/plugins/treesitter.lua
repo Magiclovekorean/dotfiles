@@ -52,9 +52,6 @@ return {
       callback = function(args)
         -- Enable syntax highlighting
         vim.treesitter.start()
-        
-        -- Enable treesitter-based indentation
-        vim.bo[args.buf].indentexpr = 'v:lua.vim.treesitter.foldexpr()'
       end,
     })
 

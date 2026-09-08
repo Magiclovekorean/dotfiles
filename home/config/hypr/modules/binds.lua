@@ -3,7 +3,7 @@
 ---------------------
 
 --apps
-local terminal    = "ghostty"
+local terminal = "ghostty"
 local fileManager = "dolphin"
 local browser = "zen"
 local brave = "brave-origin"
@@ -24,7 +24,8 @@ local clipboard_history = "cliphist list | rofi -dmenu | cliphist decode | wl-co
 local color_picker = "hyprpicker | wl-copy"
 
 -- screenshots
-local screenshot = 'f="$HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"; grim -g "$(slurp)" "$f" && wl-copy < "$f"'
+local screenshot =
+    'f="$HOME/Pictures/screenshot-$(date +%Y-%m-%d_%H-%M-%S).png"; grim -g "$(slurp)" "$f" && wl-copy < "$f"'
 local screenshot_and_edit = 'grim -g "$(slurp)" - | satty --filename -'
 
 -- Change keyboard layout
@@ -38,15 +39,15 @@ local previous_wallpaper = "wpaperctl previous"
 local toggle_cycling_wallpaper = "wpaperctl toggle-pause"
 -- toggle blur
 local blur_enabled = true
-local toggle_blur = function ()
+local toggle_blur = function()
     blur_enabled = not blur_enabled
 
     hl.config({
-        decoration =  {
+        decoration = {
             blur = {
-                enabled = blur_enabled
-            }
-        }
+                enabled = blur_enabled,
+            },
+        },
     })
 end
 
@@ -55,7 +56,7 @@ local shutdown = "systemctl poweroff"
 local reboot = "systemctl reboot"
 local sleep = "systemctl suspend"
 local lock = "hyprlock"
-local logout = "uwsm stop"
+local logout = "hyprshutdown"
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -67,27 +68,19 @@ local secondMod = "SUPER + SHIFT"
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
 
 -- Disable eDP-1 monitor when laptop's lid is closed
-hl.bind(
-    "switch:on:Lid Switch",
-    function()
-        hl.monitor({
-            output = "eDP-1",
-            disabled = true,
-        })
-    end,
-    { locked = true }
-)
+hl.bind("switch:on:Lid Switch", function()
+    hl.monitor({
+        output = "eDP-1",
+        disabled = true,
+    })
+end, { locked = true })
 
-hl.bind(
-    "switch:off:Lid Switch",
-    function()
-        hl.monitor({
-            output = "eDP-1",
-            disabled = false,
-        })
-    end,
-    { locked = true }
-)
+hl.bind("switch:off:Lid Switch", function()
+    hl.monitor({
+        output = "eDP-1",
+        disabled = false,
+    })
+end, { locked = true })
 
 -- apps
 
@@ -96,7 +89,6 @@ hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(music))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(notion))
-
 
 -- rofi
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(launcher))
@@ -116,58 +108,72 @@ hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(screenshot_ocr))
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(kb_toggle))
 
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(secondMod .. " + Q", hl.dsp.exec_cmd("uwsm stop"))
+hl.bind(secondMod .. " + Q", hl.dsp.exec_cmd("hyprshutdown"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 
 -- Move focus with mainMod + hljk keys
-hl.bind(mainMod .. " + H",  hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + L", hl.dsp.focus({ direction = "right" }))
-hl.bind(mainMod .. " + K",    hl.dsp.focus({ direction = "up" }))
-hl.bind(mainMod .. " + J",  hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + K", hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
 
 hl.bind(secondMod .. " + T", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(secondMod .. " + F", hl.dsp.window.fullscreen({ mode = "maximized" }))
 
-hl.bind(secondMod .. " + H",  hl.dsp.window.move({ direction = "left" }))
+hl.bind(secondMod .. " + H", hl.dsp.window.move({ direction = "left" }))
 hl.bind(secondMod .. " + L", hl.dsp.window.move({ direction = "right" }))
-hl.bind(secondMod .. " + K",    hl.dsp.window.move({ direction = "up" }))
-hl.bind(secondMod .. " + J",  hl.dsp.window.move({ direction = "down" }))
+hl.bind(secondMod .. " + K", hl.dsp.window.move({ direction = "up" }))
+hl.bind(secondMod .. " + J", hl.dsp.window.move({ direction = "down" }))
 hl.bind(mainMod .. " + Y", hl.dsp.layout("togglesplit"))
 
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do
     local key = i % 10 -- 10 maps to key 0
-    hl.bind(mainMod .. " + " .. key,             hl.dsp.focus({ workspace = i}))
-    hl.bind(secondMod .. " + " .. key,     hl.dsp.window.move({ workspace = i }))
+    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
+    hl.bind(secondMod .. " + " .. key, hl.dsp.window.move({ workspace = i }))
 end
-
 
 -- Scroll through existing workspaces with mainMod + scroll
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up",   hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize windows with mainMod + LMB/RMB and dragging
-hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
+hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Laptop multimedia keys for volume and LCD brightness
-hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
-hl.bind("XF86AudioMute",        hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),     { locked = true, repeating = true })
-hl.bind("XF86AudioMicMute",     hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),   { locked = true, repeating = true })
-hl.bind(mainMod .. " + F3",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),                  { locked = true, repeating = true })
-hl.bind(mainMod .. " + F2",hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"),                  { locked = true, repeating = true })
+hl.bind(
+    "XF86AudioRaiseVolume",
+    hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"),
+    { locked = true, repeating = true }
+)
+hl.bind(
+    "XF86AudioLowerVolume",
+    hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),
+    { locked = true, repeating = true }
+)
+hl.bind(
+    "XF86AudioMute",
+    hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),
+    { locked = true, repeating = true }
+)
+hl.bind(
+    "XF86AudioMicMute",
+    hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"),
+    { locked = true, repeating = true }
+)
+hl.bind(mainMod .. " + F3", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
+hl.bind(mainMod .. " + F2", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
 
-hl.bind("XF86MonBrightnessUp",  hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"),                  { locked = true, repeating = true })
-hl.bind("XF86MonBrightnessDown",hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"),                  { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), { locked = true, repeating = true })
+hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), { locked = true, repeating = true })
 
 -- Requires playerctl
-hl.bind("XF86AudioNext",  hl.dsp.exec_cmd("playerctl next"),       { locked = true })
+hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay",  hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = true })
-
+hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
+hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 hl.bind(mainMod .. " + F12", hl.dsp.exec_cmd(airplane_mode))
 
@@ -207,4 +213,3 @@ hl.define_submap("system", function()
 
     hl.bind("ESCAPE", hl.dsp.submap("reset"))
 end)
-

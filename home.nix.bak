@@ -4,7 +4,7 @@
   zen-browser,
   ...
 }: let
-  tex = pkgs.texliveMedium.withPackages (
+  tex = pkgs.texlivemedium.withpackages (
     ps:
       with ps; [
         latexmk
@@ -21,41 +21,37 @@
         cancel
       ]
   );
-  dotfiles = "${config.home.homeDirectory}/Desktop/repos/dotfiles/home/config";
-  create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
+  dotfiles = "${config.home.homedirectory}/desktop/repos/dotfiles/home/config";
+  create_symlink = path: config.lib.file.mkoutofstoresymlink path;
   bin_dir = ".local/bin";
 in {
   home.username = "magictt";
-  home.homeDirectory = "/home/magictt";
-  home.stateVersion = "26.05";
-  programs.git = {
-    enable = true;
-    userName = "Martí Forn";
-    userEmail = "magiclovekorean@gmail.com";
-  };
+  home.homedirectory = "/home/magictt";
+  home.stateversion = "26.05";
+  programs.git.enable = true;
   programs.zsh = {
     enable = true;
 
     history = {
-      path = "${config.home.homeDirectory}/.config/zsh/zhistory";
+      path = "${config.home.homedirectory}/.config/zsh/zhistory";
       size = 5000;
       save = 5000;
       append = true;
-      ignoreDups = true;
-      ignoreSpace = true;
+      ignoredups = true;
+      ignorespace = true;
       share = true;
     };
 
-    initContent = builtins.readFile ./home/.zshrc;
+    initcontent = builtins.readfile ./home/.zshrc;
 
     plugins = [
       {
         name = "sudo";
-        src = pkgs.fetchFromGitHub {
+        src = pkgs.fetchfromgithub {
           owner = "ohmyzsh";
           repo = "ohmyzsh";
           rev = "f8bf8f0";
-          hash = "sha256-5xS5SPNnQTde/2UbOBmjKHiq+nr2Wgj4mt7cNa5m7fs=";
+          hash = "sha256-5xs5spnnqtde/2ubobmjkhiq+nr2wgj4mt7cna5m7fs=";
         };
         file = "plugins/sudo/sudo.plugin.zsh";
       }
@@ -88,17 +84,17 @@ in {
 
   programs.tmux = {
     enable = true;
-    plugins = with pkgs.tmuxPlugins; [
+    plugins = with pkgs.tmuxplugins; [
       {
         plugin = power-theme;
-        extraConfig = ''
+        extraconfig = ''
           set -g @tmux_power_theme 'colour6'
         '';
       }
       vim-tmux-navigator
     ];
 
-    extraConfig = builtins.readFile ./home/.tmux.conf;
+    extraconfig = builtins.readfile ./home/.tmux.conf;
   };
 
   programs.rofi = {
@@ -112,41 +108,37 @@ in {
 
   qt = {
     enable = true;
-    platformTheme.name = "qtct";
 
-    style = {
-      name = "adwaita-dark";
-      package = pkgs.adwaita-qt;
-    };
+    platformtheme.name = "qtct";
 
-    qt5ctSettings = {
-      Appearance = {
-        icon_theme = "Papirus-Dark";
+    style.name = "kvantum";
+
+    qt5ctsettings = {
+      appearance = {
+        icon_theme = "papirus-dark";
         standard_dialogs = "xdgdesktopportal";
-        style = "adwaita-dark";
       };
     };
-    qt6ctSettings = {
-      Appearance = {
-        icon_theme = "Papirus-Dark";
+    qt6ctsettings = {
+      appearance = {
+        icon_theme = "papirus-dark";
         standard_dialogs = "xdgdesktopportal";
-        style = "adwaita-dark";
       };
     };
   };
 
   gtk = {
     enable = true;
-    colorScheme = "dark";
+    colorscheme = "dark";
 
     theme = {
       package = pkgs.gnome-themes-extra;
-      name = "Adwaita-dark";
+      name = "adwaita-dark";
     };
 
-    iconTheme = {
+    icontheme = {
       package = pkgs.papirus-icon-theme;
-      name = "Papirus-Dark";
+      name = "papirus-dark";
     };
   };
 
@@ -165,16 +157,16 @@ in {
 
   programs.waybar = {
     enable = true;
-    package = pkgs.waybar.overrideAttrs (old: {
-      src = pkgs.fetchFromGitHub {
-        owner = "Alexays";
-        repo = "Waybar";
+    package = pkgs.waybar.overrideattrs (old: {
+      src = pkgs.fetchfromgithub {
+        owner = "alexays";
+        repo = "waybar";
         rev = "6d60c8e02be67bb85bb9b1ea803f2fbcf0722002";
-        hash = "sha256-G6AcGuevhkYflQHhJq9GnLhEMgcI51Y6MYKBQvdRPDc=";
+        hash = "sha256-g6acguevhkyflqhhjq9gnlhemgci51y6mykbqvdrpdc=";
       };
-      buildInputs = (old.buildInputs or []) ++ [pkgs.modemmanager];
+      buildinputs = (old.buildinputs or []) ++ [pkgs.modemmanager];
 
-      mesonFlags = (old.mesonFlags or []) ++ ["-Dcava=disabled"];
+      mesonflags = (old.mesonflags or []) ++ ["-dcava=disabled"];
     });
   };
 
@@ -182,16 +174,16 @@ in {
     enable = true;
   };
 
-  home.file = builtins.mapAttrs (name: _: {
+  home.file = builtins.mapattrs (name: _: {
     source = ./bin/${name};
     target = "${bin_dir}/${name}";
     executable = true;
-  }) (builtins.readDir ./bin);
+  }) (builtins.readdir ./bin);
 
-  xdg.configFile = builtins.mapAttrs (name: _: {
+  xdg.configfile = builtins.mapattrs (name: _: {
     source = create_symlink "${dotfiles}/${name}";
     recursive = true;
-  }) (builtins.readDir ./home/config);
+  }) (builtins.readdir ./home/config);
 
   home.packages = with pkgs; [
     gnumake
@@ -199,25 +191,25 @@ in {
     ripgrep
     neovim
 
-    # Nvim LSP's
-    typescript-language-server # Typescript LSP
-    vscode-langservers-extracted # HTML/CSS/JSON/ESlint LSP
-    tailwindcss-language-server # Tailwindcss LSP
-    lua-language-server # Lua LSP
-    emmet-language-server # Emmet LSP
-    pyright # Python LSP
-    texlab # Latex LSP
-    ltex-ls-plus # Languagetool LSP
+    # nvim lsp's
+    typescript-language-server # typescript lsp
+    vscode-langservers-extracted # html/css/json/eslint lsp
+    tailwindcss-language-server # tailwindcss lsp
+    lua-language-server # lua lsp
+    emmet-language-server # emmet lsp
+    pyright # python lsp
+    texlab # latex lsp
+    ltex-ls-plus # languagetool lsp
     nixd
 
-    # Nvim formatters
+    # nvim formatters
     prettier
     stylua
     ruff
     alejandra
 
     unzip
-    psmisc # Provides killall
+    psmisc # provides killall
     yazi
     fzf
     opencode
@@ -228,16 +220,16 @@ in {
     htop
     fastfetch
     gh
-    hyprshutdown
 
     polychromatic
 
     google-chrome
-    zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    zen-browser.packages.${pkgs.stdenv.hostplatform.system}.default
     wlogout
     localsend
     ghostty
     rose-pine-cursor
+    papirus-icon-theme
 
     pavucontrol
 
@@ -246,7 +238,7 @@ in {
     brightnessctl
     xdg-desktop-portal-hyprland
     satty
-    kdePackages.dolphin
+    kdepackages.dolphin
     imv
     mpv
     vlc
@@ -254,26 +246,27 @@ in {
     hyprpicker
     grim
     slurp
+    hyprshutdown
     (tesseract.override {
-      enableLanguages = ["eng" "spa" "cat" "kor"];
+      enablelanguages = ["eng" "spa" "cat" "kor"];
     })
-    (stdenv.mkDerivation {
+    (stdenv.mkderivation {
       pname = "zscroll";
       version = "35c50fa";
 
-      src = fetchFromGitHub {
+      src = fetchfromgithub {
         owner = "noctuid";
         repo = "zscroll";
         rev = "35c50faae2787e13649146bad216e1f6444f13b8";
-        hash = "sha256-j9drC3BtQUSHlQf7FWIXBy2PUlPOwBu1sL3JR0nmHzM=";
+        hash = "sha256-j9drc3btqushlqf7fwixby2pulpowbu1sl3jr0nmhzm=";
       };
 
-      buildInputs = [python3];
+      buildinputs = [python3];
 
-      dontBuild = true;
-      dontConfigure = true;
+      dontbuild = true;
+      dontconfigure = true;
 
-      installPhase = ''
+      installphase = ''
         mkdir -p $out/bin
         mkdir -p $out/share/man/man1
         mkdir -p $out/share/zsh/site-functions
@@ -286,33 +279,33 @@ in {
         cp completion/_zscroll $out/share/zsh/site-functions/_zscroll
       '';
     })
-    # Install nmrs-gui
-    (rustPlatform.buildRustPackage {
+    # install nmrs-gui
+    (rustplatform.buildrustpackage {
       pname = "nmrs-gui";
       version = "9ff7f8f";
 
-      src = fetchFromGitHub {
+      src = fetchfromgithub {
         owner = "networkmanager-rs";
         repo = "nmrs-gui";
         rev = "9ff7f8f3759e876b4488102c192a31886581020f";
 
-        hash = "sha256-sA4D98pVdwu7vjxj4UOWBrT1GzMVxJc4ckoojmpIdaw=";
+        hash = "sha256-sa4d98pvdwu7vjxj4uowbrt1gzmvxjc4ckoojmpidaw=";
       };
 
-      cargoHash = "sha256-/i9+33zs6wJWMZfjYhRg/SzYD0n7XuuD0FbbnOMyfQg=";
+      cargohash = "sha256-/i9+33zs6wjwmzfjyhrg/szyd0n7xuud0fbbnomyfqg=";
 
-      nativeBuildInputs = [
+      nativebuildinputs = [
         pkg-config
-        wrapGAppsHook4
+        wrapgappshook4
       ];
 
-      buildInputs = [
+      buildinputs = [
         gtk4
         libadwaita
         networkmanager
       ];
 
-      doCheck = false;
+      docheck = false;
     })
 
     qt5.qtwayland
@@ -332,10 +325,10 @@ in {
     usbimager
 
     python3
-    python3Packages.pip
+    python3packages.pip
 
     (zathura.override {
-      useMupdf = true;
+      usemupdf = true;
     })
     jre
     tex
