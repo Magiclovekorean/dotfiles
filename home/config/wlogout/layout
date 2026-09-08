@@ -12,7 +12,7 @@
 }
 {
     "label" : "logout",
-    "action" : "logout",
+    "action" : "hyprshutdown",
     "text" : "Logout",
     "keybind" : "e"
 }

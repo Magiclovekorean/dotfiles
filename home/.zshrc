@@ -15,7 +15,6 @@
 
 export SUDO_PROMPT="Deploying root access for %u. Password pls: "
 export BAT_THEME="base16"
-export QT_QPA_PLATFORMTHEME=qt6ct
 
     if [ -d "$HOME/.local/bin" ] ;
       then PATH="$HOME/.local/bin:$PATH"
@@ -95,6 +94,8 @@ alias undo-night='killall hyprsunset'
 
 alias kb-toggle='hyprctl switchxkblayout all next && notify-send "Keyboard layout switched"'
 
+alias nix-upgrade='nix flake update /home/magictt/Desktop/repos/dotfiles && sudo nixos-rebuild switch --flake /home/magictt/Desktop/repos/dotfiles#nixos-flake'
+alias nrs='sudo nixos-rebuild switch --flake /home/magictt/Desktop/repos/dotfiles#nixos-flake'
 alias nix-clean='sudo nix-collect-garbage -d'
 
 alias wifi-passwd='sudo nvim /etc/NetworkManager/system-connections'
