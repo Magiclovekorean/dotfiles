@@ -1,5 +1,7 @@
 - Rewrite README instructions to match NixOS
+- Make arch branch
 - Create autoSetup.sh script
+- Check if batsignal works
 - Check if wlogut works
 - Check if airplane mode works
 - Check if pavucontrol works
