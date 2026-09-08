@@ -37,6 +37,12 @@ chmod +x autoSetup.sh
 ./autoSetup.sh
 ```
 
+### Dualbooting with `Windows`
+The process is almost the same to the normal instalation.
+
+You have to keep the windowsprocess is almost the same to the normal instalation.
+
+You have to keep the Windows
 
 - The wallpapers I have are [Archie Chrisanthou's Digitally Painted Desktop Wallpapers](https://archdrawsalot.gumroad.com/l/arcnar) an everforest wallpaper form pixie-sddm theme and [this wallpaper from wallhaeven](https://wallhaven.cc/w/vgyyxl), I have them In ~/Desktop/walls/ move the wallpapers of your choice there and change ~/.config/hypr/hyprpaper.conf to modify the path option.
 
