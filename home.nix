@@ -30,8 +30,8 @@ in {
   home.stateVersion = "26.05";
   programs.git = {
     enable = true;
-    userName = "Martí Forn";
-    userEmail = "magiclovekorean@gmail.com";
+    settings.user.name = "Martí Forn";
+    settings.user.email = "magiclovekorean@gmail.com";
   };
   programs.zsh = {
     enable = true;
