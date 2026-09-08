@@ -257,6 +257,8 @@ in {
     kdePackages.dolphin
     imv
     mpv
+    vlc
+    konsole
     spotify
     hyprpicker
     grim
