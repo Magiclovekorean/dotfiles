@@ -5,6 +5,7 @@
 - [About](#about)
 - [Instalation](#installation)
 - [Dualbooting with `Windows`](#dualbooting-with-windows)
+- [Wallpapers](#Wallpapers)
 
 ## About
 These are the dotfiles I use on NixOS
@@ -24,7 +25,7 @@ sudo -i
 lsblk
 ```
 5. - If installing `NixOS` alone: Supposing the disk on which I want to install NixOS is `nvme0n1`, partition the disks, I use `cfdisk` to do so.
- (), create a 1G `EFI` partition with 
+    , create a 1G `EFI` partition with 
     type `EFI` and 
     leave the remaining space for the `root partition`. 
     
@@ -50,10 +51,11 @@ chmod +x autoSetup.sh
 ### Dualbooting with `Windows`
 Assuming you have leaved space for NixOS on the disk:
 The process is almost the same to the normal installation.
-You have to reuse the `EFI` partition `Windows` created by NOT creating another, NOT formatting it and just mount it.
+You have to reuse the `EFI` partition `Windows` created by NOT creating another, NOT formatting it and just mounting it.
 So, just create, format and mount the `root` partition.
 For more information, visit [`NixOS` wiki](https://wiki.nixos.org/wiki/Dual_Booting_NixOS_and_Windows) and 
                             [`Arch` wiki (because it is very well explained)](https://wiki.archlinux.org/title/Dual_boot_with_Windows).
 
+### Wallpapers
 - The wallpapers I have are [Archie Chrisanthou's Digitally Painted Desktop Wallpapers](https://archdrawsalot.gumroad.com/l/arcnar) an everforest wallpaper form pixie-sddm theme and [this wallpaper from wallhaeven](https://wallhaven.cc/w/vgyyxl), I have them In ~/Desktop/walls/ move the wallpapers of your choice there and change ~/.config/hypr/hyprpaper.conf to modify the path option.
 
