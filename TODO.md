@@ -1,10 +1,11 @@
 - [x] Rewrite README instructions to do dual boot
 - [x] Finish migrating from `UWSM` to NO `UWSM`
-- [ ] Make arch branch
+- [x] Make arch branch
 - [x] Create autoSetup.sh script
-- [ ] Check if batsignal works
-- [ ] Check if wlogut works
-- [ ] Check if airplane mode works
+- [x] Check if batsignal works
+- [x] Check if hypridle works
+- [x] Check if wlogut works
+- [x] Check if airplane mode works
 - [ ] Check if pavucontrol works
 - [ ] Check if bluetui works
 - [ ] Check if btop works
