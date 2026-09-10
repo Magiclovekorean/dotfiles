@@ -4,10 +4,6 @@
 nixos-generate-config --root /mnt
 cp /mnt/etc/nixos/hardware-configuration.nix .
 
-# Give necessary permissions to magictt user
-chown -R magictt:users .
-chown -R magictt:users ..
-
 # Enable zram for compiling things like waybar
 modprobe zram
 zram_path=$(zramctl --find --size 4G)
@@ -21,6 +17,10 @@ git add hardware-configuration.nix
 nixos-install --flake .#nixos-flake
 echo 'Setting password for magictt user'
 nixos-enter --root /mnt -c 'passwd magictt'
+
+# Give necessary permissions to magictt user
+nixos-enter --root /mnt -c 'cd /home/magictt/Desktop/repos/dotfiles && chown -R magictt:users . && chown -R magictt:users ..'
+
 
 read -p "Do you want to reboot? (Y/n) " answer
 
