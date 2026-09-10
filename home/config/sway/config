@@ -47,7 +47,6 @@ exec mako
 exec wl-paste --type text --watch cliphist store
 exec wl-paste --type image --watch cliphist store
 
-# Battery notifications
 exec batsignal
 
 # -----------------------
