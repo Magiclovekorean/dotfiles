@@ -158,12 +158,10 @@ in {
   services.playerctld.enable = true;
   services.cliphist.enable = true;
 
-  services.hypridle.enable = true;
   programs.hyprlock.enable = true;
   services.hyprsunset.enable = true;
 
   services.wpaperd.enable = true;
-  services.batsignal.enable = true;
   services.hyprpolkitagent.enable = true;
 
   programs.obs-studio.enable = true;
@@ -234,6 +232,8 @@ in {
     fastfetch
     gh
     hyprshutdown
+    batsignal
+    hypridle
 
     polychromatic
 
