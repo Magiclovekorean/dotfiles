@@ -103,10 +103,6 @@
     shell = pkgs.zsh;
   };
 
-  hardware.openrazer.enable = true;
-  hardware.openrazer.users = ["magictt"];
-  services.input-remapper.enable = true;
-
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
     vim
@@ -114,6 +110,9 @@
   ];
 
   # List services that you want to enable:
+  hardware.openrazer.enable = true;
+  hardware.openrazer.users = ["magictt"];
+  services.input-remapper.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
