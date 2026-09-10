@@ -1,4 +1,4 @@
-# My current setup for Arch Linux + Hyprland
+# My dotfiles for Arch Linux + Hyprland
 
 ## About
 These are the dotfiles I use primarily on arch Linux. 
