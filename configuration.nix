@@ -81,6 +81,18 @@
     jack.enable = true;
   };
 
+  security.sudo.extraRules = [
+    {
+      users = ["magictt"];
+      commands = [
+        {
+          command = "/home/magictt/.local/bin/toggle-airplane";
+          options = ["NOPASSWD"];
+        }
+      ];
+    }
+  ];
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
 

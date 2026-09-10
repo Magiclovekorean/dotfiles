@@ -118,7 +118,7 @@
      "custom/airplane-mode": {
              "exec": "~/.config/waybar-sway/custom_modules/airplane-mode/airplane-mode.sh",
              "tooltip": false,
-             "on-click": "toggle-airplane"
+             "on-click": "sudo /home/magictt/.local/bin/toggle-airplane"
      },
      "custom/kb-toggle": {
          "exec": "~/.config/waybar-sway/custom_modules/kb-toggle/kb-toggle.sh",
