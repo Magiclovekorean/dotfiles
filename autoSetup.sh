@@ -19,7 +19,7 @@ echo 'Setting password for magictt user'
 nixos-enter --root /mnt -c 'passwd magictt'
 
 # Give necessary permissions to magictt user
-nixos-enter --root /mnt -c 'cd /home/magictt/Desktop/repos/dotfiles && chown -R magictt:users . && chown -R magictt:users ..'
+nixos-enter --root /mnt -c 'cd /home/magictt/Desktop/repos/dotfiles && chown -R magictt:users . && chown -R magictt:users .. && chown -R magictt:users ../..'
 
 
 read -p "Do you want to reboot? (Y/n) " answer
