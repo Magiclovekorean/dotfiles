@@ -44,6 +44,7 @@
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     keyMap = "es";
+    font = "sun12x22";
   };
 
   programs.zsh.enable = true;
