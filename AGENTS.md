@@ -1,16 +1,16 @@
 # AGENTS.md
 
-NixOS dotfiles repo (flake). Despite `README.md` describing an Arch + `stow` setup, the repo has migrated to NixOS (see `TODO.md`); trust `flake.nix`, not the README.
+NixOS dotfiles repo (flake). `flake.nix` **auto-discovers hosts**: every directory under `hosts/` becomes a `nixosConfiguration` (built via `genAttrs` over `readDir`). No flake edit needed to add a host. `README.md` is the (stale-ish) install guide; trust `flake.nix` and `configuration.nix`.
 
 ## Structure
 
-- `flake.nix` defines **two hosts** via `mkHost`: `hp-nixos-laptop` and `hp-red-laptop`. Each wires `hosts/<host>/configuration.nix` (host-specific + `hardware-configuration.nix`), the shared `configuration.nix` (system), and home-manager with `home.nix` (user `magictt`).
-- Shared system config → `configuration.nix`; host-only config (incl. `hardware-configuration.nix`) → `hosts/<host>/`. When adding system settings, decide which layer they belong in.
+- Each `hosts/<host>/configuration.nix` holds host-only settings (imports its own `hardware-configuration.nix`); shared system options live in `configuration.nix`; home-manager config (`user magictt`) in `home.nix`.
 - `home.nix` auto-maps whole directories:
-  - `home/config/*` → `~/.config/*` via out-of-store symlinks (`config.lib.file.mkOutOfStoreSymlink`)
-  - `bin/*` → `~/.local/bin/*` (executable)
-- These symlinks are **absolute pointers to `~/Desktop/repos/dotfiles/home/config`**, so the repo must stay at `~/Desktop/repos/dotfiles` or the links break.
-- To add a new app config, drop a dir under `home/config/<name>`; it is linked on next rebuild — no manual entry needed.
+  - `home/config/*` → `~/.config/*` via out-of-store symlinks (`config.lib.file.mkOutOfStoreSymlink`) — add a config by dropping a dir under `home/config/<name>`, no manual entry.
+  - `bin/*` → `~/.local/bin/*` (executable).
+- Symlinks are **absolute pointers to `~/Desktop/repos/dotfiles/home/config`** — the repo must stay at that path or the links break.
+- NOT auto-linked, edited in place: `home/.zshrc` and `home/.tmux.conf` are inlined into `home.nix` via `builtins.readFile`; `home/rofi/*` is referenced directly.
+- `home/config/opencode` is **opencode's own global config** (agents/, commands/, plugin deps) symlinked to `~/.config/opencode`, not an app dotdir.
 
 ## Build / switch
 
@@ -18,17 +18,22 @@ NixOS dotfiles repo (flake). Despite `README.md` describing an Arch + `stow` set
 sudo nixos-rebuild switch --flake .#hp-nixos-laptop   # or .#hp-red-laptop
 ```
 
-- inputs pinned in `flake.lock`: `nixpkgs` (nixos-unstable), `home-manager`, `zen-browser` (system via `specialArgs`, home via `extraSpecialArgs`).
-- `home.nix` uses `useGlobalPkgs`/`useUserPackages` and `overwriteBackup = true` (backups get a `.backup` suffix).
+- The zsh aliases `nrs` / `nix-upgrade` (in `home/.zshrc`) instead resolve the host from `~/ .hostname`: `nixos-rebuild switch --flake .#$(< /home/magictt/.hostname)`. Prefer those aliases; the hostname is not committed anywhere else.
+- `hosts/example/` is the install template copied by `autoSetup.sh` — it imports a missing `hardware-configuration.nix`, so it is not a buildable host.
+- Inputs pinned in `flake.lock`: `nixpkgs` (nixos-unstable), `home-manager`, `zen-browser` (via `specialArgs`/`extraSpecialArgs`). `home-manager` uses `useGlobalPkgs`/`useUserPackages`, `overwriteBackup = true`, `backupFileExtension = "backup"`.
 - Formatters: Nix → `alejandra`, Lua → `stylua` (both in `home.packages`).
+
+## Install flow
+
+- `autoSetup.sh` (driven from the NixOS ISO): copies `hosts/example` → `hosts/<hostname>`, generates `hardware-configuration.nix` from `/mnt`, writes the hostname to `~/.hostname`, then runs `nixos-install --flake .#<hostname>` and sets the `magictt` password (use `nixos-generate-config --root /mnt`).
+- Known bug: an "Enter username" prompt later echoes `$username` **into `~/.hostname`**, overwriting the hostname the `nrs` alias depends on. If `~/.hostname` stops matching a `hosts/` dir, rebuild aliases break.
 
 ## Gotchas
 
-- `sudo` is configured for NOPASSWD on `/home/magictt/.local/bin/toggle-airplane` only — don't extend that rule without justification.
-- `home/config/hypr` uses `hyprland.lua` (+ hyprlock/hypridle confs) rather than plain `hyprland.conf`.
+- Two branches exist: `main` holds the current NixOS flake setup; `origin/arch` keeps the pre-migration Arch + `stow` dotfiles (they diverged at `e1be3c8`). `arch` is legacy/reference only — make changes on `main`.
+- `sudo` NOPASSWD applies only to `/home/magictt/.local/bin/toggle-airplane` — don't extend without justification.
+- Username (`magictt`), git identity (Martí Forn / magiclovekorean@gmail.com), and home dir are hardcoded; making them choosable is open TODO work (`TODO.md`).
+- `home/config/hypr` uses `hyprland.lua` (+ hyprlock/hypridle confs), not `hyprland.conf`.
 - `tmp/` is gitignored — safe scratch space.
-- Repo relies on pinned hashes for several `fetchFromGitHub` / Cargo deps in `home.nix` (waybar, zscroll, nmrs-gui); bump the lock-style hashes when upgrading.
-
-## Current state
-
-Working tree may have uncommitted changes (multi-host migration is ongoing). Check `git status` before making assumptions about committed vs. working config.
+- `home.nix` pins rev+hash for several `fetchFromGitHub` / Cargo deps (waybar, zscroll, nmrs-gui, ohmyzsh `sudo` plugin); bump the lock-style hashes when upgrading.
+- Working tree may have uncommitted changes; check `git status` before assuming what's committed.
