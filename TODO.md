@@ -1,1 +1,2 @@
+- [ ] Make username choosable, not always magictt
 - [ ] Try to add reproduciability to zen browser
