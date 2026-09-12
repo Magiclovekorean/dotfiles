@@ -4,10 +4,6 @@
   pkgs,
   ...
 }: {
-  imports = [
-    ./hardware-configuration.nix
-  ];
-
   boot.loader = {
     efi.canTouchEfiVariables = true;
 
@@ -17,8 +13,6 @@
       efiSupport = true;
     };
   };
-
-  networking.hostName = "nixos-hp";
 
   networking.networkmanager.enable = true;
 
