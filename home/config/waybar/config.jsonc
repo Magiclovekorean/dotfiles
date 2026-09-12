@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "modules-left": ["hyprland/workspaces", "group/media"],
-    "modules-center": ["custom/wlogout", "custom/airplane-mode", "custom/kb-toggle", "hyprland/submap", "clock"],
+    "modules-center": ["custom/airplane-mode", "custom/kb-toggle", "hyprland/submap", "clock"],
     "modules-right": [ "group/volume", "battery", "bluetooth", "network", "cpu", "memory"],
     "hyprland/window": {
         "max-length": 50
@@ -54,7 +54,7 @@
         "tooltip-format-ethernet": "{ifname} ",
         "tooltip-format-disconnected": "󰖪",
         "max-length": 50,
-        "on-click": "exec nmrs-gui",
+        "on-click": "exec nmrs-gui"
     },
     "clock": {
       "format": "󰥔 {:%a, %d. %b %H:%M}",
@@ -74,7 +74,7 @@
         },
         "scroll-step": 1,
         "ignored-sinks": ["Easy Effects Sink"],
-        "on-click": "pavucontrol",
+        "on-click": "pavucontrol"
     },
     "pulseaudio/slider": {
         "min": 0,
@@ -102,23 +102,18 @@
       "tooltip": false,
       "on-click": "playerctl play-pause",
       "on-click-middle": "playerctl previous",
-      "on-click-right": "playerctl next",
+      "on-click-right": "playerctl next"
     },
     "custom/media-animation": {
       "exec": "~/.config/waybar/custom_modules/media/media-animation.sh",
-      "tooltip": false,
+      "tooltip": false
     },
     "custom/media-time": {
       "exec": "~/.config/waybar/custom_modules/media/media-time.sh",
       "escape": true,
       "interval": 1,
-      "tooltip": false,
+      "tooltip": false
     },
-    "custom/wlogout": {
-            "exec": "~/.config/waybar/custom_modules/wlogout/wlogout.sh",
-            "tooltip": false,
-            "on-click": "wlogout"
-     },
      "custom/airplane-mode": {
              "exec": "~/.config/waybar/custom_modules/airplane-mode/airplane-mode.sh",
              "tooltip": false,

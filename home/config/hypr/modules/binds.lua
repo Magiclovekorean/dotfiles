@@ -210,6 +210,7 @@ hl.define_submap("system", function()
     hl.bind("SHIFT + S", hl.dsp.exec_cmd(sleep))
     hl.bind("L", hl.dsp.exec_cmd(lock))
     hl.bind("SHIFT + L", hl.dsp.exec_cmd(logout))
+    hl.bind("W", hl.dsp.exec_cmd("wlogout"))
 
     hl.bind("ESCAPE", hl.dsp.submap("reset"))
 end)

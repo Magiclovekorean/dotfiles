@@ -239,6 +239,7 @@ mode "system" {
     bindsym r exec systemctl reboot
     bindsym l exec hyprlock
     bindsym Shift+l exec swaymsg exit
+    bindsym w exec wlogout exit
 
     bindsym Escape mode "default"
 }

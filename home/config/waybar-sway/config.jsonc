@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "modules-left": ["sway/workspaces", "group/media"],
-    "modules-center": ["custom/wlogout", "custom/airplane-mode", "custom/kb-toggle", "sway/mode", "clock"],
+    "modules-center": ["custom/airplane-mode", "custom/kb-toggle", "sway/mode", "clock"],
     "modules-right": ["group/volume", "battery", "bluetooth", "network", "cpu", "memory"],
     "sway/window": {
         "max-length": 50
@@ -17,7 +17,7 @@
         "format-icons": {
             "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
             "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
-        },
+        }
     },
     "bluetooth": {
       "format": "",
@@ -38,7 +38,7 @@
         "interval": 30,
         "format": " {percentage}%",
         "tooltip-format": "{used:0.1f}G/{total:0.1f}G used",
-        "on-click": "exec ghostty --title=htop -e htop",
+        "on-click": "exec ghostty --title=htop -e htop"
     },
     "network": {
         "format": "",
@@ -50,7 +50,7 @@
         "tooltip-format-ethernet": "{ifname} ",
         "tooltip-format-disconnected": "󰖪",
         "max-length": 50,
-        "on-click": "exec nmrs",
+        "on-click": "exec nmrs"
     },
     "clock": {
       "format": "󰥔 {:%a, %d. %b %H:%M}",
@@ -70,7 +70,7 @@
         },
         "scroll-step": 1,
         "ignored-sinks": ["Easy Effects Sink"],
-        "on-click": "pavucontrol",
+        "on-click": "pavucontrol"
     },
     "pulseaudio/slider": {
         "min": 0,
@@ -98,23 +98,18 @@
       "tooltip": false,
       "on-click": "playerctl play-pause",
       "on-click-middle": "playerctl previous",
-      "on-click-right": "playerctl next",
+      "on-click-right": "playerctl next"
     },
     "custom/media-animation": {
       "exec": "~/.config/waybar-sway/custom_modules/media/media-animation.sh",
-      "tooltip": false,
+      "tooltip": false
     },
     "custom/media-time": {
       "exec": "~/.config/waybar-sway/custom_modules/media/media-time.sh",
       "escape": true,
       "interval": 1,
-      "tooltip": false,
+      "tooltip": false
     },
-    "custom/wlogout": {
-            "exec": "~/.config/waybar-sway/custom_modules/wlogout/wlogout.sh",
-            "tooltip": false,
-            "on-click": "wlogout"
-     },
      "custom/airplane-mode": {
              "exec": "~/.config/waybar-sway/custom_modules/airplane-mode/airplane-mode.sh",
              "tooltip": false,
