@@ -93,8 +93,8 @@ alias undo-night='killall hyprsunset'
 
 alias kb-toggle='hyprctl switchxkblayout all next && notify-send "Keyboard layout switched"'
 
-alias nix-upgrade='nix flake update /home/magictt/Desktop/repos/dotfiles && sudo nixos-rebuild switch --flake /home/magictt/Desktop/repos/dotfiles#nixos-flake'
-alias nrs='sudo nixos-rebuild switch --flake /home/magictt/Desktop/repos/dotfiles#nixos-flake'
+alias nix-upgrade='nix flake update /home/magictt/Desktop/repos/dotfiles && sudo nixos-rebuild switch --flake /home/magictt/Desktop/repos/dotfiles#$(< /home/magictt/.hostname)'
+alias nrs='sudo nixos-rebuild switch --flake /home/magictt/Desktop/repos/dotfiles#$(< /home/magictt/.hostname)'
 alias nix-clean='sudo nix-collect-garbage -d'
 
 alias wifi-passwd='sudo nvim /etc/NetworkManager/system-connections'
