@@ -16,6 +16,11 @@ cp /mnt/etc/nixos/hardware-configuration.nix "hosts/$user_hostname/hardware-conf
 # Git add untracked host/$user_hostname/ files
 git add .
 
+# Ask for username and save it to ~/.hostname
+read -p "Enter username: " username
+touch /mnt/home/magictt/.username
+echo "$username" > /mnt/home/magictt/.hostname
+
 # Enable zram for compiling things like waybar
 modprobe zram
 zram_path=$(zramctl --find --size 4G)
