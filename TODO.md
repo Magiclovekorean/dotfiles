@@ -1,2 +1,0 @@
-- [x] Look at if nmrs-gui works well from waybar
-- [x] Remove wlogout from waybar
