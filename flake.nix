@@ -53,10 +53,13 @@
           }
         ];
       };
+    hosts = builtins.attrNames (
+      nixpkgs.lib.filterAttrs (
+        name: type:
+          type == "directory"
+      ) (builtins.readDir ./hosts)
+    );
   in {
-    nixosConfigurations = {
-      hp-nixos-laptop = mkHost "hp-nixos-laptop";
-      hp-red-laptop = mkHost "hp-red-laptop";
-    };
+    nixosConfigurations = nixpkgs.lib.genAttrs hosts mkHost;
   };
 }
