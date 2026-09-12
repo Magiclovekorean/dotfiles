@@ -1,7 +1,6 @@
 # My customized version of the original configuration.
 
 # Modified by Magiclovekorean, 2026.
-#
 # Originally based on <https://github.com/gh0stzk/dotfiles>,
 # originally licensed under the GNU GPL v3.0.
 # This modified version is also licensed under the GNU GPL v3.0.
