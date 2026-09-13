@@ -53,6 +53,8 @@
 
   # Enables Gnome Keyring to store secrets for applications
   services.gnome.gnome-keyring.enable = true;
+  # Unlock gnome-keyring with the login password (ly does not do this by default).
+  security.pam.services.ly.enableGnomeKeyring = true;
 
   services.displayManager.ly.enable = true;
   programs.sway = {
