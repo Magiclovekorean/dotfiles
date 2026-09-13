@@ -140,6 +140,11 @@ in {
 
   xdg.dataFile."color-schemes/BreezeDark.colors".source = "${pkgs.kdePackages.breeze}/share/color-schemes/BreezeDark.colors";
 
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+  };
+
   gtk = {
     enable = true;
     colorScheme = "dark";
