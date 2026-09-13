@@ -170,9 +170,6 @@ in {
   services.hyprpolkitagent.enable = true;
   services.gnome-keyring.enable = true;
 
-  # Cursor rewrites argv.json on every launch (crash-reporter-id etc.), so it must
-  # stay a mutable real file, not a read-only nix-store symlink. The keyring setting
-  # is already passed via the code-cursor commandLineArgs override below.
   home.file = builtins.mapAttrs (name: _: {
     source = ./bin/${name};
     target = "${bin_dir}/${name}";
