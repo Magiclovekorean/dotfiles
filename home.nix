@@ -363,5 +363,7 @@ in {
     })
     jre
     tex
+
+    davinci-resolve
   ];
 }
