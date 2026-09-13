@@ -1,4 +1,0 @@
-- [ ] Make name and email choosable (for git)
-- [ ] Make username choosable, not always magictt
-- [ ] Add davinci resolve to packages
-- [ ] Try to add reproduciability to zen browser
