@@ -23,14 +23,18 @@ Rules:
 - Do not use `--no-verify`.
 - Do not amend commits.
 - Do not force push.
+- If a commit closes a GitHub issue, end the commit body with `Closes #<number>`. Pushing then auto-closes the issue on GitHub.
 
 Flow:
 
 1. Show the proposed commit plan with the files included in each commit.
 2. If the grouping is clear, continue. If there is real ambiguity, ask before committing.
-3. For each group:
+3. Before committing, ask the user whether any of the planned commits should close an issue:
+   - If the user wants one, ask (or accept from `$ARGUMENTS`) the issue number(s).
+   - Check `gh issue list` / `gh issue view <n>` if needed to confirm the issue is open and matches the change.
+4. For each group:
    - Add only the files for that group with `git add <files>`.
-   - Create the commit with a semantic message.
-4. Once all commits have been created, run:
+   - Create the commit with a semantic message; when it closes an issue, append `Closes #<number>` as the last line of the commit body.
+5. Once all commits have been created, run:
    `git push`
-5. When finished, summarize the commits created and the branch that was pushed.
+6. When finished, summarize the commits created and the branch that was pushed, and note any issues auto-closed.
