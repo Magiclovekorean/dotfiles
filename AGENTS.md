@@ -18,8 +18,9 @@ NixOS dotfiles repo (flake). `flake.nix` **auto-discovers hosts**: every directo
 sudo nixos-rebuild switch --flake .#hp-nixos-laptop   # or .#hp-red-laptop
 ```
 
-- The zsh aliases `nrs` / `nix-upgrade` (in `home/.zshrc`) instead resolve the host from `~/ .hostname`: `nixos-rebuild switch --flake .#$(< /home/magictt/.hostname)`. Prefer those aliases; the hostname is not committed anywhere else.
-- `hosts/example/` is the install template copied by `autoSetup.sh` — it imports a missing `hardware-configuration.nix`, so it is not a buildable host.
+- The zsh aliases `nrs` / `nix-upgrade` (in `home/.zshrc`) instead resolve the host from `~/.hostname`: `nixos-rebuild switch --flake .#$(< /home/magictt/.hostname)`. Prefer those aliases; the hostname is not committed anywhere else.
+- No CI or test suite. The only verification is a full build: `sudo nixos-rebuild build --flake .#<host>` (builds without switching). It's slow — don't run it casually.
+- `hosts/example/` is the install template copied by `autoSetup.sh` — it imports a missing `hardware-configuration.nix`, so it is **not a buildable host** (never run a build for it).
 - Inputs pinned in `flake.lock`: `nixpkgs` (nixos-unstable), `home-manager`, `zen-browser` (via `specialArgs`/`extraSpecialArgs`). `home-manager` uses `useGlobalPkgs`/`useUserPackages`, `overwriteBackup = true`, `backupFileExtension = "backup"`.
 - Formatters: Nix → `alejandra`, Lua → `stylua` (both in `home.packages`).
 
@@ -32,7 +33,7 @@ sudo nixos-rebuild switch --flake .#hp-nixos-laptop   # or .#hp-red-laptop
 
 - Two branches exist: `main` holds the current NixOS flake setup; `origin/arch` keeps the pre-migration Arch + `stow` dotfiles (they diverged at `e1be3c8`). `arch` is legacy/reference only — make changes on `main`.
 - `sudo` NOPASSWD applies only to `/home/magictt/.local/bin/toggle-airplane` — don't extend without justification.
-- Username (`magictt`), git identity (Martí Forn / magiclovekorean@gmail.com), and home dir are hardcoded; making them choosable is open TODO work (`TODO.md`).
+- Username (`magictt`), git identity (Martí Forn / magiclovekorean@gmail.com), and home dir are hardcoded (in `home.nix`); making them choosable is open TODO work.
 - `home/config/hypr` uses `hyprland.lua` (+ hyprlock/hypridle confs), not `hyprland.conf`.
 - `tmp/` is gitignored — safe scratch space.
 - `home.nix` pins rev+hash for several `fetchFromGitHub` / Cargo deps (waybar, zscroll, nmrs-gui, ohmyzsh `sudo` plugin); bump the lock-style hashes when upgrading.
