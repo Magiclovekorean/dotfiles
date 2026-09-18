@@ -92,6 +92,11 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.avahi = {
+    enable = true;
+    nssmdns = true; # resolve printer .local hostnames
+    openFirewall = true; # let UDP 5353 mDNS through the firewall
+  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.magictt = {
