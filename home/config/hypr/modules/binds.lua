@@ -7,7 +7,7 @@ local terminal = "ghostty"
 local fileManager = "dolphin"
 local browser = "zen"
 local brave = "brave-origin"
-local music = "spotify-launcher"
+local music = "spotify"
 local notion = brave .. " --app=https://notion.so"
 
 -- airplane mode
