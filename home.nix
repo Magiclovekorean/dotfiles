@@ -170,6 +170,17 @@ in {
   services.hyprpolkitagent.enable = true;
   services.gnome-keyring.enable = true;
 
+  systemd.user.services.input-remapper-autoload = {
+    Unit.Description = "Apply input-remapper autoload presets at login";
+    Service = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.input-remapper}/bin/input-remapper-control --command autoload";
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+    Install.WantedBy = [ "default.target" ];
+  };
+
   home.file = builtins.mapAttrs (name: _: {
     source = ./bin/${name};
     target = "${bin_dir}/${name}";
@@ -265,7 +276,7 @@ in {
     xdg-desktop-portal-hyprland
     satty
     kdePackages.plasma-integration
-    kdePackages.dolphin
+    nautilus
     imv
     mpv
     vlc
