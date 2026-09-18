@@ -352,6 +352,9 @@ in {
 
     usbimager
 
+    xournalpp
+    libreoffice
+
     python3
     python3Packages.pip
 
@@ -360,6 +363,9 @@ in {
     })
     jre
     tex
+    system-config-printer
+
+    cliamp
 
     davinci-resolve
     proton-authenticator
