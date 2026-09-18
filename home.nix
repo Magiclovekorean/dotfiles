@@ -362,5 +362,6 @@ in {
     tex
 
     davinci-resolve
+    proton-authenticator
   ];
 }
