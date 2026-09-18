@@ -4,7 +4,7 @@
 
 --apps
 local terminal = "ghostty"
-local fileManager = "dolphin"
+local fileManager = "nautilus"
 local browser = "zen"
 local brave = "brave-origin"
 local music = "spotify"

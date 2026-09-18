@@ -12,7 +12,7 @@ font pango:monospace 8
 # -----------------------
 
 set $terminal ghostty
-set $fileManager dolphin
+set $fileManager nautilus
 set $browser zen-browser
 set $music spotify-launcher
 set $notion brave-origin --app=https://notion.so
