@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  username,
   zen-browser,
   ...
 }: let
@@ -25,8 +26,8 @@
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
   bin_dir = ".local/bin";
 in {
-  home.username = "magictt";
-  home.homeDirectory = "/home/magictt";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
   home.stateVersion = "26.05";
   programs.git = {
     enable = true;
@@ -178,7 +179,7 @@ in {
       Restart = "on-failure";
       RestartSec = 5;
     };
-    Install.WantedBy = [ "default.target" ];
+    Install.WantedBy = ["default.target"];
   };
 
   home.file = builtins.mapAttrs (name: _: {
@@ -204,9 +205,7 @@ in {
     });
   };
 
-  programs.brave-origin = {
-    enable = true;
-  };
+  programs.librewolf.enable = true;
 
   xdg.configFile = builtins.mapAttrs (name: _: {
     source = create_symlink "${dotfiles}/${name}";
