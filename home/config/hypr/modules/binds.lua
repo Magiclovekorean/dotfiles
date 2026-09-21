@@ -6,9 +6,9 @@
 local terminal = "ghostty"
 local fileManager = "nautilus"
 local browser = "zen"
-local brave = "brave-origin"
+local chromium = "chromium"
 local music = "spotify"
-local notion = brave .. " --app=https://notion.so"
+local notion = chromium .. " --app=https://notion.so"
 
 -- airplane mode
 local airplane_mode = "toggle-airplane"
