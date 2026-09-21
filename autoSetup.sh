@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-# Ask for hostname and save it to ~/.hostname
-read -p "Enter hostname: " user_hostname
-touch /mnt/home/magictt/.hostname
-echo "$user_hostname" > /mnt/home/magictt/.hostname
+# Ask for hostname
+read -rp "Enter hostname: " user_hostname
+[[ -n "$user_hostname" ]] || { echo "hostname cannot be empty" >&2; exit 1; }
+
+if [[ -d "hosts/$user_hostname" ]]; then
+    echo "hosts/$user_hostname already exists, aborting" >&2
+    exit 1
+fi
 
 # Add device to hosts/
 cp -r hosts/example "hosts/$user_hostname"
@@ -13,13 +18,23 @@ sed -i "s/<HOSTNAME>/$user_hostname/g" hosts/$user_hostname/*.nix
 nixos-generate-config --root /mnt
 cp /mnt/etc/nixos/hardware-configuration.nix "hosts/$user_hostname/hardware-configuration.nix"
 
-# Git add untracked host/$user_hostname/ files
-git add .
+# Ask for username
+read -rp "Enter username: " username
+[[ -n "$username" ]] || { echo "username cannot be empty" >&2; exit 1; }
 
-# Ask for username and save it to ~/.hostname
-read -p "Enter username: " username
-touch /mnt/home/magictt/.username
-echo "$username" > /mnt/home/magictt/.hostname
+# Write hostname/username into the target's home dir
+mkdir -p "/mnt/home/$username"
+echo "$user_hostname" > "/mnt/home/$username/.hostname"
+echo "$username" > "/mnt/home/$username/.username"
+
+# Substitute the username into the copied host; the flake reads
+# hosts/<host>/username at evaluation time
+sed -i "s/<USERNAME>/$username/g" "hosts/$user_hostname/username" hosts/$user_hostname/*.nix
+
+# Git add the new host so the flake includes it. Running as root against a
+# repo owned by another user would trip git's "dubious ownership" check.
+git config --global --add safe.directory "$PWD"
+git add .
 
 # Enable zram for compiling things like waybar
 modprobe zram
@@ -27,19 +42,18 @@ zram_path=$(zramctl --find --size 4G)
 mkswap "$zram_path"
 swapon -p 100 "$zram_path"
 
-# Install NixOS with flake and create password for magictt user, 
+# Install NixOS with flake and create password for the user,
 # nixos-install will ask for the root password
 nixos-install --flake ".#$user_hostname"
-echo 'Setting password for magictt user'
-nixos-enter --root /mnt -c 'passwd magictt'
+echo "Setting password for $username user"
+nixos-enter --root /mnt -c "passwd $username"
 
-# Give necessary permissions to magictt user
-nixos-enter --root /mnt -c 'cd /home/magictt/Desktop/repos/dotfiles && chown -R magictt:users . && chown -R magictt:users .. && chown -R magictt:users ../..'
+# Give necessary permissions to the user
+nixos-enter --root /mnt -c "cd /home/$username/Desktop/repos/dotfiles && chown -R $username:users . && chown -R $username:users .. && chown -R $username:users ../.."
 
 
-read -p "Do you want to reboot? (Y/n) " answer
+read -rp "Do you want to reboot? (Y/n) " answer
 
 if [[ "$answer" != "n" && "$answer" != "N" ]]; then
     reboot now
 fi
-
