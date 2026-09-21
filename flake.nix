@@ -22,39 +22,44 @@
     zen-browser,
     ...
   }: let
+    lib = nixpkgs.lib;
+
     mkHost = host:
-      nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
+      let
+        username = lib.trim (builtins.readFile ./hosts/${host}/username);
+      in
+        nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
 
-        specialArgs = {
-          inherit zen-browser;
-        };
+          specialArgs = {
+            inherit zen-browser username;
+          };
 
-        modules = [
-          ./hosts/${host}/configuration.nix
-          ./configuration.nix
+          modules = [
+            ./hosts/${host}/configuration.nix
+            ./configuration.nix
 
-          home-manager.nixosModules.home-manager
+            home-manager.nixosModules.home-manager
 
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
 
-              extraSpecialArgs = {
-                inherit zen-browser;
+                extraSpecialArgs = {
+                  inherit zen-browser username;
+                };
+
+                users.${username} = import ./home.nix;
+
+                overwriteBackup = true;
+                backupFileExtension = "backup";
               };
-
-              users.magictt = import ./home.nix;
-
-              overwriteBackup = true;
-              backupFileExtension = "backup";
-            };
-          }
-        ];
-      };
+            }
+          ];
+        };
     hosts = builtins.attrNames (
-      nixpkgs.lib.filterAttrs (
+      lib.filterAttrs (
         name: type:
           type == "directory"
       ) (builtins.readDir ./hosts)

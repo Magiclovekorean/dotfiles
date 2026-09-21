@@ -4,7 +4,7 @@ NixOS dotfiles repo (flake). `flake.nix` **auto-discovers hosts**: every directo
 
 ## Structure
 
-- Each `hosts/<host>/configuration.nix` holds host-only settings (imports its own `hardware-configuration.nix`); shared system options live in `configuration.nix`; home-manager config (`user magictt`) in `home.nix`.
+- Each `hosts/<host>/configuration.nix` holds host-only settings (imports its own `hardware-configuration.nix`); shared system options live in `configuration.nix`; home-manager config (`user <username>`) in `home.nix`. Each host also carries a `hosts/<host>/username` text file (placeholder `<USERNAME>` in `hosts/example`) that `flake.nix` reads and threads into `configuration.nix`/`home.nix` as `username`; `home-manager.users.${username}` follows from it.
 - `home.nix` auto-maps whole directories:
   - `home/config/*` → `~/.config/*` via out-of-store symlinks (`config.lib.file.mkOutOfStoreSymlink`) — add a config by dropping a dir under `home/config/<name>`, no manual entry.
   - `bin/*` → `~/.local/bin/*` (executable).
@@ -18,7 +18,7 @@ NixOS dotfiles repo (flake). `flake.nix` **auto-discovers hosts**: every directo
 sudo nixos-rebuild switch --flake .#hp-nixos-laptop   # or .#hp-red-laptop
 ```
 
-- The zsh aliases `nrs` / `nix-upgrade` (in `home/.zshrc`) instead resolve the host from `~/.hostname`: `nixos-rebuild switch --flake .#$(< /home/magictt/.hostname)`. Prefer those aliases; the hostname is not committed anywhere else.
+- The zsh aliases `nrs` / `nix-upgrade` (in `home/.zshrc`) instead resolve the host from `~/.hostname`: `nixos-rebuild switch --flake $HOME/Desktop/repos/dotfiles#$(< $HOME/.hostname)`. Prefer those aliases; the hostname is not committed anywhere else.
 - No CI or test suite. The only verification is a full build: `sudo nixos-rebuild build --flake .#<host>` (builds without switching). It's slow — don't run it casually.
 - `hosts/example/` is the install template copied by `autoSetup.sh` — it imports a missing `hardware-configuration.nix`, so it is **not a buildable host** (never run a build for it).
 - Inputs pinned in `flake.lock`: `nixpkgs` (nixos-unstable), `home-manager`, `zen-browser` (via `specialArgs`/`extraSpecialArgs`). `home-manager` uses `useGlobalPkgs`/`useUserPackages`, `overwriteBackup = true`, `backupFileExtension = "backup"`.
@@ -26,14 +26,14 @@ sudo nixos-rebuild switch --flake .#hp-nixos-laptop   # or .#hp-red-laptop
 
 ## Install flow
 
-- `autoSetup.sh` (driven from the NixOS ISO): copies `hosts/example` → `hosts/<hostname>`, generates `hardware-configuration.nix` from `/mnt`, writes the hostname to `~/.hostname`, then runs `nixos-install --flake .#<hostname>` and sets the `magictt` password (use `nixos-generate-config --root /mnt`).
-- Known bug: an "Enter username" prompt later echoes `$username` **into `~/.hostname`**, overwriting the hostname the `nrs` alias depends on. If `~/.hostname` stops matching a `hosts/` dir, rebuild aliases break.
+- `autoSetup.sh` (driven from the NixOS ISO): copies `hosts/example` → `hosts/<hostname>`, generates `hardware-configuration.nix` from `/mnt`, writes hostname+username into the target home (`~/.hostname`, `~/.username`), substitutes the `<USERNAME>` placeholder in the new host's `username` file (committed via `git add .` so the flake sees it), then runs `nixos-install --flake .#<hostname>` and sets the user password (use `nixos-generate-config --root /mnt`).
+- Known bug: an "Enter username" prompt previously echoed `$username` into `~/.hostname`, overwriting the hostname the `nrs` alias depends on (fixed: it now writes `~/.username`). If `~/.hostname` stops matching a `hosts/` dir, rebuild aliases break.
 
 ## Gotchas
 
 - Two branches exist: `main` holds the current NixOS flake setup; `origin/arch` keeps the pre-migration Arch + `stow` dotfiles (they diverged at `e1be3c8`). `arch` is legacy/reference only — make changes on `main`.
 - `sudo` NOPASSWD applies only to `/home/magictt/.local/bin/toggle-airplane` — don't extend without justification.
-- Username (`magictt`), git identity (Martí Forn / magiclovekorean@gmail.com), and home dir are hardcoded (in `home.nix`); making them choosable is open TODO work.
+- Username is per-host (`hosts/<host>/username`; currently `magictt` everywhere except `example`). Git identity (Martí Forn / magiclovekorean@gmail.com) is still hardcoded in `home.nix`; the nvim config namespace (`magictt.core`) is unrelated to the account. Runtime files use `$HOME` (`.zshrc`, `.tmux.conf`, waybar on-click) so they stay username-agnostic.
 - `home/config/hypr` uses `hyprland.lua` (+ hyprlock/hypridle confs), not `hyprland.conf`.
 - `tmp/` is gitignored — safe scratch space.
 - `home.nix` pins rev+hash for several `fetchFromGitHub` / Cargo deps (waybar, zscroll, nmrs-gui, ohmyzsh `sudo` plugin); bump the lock-style hashes when upgrading.

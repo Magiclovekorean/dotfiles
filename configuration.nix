@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  username,
   ...
 }: {
   boot.loader = {
@@ -57,11 +58,6 @@
   security.pam.services.ly.enableGnomeKeyring = true;
 
   services.displayManager.ly.enable = true;
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-  };
-
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -80,10 +76,10 @@
 
   security.sudo.extraRules = [
     {
-      users = ["magictt"];
+      users = [username];
       commands = [
         {
-          command = "/home/magictt/.local/bin/toggle-airplane";
+          command = "/home/${username}/.local/bin/toggle-airplane";
           options = ["NOPASSWD"];
         }
       ];
@@ -94,12 +90,12 @@
   services.printing.enable = true;
   services.avahi = {
     enable = true;
-    nssmdns = true; # resolve printer .local hostnames
+    nssmdns4 = true; # resolve printer .local hostnames
     openFirewall = true; # let UDP 5353 mDNS through the firewall
   };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.magictt = {
+  users.users.${username} = {
     isNormalUser = true;
     extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
@@ -113,7 +109,7 @@
 
   # List services that you want to enable:
   hardware.openrazer.enable = true;
-  hardware.openrazer.users = ["magictt"];
+  hardware.openrazer.users = [username];
   services.input-remapper.enable = true;
 
   # Enable the OpenSSH daemon.
