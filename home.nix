@@ -206,6 +206,7 @@ in {
   };
 
   programs.librewolf.enable = true;
+  programs.chromium.enable = true;
 
   xdg.configFile = builtins.mapAttrs (name: _: {
     source = create_symlink "${dotfiles}/${name}";
@@ -253,7 +254,6 @@ in {
 
     polychromatic
 
-    google-chrome
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     wlogout
     localsend
