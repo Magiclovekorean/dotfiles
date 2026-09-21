@@ -146,6 +146,14 @@ in {
     createDirectories = true;
   };
 
+  home.pointerCursor = {
+    package = pkgs.rose-pine-cursor;
+    name = "BreezeX-RosePine-Linux";
+    size = 30;
+    x11.enable = true;
+    gtk.enable = true;
+  };
+
   gtk = {
     enable = true;
     colorScheme = "dark";
@@ -258,7 +266,6 @@ in {
     wlogout
     localsend
     ghostty
-    rose-pine-cursor
     libsForQt5.qt5ct
     papirus-icon-theme
 
