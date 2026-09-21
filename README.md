@@ -9,8 +9,7 @@
 
 ## About
 These are the dotfiles I use on NixOS
-The dotfiles contain config for Neovim, Hyprland and Sway(hyprland is much better configured and has much more features, it's the compositor I use the most,
-however, I sometimes enjoy the minimalism I can achive with Sway), openrazer, tmux, etc.
+The dotfiles contain config for Neovim, Hyprland, openrazer, tmux, etc.
 
 
 ## Installation

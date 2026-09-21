@@ -1,7 +1,3 @@
 #!/usr/bin/env bash
 
-if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
-    hyprshutdown
-elif [ "$XDG_CURRENT_DESKTOP" = "sway" ]; then
-    swaymsg exit
-fi
+hyprshutdown
