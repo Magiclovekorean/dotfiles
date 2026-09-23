@@ -176,6 +176,7 @@ in {
 
   services.playerctld.enable = true;
   services.cliphist.enable = true;
+  services.mako.enable = true;
 
   programs.hyprlock.enable = true;
   services.hyprsunset.enable = true;
@@ -281,7 +282,6 @@ in {
 
     pavucontrol
 
-    mako
     playerctl
     brightnessctl
     xdg-desktop-portal-hyprland
