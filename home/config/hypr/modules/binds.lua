@@ -51,24 +51,25 @@ local toggle_blur = function()
     })
 end
 
+-- toggle borders
+local borders_enabled = true
+local borders_defaults = { gaps_in = 3, gaps_out = 5, border_size = 3, rounding = 8 }
 local toggle_borders = function()
-    borders_enabled = not blur_enabled
+    borders_enabled = not borders_enabled
 
     hl.config({
         general = {
-            gaps_in = 0,
-            gaps_out = 0,
+            gaps_in = borders_enabled and borders_defaults.gaps_in or 0,
+            gaps_out = borders_enabled and borders_defaults.gaps_out or 0,
 
-            border_size = 0,
+            border_size = borders_enabled and borders_defaults.border_size or 0,
         },
 
         decoration = {
-            rounding = 0,
+            rounding = borders_enabled and borders_defaults.rounding or 0,
         },
     })
 end
-toggle_blur()
-print(borders_enabled)
 
 -- power options
 local shutdown = "systemctl poweroff"
