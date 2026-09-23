@@ -97,7 +97,7 @@ alias undo-night='killall hyprsunset'
 
 alias kb-toggle='hyprctl switchxkblayout all next && notify-send "Keyboard layout switched"'
 
-alias nix-upgrade='nix flake update $HOME/Desktop/repos/dotfiles && sudo nixos-rebuild switch --flake $HOME/Desktop/repos/dotfiles#$(< $HOME/.hostname)'
+alias nix-upgrade='nix flake update --flake $HOME/Desktop/repos/dotfiles && sudo nixos-rebuild switch --flake $HOME/Desktop/repos/dotfiles#$(< $HOME/.hostname)'
 alias nrs='sudo nixos-rebuild switch --flake $HOME/Desktop/repos/dotfiles#$(< $HOME/.hostname)'
 alias nix-clean='sudo nix-collect-garbage -d'
 
