@@ -26,14 +26,14 @@ sudo nixos-rebuild switch --flake .#hp-nixos-laptop   # or .#hp-red-laptop
 
 ## Install flow
 
-- `autoSetup.sh` (driven from the NixOS ISO): copies `hosts/example` → `hosts/<hostname>`, generates `hardware-configuration.nix` from `/mnt`, writes hostname+username into the target home (`~/.hostname`, `~/.username`), substitutes the `<USERNAME>` placeholder in the new host's `username` file (committed via `git add .` so the flake sees it), then runs `nixos-install --flake .#<hostname>` and sets the user password (use `nixos-generate-config --root /mnt`).
+- `autoSetup.sh` (driven from the NixOS ISO): copies `hosts/example` → `hosts/<hostname>`, generates `hardware-configuration.nix` from `/mnt`, writes hostname+username into the target home (`~/.hostname`, `~/.username`), substitutes the `<USERNAME>` placeholder in the new host's `username` file and the `<GITNAME>`/`<GITEMAIL>` placeholders in its `git-name`/`git-email` files (committed via `git add .` so the flake sees them), then runs `nixos-install --flake .#<hostname>` and sets the user password (use `nixos-generate-config --root /mnt`).
 - Known bug: an "Enter username" prompt previously echoed `$username` into `~/.hostname`, overwriting the hostname the `nrs` alias depends on (fixed: it now writes `~/.username`). If `~/.hostname` stops matching a `hosts/` dir, rebuild aliases break.
 
 ## Gotchas
 
 - Two branches exist: `main` holds the current NixOS flake setup; `origin/arch` keeps the pre-migration Arch + `stow` dotfiles (they diverged at `e1be3c8`). `arch` is legacy/reference only — make changes on `main`.
 - `sudo` NOPASSWD applies only to `/home/magictt/.local/bin/toggle-airplane` — don't extend without justification.
-- Username is per-host (`hosts/<host>/username`; currently `magictt` everywhere except `example`). Git identity (Martí Forn / magiclovekorean@gmail.com) is still hardcoded in `home.nix`; the nvim config namespace (`magictt.core`) is unrelated to the account. Runtime files use `$HOME` (`.zshrc`, `.tmux.conf`, waybar on-click) so they stay username-agnostic.
+- Username and git identity are per-host (`hosts/<host>/username`, `git-name`, `git-email`; username is `magictt` everywhere except `example`, git identity is Martí Forn / magiclovekorean@gmail.com). `flake.nix` reads all three and threads them via `specialArgs`/`extraSpecialArgs`. The nvim config namespace (`magictt.core`) is unrelated to the account. Runtime files use `$HOME` (`.zshrc`, `.tmux.conf`, waybar on-click) so they stay username-agnostic.
 - `home/config/hypr` uses `hyprland.lua` (+ hyprlock/hypridle confs), not `hyprland.conf`.
 - `tmp/` is gitignored — safe scratch space.
 - `home.nix` pins rev+hash for several `fetchFromGitHub` / Cargo deps (waybar, zscroll, nmrs-gui, ohmyzsh `sudo` plugin); bump the lock-style hashes when upgrading.

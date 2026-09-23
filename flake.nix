@@ -24,40 +24,42 @@
   }: let
     lib = nixpkgs.lib;
 
-    mkHost = host:
-      let
-        username = lib.trim (builtins.readFile ./hosts/${host}/username);
-      in
-        nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
+    mkHost = host: let
+      username = lib.trim (builtins.readFile ./hosts/${host}/username);
 
-          specialArgs = {
-            inherit zen-browser username;
-          };
+      gitName = lib.trim (builtins.readFile ./hosts/${host}/git-name);
+      gitEmail = lib.trim (builtins.readFile ./hosts/${host}/git-email);
+    in
+      nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
 
-          modules = [
-            ./hosts/${host}/configuration.nix
-            ./configuration.nix
-
-            home-manager.nixosModules.home-manager
-
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-
-                extraSpecialArgs = {
-                  inherit zen-browser username;
-                };
-
-                users.${username} = import ./home.nix;
-
-                overwriteBackup = true;
-                backupFileExtension = "backup";
-              };
-            }
-          ];
+        specialArgs = {
+          inherit zen-browser username gitName gitEmail;
         };
+
+        modules = [
+          ./hosts/${host}/configuration.nix
+          ./configuration.nix
+
+          home-manager.nixosModules.home-manager
+
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+
+              extraSpecialArgs = {
+                inherit zen-browser username gitName gitEmail;
+              };
+
+              users.${username} = import ./home.nix;
+
+              overwriteBackup = true;
+              backupFileExtension = "backup";
+            };
+          }
+        ];
+      };
     hosts = builtins.attrNames (
       lib.filterAttrs (
         name: type:

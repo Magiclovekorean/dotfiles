@@ -22,6 +22,12 @@ cp /mnt/etc/nixos/hardware-configuration.nix "hosts/$user_hostname/hardware-conf
 read -rp "Enter username: " username
 [[ -n "$username" ]] || { echo "username cannot be empty" >&2; exit 1; }
 
+# Ask for git identity
+read -rp "Enter git name: " git_name
+[[ -n "$git_name" ]] || { echo "git name cannot be empty" >&2; exit 1; }
+read -rp "Enter git email: " git_email
+[[ -n "$git_email" ]] || { echo "git email cannot be empty" >&2; exit 1; }
+
 # Write hostname/username into the target's home dir
 mkdir -p "/mnt/home/$username"
 echo "$user_hostname" > "/mnt/home/$username/.hostname"
@@ -30,6 +36,10 @@ echo "$username" > "/mnt/home/$username/.username"
 # Substitute the username into the copied host; the flake reads
 # hosts/<host>/username at evaluation time
 sed -i "s/<USERNAME>/$username/g" "hosts/$user_hostname/username" hosts/$user_hostname/*.nix
+
+# Substitute the git identity; same pattern, separate files
+sed -i "s/<GITNAME>/$git_name/g" "hosts/$user_hostname/git-name"
+sed -i "s/<GITEMAIL>/$git_email/g" "hosts/$user_hostname/git-email"
 
 # Git add the new host so the flake includes it. Running as root against a
 # repo owned by another user would trip git's "dubious ownership" check.

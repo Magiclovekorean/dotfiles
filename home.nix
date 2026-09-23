@@ -2,6 +2,8 @@
   config,
   pkgs,
   username,
+  gitName,
+  gitEmail,
   zen-browser,
   ...
 }: let
@@ -31,8 +33,10 @@ in {
   home.stateVersion = "26.05";
   programs.git = {
     enable = true;
-    settings.user.name = "Martí Forn";
-    settings.user.email = "magiclovekorean@gmail.com";
+    settings.user = {
+      name = gitName;
+      email = gitEmail;
+    };
   };
   programs.zsh = {
     enable = true;
