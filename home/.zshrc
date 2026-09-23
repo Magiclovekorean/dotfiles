@@ -58,6 +58,9 @@ function dir_icon {
   fi
 }
 
+# Start zoxide
+eval "$(zoxide init zsh)"
+
 setopt PROMPT_SUBST
 
 PS1='%B%F{blue}%f%b  %B%F{magenta}%n%f%b $(dir_icon)  %B%F{red}%~%f%b${vcs_info_msg_0_} %(?.%B%F{green}.%F{red})%f%b '
@@ -76,7 +79,8 @@ bindkey "^[[F" end-of-line
 #  ├─┤│  │├─┤└─┐
 #  ┴ ┴┴─┘┴┴ ┴└─┘
 
-alias cat="bat --theme=base16"
+alias cat='bat --theme=base16'
+alias cd='z'
 alias ls='eza --icons=always --color=always -a'
 alias ll='eza --icons=always --color=always -la'
 

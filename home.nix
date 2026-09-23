@@ -360,6 +360,7 @@ in {
 
     eza
     bat
+    zoxide
 
     pnpm
     lazygit
