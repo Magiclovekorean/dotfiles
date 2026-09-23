@@ -282,7 +282,7 @@ in {
     xdg-desktop-portal-hyprland
     satty
     kdePackages.plasma-integration
-    nautilus
+    kdePackages.dolphin
     imv
     mpv
     vlc
