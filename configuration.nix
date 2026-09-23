@@ -97,7 +97,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
-    extraGroups = ["wheel"]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "storage"]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
@@ -111,6 +111,8 @@
   hardware.openrazer.enable = true;
   hardware.openrazer.users = [username];
   services.input-remapper.enable = true;
+
+  services.udisks2.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
