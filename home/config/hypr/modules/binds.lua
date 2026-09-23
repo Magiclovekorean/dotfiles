@@ -51,6 +51,25 @@ local toggle_blur = function()
     })
 end
 
+local toggle_borders = function()
+    borders_enabled = not blur_enabled
+
+    hl.config({
+        general = {
+            gaps_in = 0,
+            gaps_out = 0,
+
+            border_size = 0,
+        },
+
+        decoration = {
+            rounding = 0,
+        },
+    })
+end
+toggle_blur()
+print(borders_enabled)
+
 -- power options
 local shutdown = "systemctl poweroff"
 local reboot = "systemctl reboot"
@@ -197,6 +216,7 @@ hl.define_submap("wallpaper", function()
     hl.bind("H", hl.dsp.exec_cmd(previous_wallpaper))
     hl.bind("SPACE", hl.dsp.exec_cmd(toggle_cycling_wallpaper))
     hl.bind("B", toggle_blur)
+    hl.bind("SHIFT + B", toggle_borders)
 
     hl.bind("ESCAPE", hl.dsp.submap("reset"))
 end)
