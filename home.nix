@@ -178,23 +178,6 @@ in {
     };
   };
 
-  # Nothing in this session pulls in graphical-session.target, but
-  # xdg-desktop-portal.service is Requisite= it, so the portal never started and
-  # libadwaita apps (Nautilus) never learned the system color scheme. Worse,
-  # AdwStyleManager then overwrites GtkSettings:gtk-interface-color-scheme, so
-  # gtk4.extraConfig / settings.ini could not win either. libadwaita only reads
-  # org.gnome.desktop.interface itself when the portal is disabled, which is why
-  # that was needed as a workaround.
-  #
-  # The stock unit is static with RefuseManualStart=yes and StopWhenUnneeded=yes,
-  # so it can only be activated by being wanted. Redefining it here lets
-  # default.target want it, which keeps it active for the whole session so the
-  # portal can start and answer the Settings interface.
-  systemd.user.targets.graphical-session = {
-    wantedBy."default.target" = true;
-    Unit.Wants = ["xdg-desktop-portal.service"];
-  };
-
   services.playerctld.enable = true;
   services.cliphist.enable = true;
   services.mako.enable = true;
