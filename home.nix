@@ -347,7 +347,6 @@ in {
     wlogout
     localsend
     ghostty
-    libsForQt5.qt5ct
     papirus-icon-theme
 
     # Hyprland is not a DE Electron recognizes; without this Cursor skips the OS keyring.
