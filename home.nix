@@ -186,9 +186,19 @@ in {
   # so it can only be activated by being wanted. Redefining it here lets
   # default.target want it, which keeps it active for the whole session so the
   # portal can start and answer the Settings interface.
+  #
+  # Note the spelling: systemd.user.targets has no `wantedBy` option. Its type is
+  # freeform attrsOf (attrsOf (either primitive (listOf primitive))), so
+  # `wantedBy."default.target" = true;` type-checks and passes `nix eval` but gets
+  # rendered as a literal [wantedBy] INI section instead of [Install]. Home
+  # Manager builds the enablement symlink with
+  #   map (install "wants") (serviceCfg.Install.WantedBy or [ ])
+  # so with Install.WantedBy unset no default.target.wants symlink is created, the
+  # target is never started, and `systemctl --user enable` reports "The unit files
+  # have no installation config". Install.WantedBy must be a list of strings.
   systemd.user.targets.graphical-session = {
-    wantedBy."default.target" = true;
     Unit.Wants = ["xdg-desktop-portal.service"];
+    Install.WantedBy = ["default.target"];
   };
 
   services.playerctld.enable = true;
