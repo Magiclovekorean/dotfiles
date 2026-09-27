@@ -174,19 +174,22 @@ in {
     };
   };
 
-  # libadwaita reads its color scheme from the xdg-desktop-portal Settings
-  # interface, and only reads org.gnome.desktop.interface itself when the portal
-  # is explicitly disabled. xdg-desktop-portal.service is
-  # Requisite=graphical-session.target and nothing in this session starts that
-  # target, so the portal never runs and no scheme is ever reported. That makes
-  # AdwStyleManager render light AND overwrite
-  # GtkSettings:gtk-interface-color-scheme, which is why gtk4.extraConfig and
-  # settings.ini have no effect on GTK4/libadwaita apps such as Nautilus.
-  # Bypassing the portal lets libadwaita read color-scheme straight from dconf,
-  # which gtk.colorScheme = "dark" already sets to prefer-dark. No schema
-  # variable is needed: the app wrappers already put gsettings-desktop-schemas on
-  # XDG_DATA_DIRS.
-  home.sessionVariables.ADW_DISABLE_PORTAL = "1";
+  # Nothing in this session pulls in graphical-session.target, but
+  # xdg-desktop-portal.service is Requisite= it, so the portal never started and
+  # libadwaita apps (Nautilus) never learned the system color scheme. Worse,
+  # AdwStyleManager then overwrites GtkSettings:gtk-interface-color-scheme, so
+  # gtk4.extraConfig / settings.ini could not win either. libadwaita only reads
+  # org.gnome.desktop.interface itself when the portal is disabled, which is why
+  # that was needed as a workaround.
+  #
+  # The stock unit is static with RefuseManualStart=yes and StopWhenUnneeded=yes,
+  # so it can only be activated by being wanted. Redefining it here lets
+  # default.target want it, which keeps it active for the whole session so the
+  # portal can start and answer the Settings interface.
+  systemd.user.targets.graphical-session = {
+    wantedBy."default.target" = true;
+    Unit.Wants = ["xdg-desktop-portal.service"];
+  };
 
   services.playerctld.enable = true;
   services.cliphist.enable = true;
