@@ -366,7 +366,6 @@ in {
     imv
     mpv
     vlc
-    kdePackages.konsole
     spotify
     hyprpicker
     grim
