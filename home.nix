@@ -174,6 +174,20 @@ in {
     };
   };
 
+  # libadwaita reads its color scheme from the xdg-desktop-portal Settings
+  # interface, and only reads org.gnome.desktop.interface itself when the portal
+  # is explicitly disabled. xdg-desktop-portal.service is
+  # Requisite=graphical-session.target and nothing in this session starts that
+  # target, so the portal never runs and no scheme is ever reported. That makes
+  # AdwStyleManager render light AND overwrite
+  # GtkSettings:gtk-interface-color-scheme, which is why gtk4.extraConfig and
+  # settings.ini have no effect on GTK4/libadwaita apps such as Nautilus.
+  # Bypassing the portal lets libadwaita read color-scheme straight from dconf,
+  # which gtk.colorScheme = "dark" already sets to prefer-dark. No schema
+  # variable is needed: the app wrappers already put gsettings-desktop-schemas on
+  # XDG_DATA_DIRS.
+  home.sessionVariables.ADW_DISABLE_PORTAL = "1";
+
   services.playerctld.enable = true;
   services.cliphist.enable = true;
   services.mako.enable = true;
