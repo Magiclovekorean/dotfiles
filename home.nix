@@ -115,6 +115,28 @@ in {
     theme = ./home/rofi/themes/squared-nord.rasi;
   };
 
+  home.activation = {
+    # Make nautilus the handler for inode/directory, so xdg-open on a folder and
+    # "open containing folder" open it instead of whatever else claims the
+    # mimetype. Without this they resolve to cursor.desktop.
+    #
+    # The desktop entry is org.gnome.Nautilus.desktop (GNOME 47+ renamed it from
+    # nautilus.desktop), so xdg-mime needs that exact id. XDG_DATA_DIRS is
+    # pointed at the package so the entry resolves regardless of what the
+    # activation environment has on PATH.
+    #
+    # Deliberately not using xdg.mimeApps: that option links mimeapps.list into
+    # the store read-only, which would replace the hand-maintained
+    # ~/.config/mimeapps.list and break `xdg-mime set-default` for apps.
+    setNautilusAsDefault = ''
+      export XDG_DATA_DIRS="${pkgs.nautilus}/share:''${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+      current=$(${pkgs.xdg-utils}/bin/xdg-mime query default inode/directory 2>/dev/null || true)
+      if [ "$current" != "org.gnome.Nautilus.desktop" ]; then
+        ${pkgs.xdg-utils}/bin/xdg-mime default org.gnome.Nautilus.desktop inode/directory || true
+      fi
+    '';
+  };
+
   qt = {
     enable = true;
     platformTheme = {
@@ -340,7 +362,7 @@ in {
     xdg-desktop-portal-hyprland
     satty
     kdePackages.plasma-integration
-    kdePackages.dolphin
+    nautilus
     imv
     mpv
     vlc
