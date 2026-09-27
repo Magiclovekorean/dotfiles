@@ -1,2 +1,7 @@
 tmp
 
+# Stretchly: everything under ~/.config/Stretchly is Electron runtime state
+# (caches, cookies, etc.) except the preferences file.
+home/config/Stretchly/*
+!home/config/Stretchly/config.json
+

@@ -163,6 +163,10 @@ in {
     enable = true;
     colorScheme = "dark";
 
+    gtk4.extraConfig = {
+      gtk-interface-color-scheme = "dark";
+    };
+
     theme = {
       package = pkgs.gnome-themes-extra;
       name = "Adwaita-dark";
@@ -248,6 +252,28 @@ in {
 
   programs.librewolf.enable = true;
   programs.chromium.enable = true;
+
+  programs.anki = {
+    enable = true;
+    style = "anki";
+    theme = "dark";
+    addons = [
+      pkgs.ankiAddons.review-heatmap
+      pkgs.ankiAddons.passfail2
+
+      (pkgs.anki-utils.buildAnkiAddon (finalAttrs: {
+        pname = "more-overview-stats";
+        version = "2.1";
+
+        src = pkgs.fetchFromGitHub {
+          owner = "patrick-nohira";
+          repo = "Anki_More_Overview_Stats";
+          rev = "58242a21d1895bdba7a5a2c15781ea10132ab980";
+          hash = "sha256-UFT3FBljrCC/WcLjzh61ElPcJURYYgqqQfSVh+ePK0k=";
+        };
+      }))
+    ];
+  };
 
   xdg.configFile = builtins.mapAttrs (name: _: {
     source = create_symlink "${dotfiles}/${name}";
@@ -401,6 +427,8 @@ in {
     gcc
 
     usbimager
+
+    stretchly
 
     xournalpp
     libreoffice
