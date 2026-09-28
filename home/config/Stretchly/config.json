@@ -32,7 +32,7 @@
 	"ideas": true,
 	"naturalBreaks": true,
 	"naturalBreaksInactivityResetTime": 300000,
-	"allScreens": true,
+	"allScreens": false,
 	"useIdeasFromSettings": false,
 	"language": "en",
 	"notifyNewVersion": false,
