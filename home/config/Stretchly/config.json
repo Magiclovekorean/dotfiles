@@ -28,7 +28,7 @@
 	"longBreakAudio": "reverie",
 	"miniBreakAudio": "reverie",
 	"volume": 1,
-	"fullscreen": false,
+	"fullscreen": true,
 	"ideas": true,
 	"naturalBreaks": true,
 	"naturalBreaksInactivityResetTime": 300000,
