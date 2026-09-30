@@ -58,3 +58,6 @@ For more information, visit [`NixOS` wiki](https://wiki.nixos.org/wiki/Dual_Boot
 ### Wallpapers
 - The wallpapers I have are [Archie Chrisanthou's Digitally Painted Desktop Wallpapers](https://archdrawsalot.gumroad.com/l/arcnar), an everforest wallpaper form pixie-sddm theme, [this wallpaper from wallhaeven](https://wallhaven.cc/w/vgyyxl) and [this solar eclipse one from wallhaven](https://wallhaven.cc/w/48kg82), I have them In ~/Desktop/walls/ move the wallpapers of your choice there and change ~/.config/hypr/hyprpaper.conf to modify the path option.
 
+### Work in progress
+- [`add-quickshell`](https://github.com/Magiclovekorean/dotfiles/tree/add-quickshell) is a work in progress branch that adds [Quickshell](https://quickshell.org) as the main bar. The shell it adds is still the one from the [Quickshell introduction guide](https://quickshell.org/docs/v0.3.0/guide/introduction/), so it is not a replacement for the waybar config that `main` uses yet.
+
