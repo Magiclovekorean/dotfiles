@@ -135,6 +135,28 @@ in {
         ${pkgs.xdg-utils}/bin/xdg-mime default org.gnome.Nautilus.desktop inode/directory || true
       fi
     '';
+
+    # Quickshell only turns on QML tooling when a .qmlls.ini sits next to
+    # shell.qml. Without it quickshell logs "Not enabling QML tooling support,
+    # qmlls.ini is missing at path ..." and qmlls resolves nothing: every
+    # Quickshell and QtQuick type comes back as an unresolved import, and the
+    # nixpkgs qmllint/qmlls binaries ignore QML2_IMPORT_PATH unless passed -E,
+    # so the env var alone is not enough. Quickshell rewrites the file with
+    # machine-specific store paths on every run, which is why upstream tells you
+    # to gitignore it - re-created here instead so a fresh activation still
+    # yields a working LSP.
+    #
+    # The managed file is a symlink into quickshell's vfs, which lives in
+    # tmpfs, so it dangles after a reboot until quickshell runs again. -e
+    # follows symlinks and is therefore false for a dangling one; rm -f first so
+    # that state becomes an empty file again instead of a failed touch.
+    initQuickshellQmllsConfig = ''
+      mkdir -p "$HOME/.config/quickshell"
+      if [ ! -e "$HOME/.config/quickshell/.qmlls.ini" ]; then
+        rm -f "$HOME/.config/quickshell/.qmlls.ini"
+        touch "$HOME/.config/quickshell/.qmlls.ini"
+      fi
+    '';
   };
 
   qt = {
