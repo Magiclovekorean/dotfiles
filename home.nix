@@ -440,6 +440,8 @@ in {
     bat
     zoxide
 
+    quickshell
+
     pnpm
     lazygit
     nixpkgs-fmt
