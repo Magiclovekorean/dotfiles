@@ -12,15 +12,19 @@ return {
         json = { "prettier" },
         lua = { "stylua" },
         python = { "ruff_organize_imports", "ruff_format" },
-        nix = { "alejandra" }
+        nix = { "alejandra" },
+        qml = { "qmlformat" },
       },
-        
+      
     formatters = {
         prettier = {
           prepend_args = { "--tab-width", "4" },
         },
         stylua = {
           prepend_args = { "--indent-type", "Spaces", "--indent-width", "4" },
+        },
+        qmlformat = {
+          prepend_args = { "--indent-width", "4" },
         },
     },
 },

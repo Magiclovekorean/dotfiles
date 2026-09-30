@@ -23,7 +23,8 @@ return {
         "texlab",
         "ltex_plus",
         "nixd",
-        "ruff"
+        "ruff",
+        "qmlls"
       }
       for _, server in ipairs(servers) do
         vim.lsp.config(server, {

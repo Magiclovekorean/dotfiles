@@ -340,6 +340,7 @@ in {
     texlab # Latex LSP
     ltex-ls-plus # Languagetool LSP
     nixd
+    kdePackages.qtdeclarative # QML LSP (qmlls) + QML formatter (qmlformat)
 
     # Nvim formatters
     prettier
