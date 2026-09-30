@@ -11,6 +11,11 @@
 These are the dotfiles I use on NixOS
 The dotfiles contain config for Neovim, Hyprland, openrazer, tmux, etc.
 
+This branch adds [Quickshell](https://quickshell.org) as the main bar, and
+`home/config/quickshell/shell.qml` is currently following the
+[Quickshell introduction guide](https://quickshell.org/docs/v0.3.0/guide/introduction/),
+so it is still the tutorial's example shell rather than a finished bar.
+
 
 ## Installation
 1. Enter the minimal NixOS ISO
