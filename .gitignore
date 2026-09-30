@@ -5,3 +5,7 @@ tmp
 home/config/Stretchly/*
 !home/config/Stretchly/config.json
 
+# Quickshell rewrites .qmlls.ini with machine-specific store paths (importPaths,
+# buildDir) for qmlls. The home.activation hook re-creates it if missing.
+home/config/quickshell/.qmlls.ini
+
