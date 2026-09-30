@@ -38,6 +38,7 @@ return {
       "astro",
       "typst",
       "comment",
+      "qmljs",
     })
 
     -- Enable treesitter features for supported filetypes
@@ -46,7 +47,7 @@ return {
         'python', 'json', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'tsx',
         'yaml', 'html', 'css', 'prisma', 'markdown', 'markdown_inline',
         'svelte', 'graphql', 'bash', 'lua', 'latex', 'vim',
-        'dockerfile', 'gitignore', 'c', 'astro', 'typst', 'comment'
+        'dockerfile', 'gitignore', 'c', 'astro', 'typst', 'comment', 'qml'
       },
 
       callback = function(args)
