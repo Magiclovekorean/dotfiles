@@ -27,6 +27,10 @@
   dotfiles = "${config.home.homeDirectory}/Desktop/repos/dotfiles/home/config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
   bin_dir = ".local/bin";
+  # QML module dirs qmlls needs to resolve "import Quickshell" and "import
+  # QtQuick". Derived from pkgs so they follow the flake's pins.
+  quickshellQmlDir = "${pkgs.quickshell}/lib/qt-6/qml";
+  qtdeclarativeQmlDir = "${pkgs.kdePackages.qtdeclarative}/lib/qt-6/qml";
 in {
   home.username = username;
   home.homeDirectory = "/home/${username}";
@@ -136,25 +140,35 @@ in {
       fi
     '';
 
-    # Quickshell only turns on QML tooling when a .qmlls.ini sits next to
-    # shell.qml. Without it quickshell logs "Not enabling QML tooling support,
-    # qmlls.ini is missing at path ..." and qmlls resolves nothing: every
-    # Quickshell and QtQuick type comes back as an unresolved import, and the
-    # nixpkgs qmllint/qmlls binaries ignore QML2_IMPORT_PATH unless passed -E,
-    # so the env var alone is not enough. Quickshell rewrites the file with
-    # machine-specific store paths on every run, which is why upstream tells you
-    # to gitignore it - re-created here instead so a fresh activation still
-    # yields a working LSP.
+    # qmlls finds out where QML modules live from a .qmlls.ini next to
+    # shell.qml, and nothing else: the nixpkgs qmllint/qmlls binaries ignore
+    # QML2_IMPORT_PATH unless -E is passed, so the env var alone does nothing.
+    # With the ini absent or empty qmlls resolves zero modules, and every type
+    # in the file comes back as an unresolved import.
     #
-    # The managed file is a symlink into quickshell's vfs, which lives in
-    # tmpfs, so it dangles after a reboot until quickshell runs again. -e
-    # follows symlinks and is therefore false for a dangling one; rm -f first so
-    # that state becomes an empty file again instead of a failed touch.
+    # Upstream, quickshell owns this file - you create it empty and quickshell
+    # replaces it with a managed config built from QQmlEngine().importPathList()
+    # (src/core/toolsupport.cpp in quickshell). quickshell is deliberately not
+    # autostarted here (waybar already is, and shell.qml is the tutorial clock
+    # rather than a shell to run), so nothing ever fills the file. Writing the
+    # importPaths here instead gives the same result without launching a second
+    # panel. no-cmake-calls=true matches what quickshell writes; there is no
+    # CMake project to watch.
+    #
+    # -s (non-empty), not -e: a plain -e check leaves a leftover zero-byte file
+    # alone forever, which is the broken state this replaces. When quickshell
+    # does get run manually it will overwrite this file with its own
+    # vfs-backed version, which is equivalent.
     initQuickshellQmllsConfig = ''
       mkdir -p "$HOME/.config/quickshell"
-      if [ ! -e "$HOME/.config/quickshell/.qmlls.ini" ]; then
-        rm -f "$HOME/.config/quickshell/.qmlls.ini"
-        touch "$HOME/.config/quickshell/.qmlls.ini"
+      ini="$HOME/.config/quickshell/.qmlls.ini"
+      if [ ! -s "$ini" ]; then
+        rm -f "$ini"
+        cat > "$ini" <<EOF
+      [General]
+      no-cmake-calls=true
+      importPaths=${quickshellQmlDir}:${qtdeclarativeQmlDir}
+      EOF
       fi
     '';
   };
