@@ -5,3 +5,9 @@ tmp
 home/config/Stretchly/*
 !home/config/Stretchly/config.json
 
+# AnkiWeb credentials. These live in ~/.config/anki, outside the repo, and are
+# referenced by programs.anki.profiles."User 1".sync in home.nix. Ignored here
+# only as a guard: xdg.configFile symlinks home/config/* wholesale, so a stray
+# copy in that tree would otherwise be committed.
+home/config/anki/
+
