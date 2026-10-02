@@ -5,9 +5,16 @@ tmp
 home/config/Stretchly/*
 !home/config/Stretchly/config.json
 
-# AnkiWeb credentials. These live in ~/.config/anki, outside the repo, and are
-# referenced by programs.anki.profiles."User 1".sync in home.nix. Ignored here
-# only as a guard: xdg.configFile symlinks home/config/* wholesale, so a stray
-# copy in that tree would otherwise be committed.
-home/config/anki/
+# AnkiWeb credentials, written at runtime by the anki-persist-sync-creds addon
+# in home.nix and read back by programs.anki's sync.usernameFile/keyFile.
+#
+# Only the two secret files are ignored, NOT the directory: xdg.configFile maps
+# home/config/* onto ~/.config/* via readDir, and Nix's git+file flake source
+# only sees tracked files. Ignore the directory and it becomes invisible to Nix
+# ("To make it visible to Nix, run: git add home/config"); force-add it with
+# `git add -f` and the key lands in a commit. Instead a placeholder file is
+# tracked so the directory exists on a fresh clone, and these two stay out of
+# git. See home/config/anki/README.md.
+home/config/anki/sync-username
+home/config/anki/sync-key
 
