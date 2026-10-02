@@ -280,7 +280,6 @@ in {
     enable = true;
     settings = {
       main = {
-        dpi-aware = "yes";
         font = "JetBrainsMono Nerd Font:size=14";
 
         pad = "10x10";
