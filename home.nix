@@ -279,6 +279,28 @@ in {
     enable = true;
     style = "anki";
     theme = "dark";
+
+    # Anki cannot persist the AnkiWeb account itself: this module makes
+    # ~/.local/share/Anki2/prefs21.db a symlink into the read-only nix store,
+    # and its bundled "home-manager" addon sets `aqt.mw.pm.save = lambda: None`
+    # to match. So the credentials have to come from outside the store, and
+    # the module's hm-sync-config addon re-applies them on every profile open.
+    #
+    # Both files are read at runtime and live outside the repo, so the account
+    # never lands in git and each machine only needs setting up once. Create
+    # them with:
+    #   mkdir -p ~/.config/anki
+    #   printf '%s' 'you@example.com' > ~/.config/anki/sync-username
+    #   printf '%s' '<sync key>'      > ~/.config/anki/sync-key
+    # This dir is deliberately absent from home/config, which xdg.configFile
+    # symlinks wholesale - adding it there would put the secrets in the repo.
+    # The sync key is not the account password; see issue #19 for how to read
+    # it out of Anki's preferences dialog.
+    profiles."User 1".sync = {
+      usernameFile = "${config.home.homeDirectory}/.config/anki/sync-username";
+      keyFile = "${config.home.homeDirectory}/.config/anki/sync-key";
+    };
+
     addons = [
       pkgs.ankiAddons.review-heatmap
       pkgs.ankiAddons.passfail2
