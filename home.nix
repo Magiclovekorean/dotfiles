@@ -112,7 +112,7 @@ in {
       pkgs.rofi-calc
       pkgs.rofi-emoji
     ];
-    theme = ./home/rofi/themes/squared-nord.rasi;
+    theme = ./home/rofi/themes/spotlight-dark.rasi;
   };
 
   home.activation = {
