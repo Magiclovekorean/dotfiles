@@ -5,6 +5,7 @@
   gitName,
   gitEmail,
   zen-browser,
+  llm-agents,
   ...
 }: let
   tex = pkgs.texliveMedium.withPackages (
@@ -471,9 +472,10 @@ in {
     polychromatic
 
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
+    llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.freebuff
+    llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode
     wlogout
     localsend
-    ghostty
     papirus-icon-theme
 
     # Hyprland is not a DE Electron recognizes; without this Cursor skips the OS keyring.
