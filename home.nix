@@ -485,12 +485,15 @@ in {
 
     pavucontrol
 
+    ghostty
+
     playerctl
     brightnessctl
     xdg-desktop-portal-hyprland
     satty
     kdePackages.plasma-integration
     nautilus
+    udiskie
     imv
     mpv
     vlc
