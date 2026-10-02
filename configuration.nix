@@ -114,6 +114,22 @@
 
   services.udisks2.enable = true;
 
+  # GIO has no built-in udisaks2 backend, so nothing in GTK/GLib apps (Nautilus)
+  # can see or mount removable drives: `gio mount /dev/sdX1` fails with "volume
+  # doesn't implement mount" and GVolumeMonitor lists no USB devices. KDE's
+  # Solid/KIO talks to udisks2 over D-Bus itself, which is why Dolphin works.
+  # gvfs ships the GIO volume monitor that bridges the two
+  # (lib/gio/modules/libgioremote-volume-monitor.so ->
+  # org.gtk.vfs.UDisks2VolumeMonitor), and it also provides gvfsd, whose
+  # D-Bus activation those monitors rely on.
+  #
+  # The module also adds gvfs's lib/gio/modules to environment.sessionVariables
+  # (GIO_EXTRA_MODULES), which pam_env puts into the session env — needed because
+  # the GIO modules are not in the compiled-in module dir on NixOS. It pulls in
+  # programs.fuse (gvfsd-fuse), systemd/dbus packaging (gvfs-daemon.service) and
+  # libmtp. Takes effect in new sessions, so log out/in after rebuilding.
+  services.gvfs.enable = true;
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
