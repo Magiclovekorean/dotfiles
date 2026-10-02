@@ -280,22 +280,21 @@ in {
     style = "anki";
     theme = "dark";
 
-    # Anki cannot persist the AnkiWeb account itself: this module makes
+    # Anki cannot persist the AnkiWeb account on its own: this module makes
     # ~/.local/share/Anki2/prefs21.db a symlink into the read-only nix store,
     # and its bundled "home-manager" addon sets `aqt.mw.pm.save = lambda: None`
-    # to match. So the credentials have to come from outside the store, and
+    # to match. So the credentials are read from outside the store instead, and
     # the module's hm-sync-config addon re-applies them on every profile open.
     #
-    # Both files are read at runtime and live outside the repo, so the account
-    # never lands in git and each machine only needs setting up once. Create
-    # them with:
-    #   mkdir -p ~/.config/anki
-    #   printf '%s' 'you@example.com' > ~/.config/anki/sync-username
-    #   printf '%s' '<sync key>'      > ~/.config/anki/sync-key
-    # This dir is deliberately absent from home/config, which xdg.configFile
-    # symlinks wholesale - adding it there would put the secrets in the repo.
-    # The sync key is not the account password; see issue #19 for how to read
-    # it out of Anki's preferences dialog.
+    # Nothing has to be created up front: the anki-persist-sync-creds addon
+    # below writes both files the moment Anki accepts a login, so a machine
+    # needs the AnkiWeb prompt exactly once and never asks again.
+    #
+    # The credentials live in ~/.config/anki, which xdg.configFile symlinks to
+    # home/config/anki like every other config dir. Only the two secret files
+    # are gitignored (.gitkeep is tracked so the dir survives a fresh clone), so
+    # the account never lands in git. See the note in .gitignore.
+    # The sync key is not the account password; see issue #19.
     profiles."User 1".sync = {
       usernameFile = "${config.home.homeDirectory}/.config/anki/sync-username";
       keyFile = "${config.home.homeDirectory}/.config/anki/sync-key";
@@ -304,6 +303,61 @@ in {
     addons = [
       pkgs.ankiAddons.review-heatmap
       pkgs.ankiAddons.passfail2
+
+      # Mirrors a successful AnkiWeb login into the two files the module's
+      # hm-sync-config addon reads back on every profile open. That addon only
+      # reads, and Anki's own save is disabled by the module (prefs21.db is a
+      # symlink into the read-only store), so without this the account is asked
+      # for on every single launch. Anki calls set_sync_key/set_sync_username
+      # right after a login succeeds (aqt/sync.py), which is the only moment
+      # worth capturing.
+      #
+      # Both files are chmod 600 and land in home/config/anki, which is
+      # gitignored file-by-file, so the account and key stay out of git.
+      (pkgs.anki-utils.buildAnkiAddon (finalAttrs: {
+        pname = "anki-persist-sync-creds";
+        version = "1.0";
+
+        src = pkgs.writeTextDir "__init__.py" ''
+          import os
+          from pathlib import Path
+          from unittest.mock import patch
+
+          import aqt
+
+          USERNAME_FILE = Path("${config.home.homeDirectory}/.config/anki/sync-username")
+          KEY_FILE = Path("${config.home.homeDirectory}/.config/anki/sync-key")
+
+          def persist(path: Path, value: str | None) -> None:
+              # None means Anki has no account (or just logged out). Leave any
+              # stored credential alone rather than blanking the file.
+              if not value:
+                  return
+              path.parent.mkdir(parents=True, exist_ok=True)
+              # Create with 0600 from the start, and never widen it on rewrite.
+              fd = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+              with os.fdopen(fd, "w") as f:
+                  f.write(value)
+
+          # No self parameter: patch.object installs these on the *instance*,
+          # and instance attributes are not descriptors, so they are not bound.
+          def set_sync_key(val: str | None) -> None:
+              persist(KEY_FILE, val)
+              _orig_set_sync_key(val)
+
+          def set_sync_username(val: str | None) -> None:
+              persist(USERNAME_FILE, val)
+              _orig_set_sync_username(val)
+
+          _orig_set_sync_key = aqt.mw.pm.set_sync_key
+          _orig_set_sync_username = aqt.mw.pm.set_sync_username
+
+          # Wrap on the instance rather than the class: the module's own
+          # addon replaces pm.save() the same way.
+          patch.object(aqt.mw.pm, "set_sync_key", set_sync_key).start()
+          patch.object(aqt.mw.pm, "set_sync_username", set_sync_username).start()
+        '';
+      }))
 
       (pkgs.anki-utils.buildAnkiAddon (finalAttrs: {
         pname = "more-overview-stats";
