@@ -457,7 +457,6 @@ in {
     psmisc # Provides killall
     yazi
     fzf
-    opencode
     lazygit
     inotify-tools
     bluetui
