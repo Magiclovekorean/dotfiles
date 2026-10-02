@@ -18,3 +18,8 @@ home/config/Stretchly/*
 home/config/anki/sync-username
 home/config/anki/sync-key
 
+# qmlls writes this for the Quickshell QML on the add-quickshell branch. It
+# pins importPaths to the /nix/store paths of one machine's quickshell and
+# qtdeclarative, so it is generated state, not config worth sharing.
+home/config/quickshell/.qmlls.ini
+
