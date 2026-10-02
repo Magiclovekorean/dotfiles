@@ -3,7 +3,7 @@
 ---------------------
 
 --apps
-local terminal = "ghostty"
+local terminal = "foot"
 local fileManager = "nautilus"
 local browser = "zen"
 local chromium = "chromium"
