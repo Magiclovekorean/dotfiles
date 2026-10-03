@@ -30,19 +30,19 @@
       "tooltip-format": "{controller_alias}\t{controller_address}",
       "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
       "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-      "on-click": "exec ghostty --title=bluetui -e bluetui"
+      "on-click": "exec foot --title=bluetui bluetui"
     },
     "cpu": {
         "interval": 10,
         "format": " {}%",
         "max-length": 10,
-        "on-click": "exec ghostty --title=btop -e btop"
+        "on-click": "exec foot --title=btop btop"
     },
     "memory": {
         "interval": 30,
         "format": " {percentage}%",
         "tooltip-format": "{used:0.1f}G/{total:0.1f}G used",
-        "on-click": "exec ghostty --title=htop -e htop",
+        "on-click": "exec foot --title=htop htop"
     },
     "network": {
         "format": "",
