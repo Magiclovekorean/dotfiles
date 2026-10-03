@@ -470,6 +470,7 @@ in {
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.freebuff
     llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode
+    llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.copilot-cli
     wlogout
     localsend
     papirus-icon-theme
