@@ -4,6 +4,7 @@
 
 --apps
 local terminal = "foot"
+local ghostty = "ghostty"
 local fileManager = "nautilus"
 local browser = "zen"
 local chromium = "chromium"
@@ -105,6 +106,7 @@ end, { locked = true })
 -- apps
 
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + G", hl.dsp.exec_cmd(ghostty))
 hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd(music))
