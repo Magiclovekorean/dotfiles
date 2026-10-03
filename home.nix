@@ -280,11 +280,8 @@ in {
     enable = true;
     settings = {
       main = {
-        font = "JetBrainsMono Nerd Font:size=14";
-
+        font = "JetBrainsMono NF:size=16";
         pad = "10x10";
-        line-height = "16"; # Augmenta una mica l'espaiat vertical (en píxels)
-        letter-spacing = "0.5"; # Separa un pèl les lletres si es veuen massa
       };
       cursor = {
         style = "block";
@@ -294,20 +291,46 @@ in {
         hide-when-typing = "yes";
       };
       colors-dark = {
-        alpha = 0.7;
+        alpha = 0.6;
 
+        #        foreground = "c0caf5";
+        #        background = "222436";
+        #
+        #        ## Normal/regular colors (color palette 0-7)
+        #        regular0 = "1c1d2b"; # black;
+        #        regular1 = "f7768e"; # red
+        #        regular2 = "9ece6a"; # green
+        #        regular3 = "e0af68"; # yellow
+        #        regular4 = "7aa2f7"; # blue
+        #        regular5 = "bb9af7"; # magenta
+        #        regular6 = "7dcfff"; # cyan
+        #        regular7 = "a9b1d6"; # white
+        #
+        #        ## Bright colors (color palette 8-15)
+        #        bright0 = "414868"; # bright black
+        #        bright1 = "f7768e"; # bright red
+        #        bright2 = "9ece6a"; # bright green
+        #        bright3 = "e0af68"; # bright yellow
+        #        bright4 = "7aa2f7"; # bright blue
+        #        bright5 = "bb9af7"; # bright magenta
+        #        bright6 = "7dcfff"; # bright cyan
+        #        bright7 = "c0caf5"; # bright white
+        #
+        #        ## dimmed colors (see foot.ini(5) man page)
+        #        dim0 = "ff9e64";
+        #        dim1 = "db4b4b";
         foreground = "c0caf5";
-        background = "222436";
+        background = "1a1b26";
 
         ## Normal/regular colors (color palette 0-7)
-        regular0 = "1c1d2b"; # black;
-        regular1 = "f7768e"; # red
-        regular2 = "9ece6a"; # green
-        regular3 = "e0af68"; # yellow
-        regular4 = "7aa2f7"; # blue
-        regular5 = "bb9af7"; # magenta
-        regular6 = "7dcfff"; # cyan
-        regular7 = "a9b1d6"; # white
+        regular0 = "15161E"; # black;
+        regular1 = "f7768e"; # red;
+        regular2 = "9ece6a"; # green;
+        regular3 = "e0af68"; # yellow;
+        regular4 = "7aa2f7"; # blue;
+        regular5 = "bb9af7"; # magenta;
+        regular6 = "7dcfff"; # cyan;
+        regular7 = "a9b1d6"; # white;
 
         ## Bright colors (color palette 8-15)
         bright0 = "414868"; # bright black
