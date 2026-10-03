@@ -130,8 +130,20 @@
   # libmtp. Takes effect in new sessions, so log out/in after rebuilding.
   services.gvfs.enable = true;
 
-  # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
+  # Enable the OpenSSH daemon. Key-only auth: this box is on a home LAN and the
+  # account has a password, so leaving PasswordAuthentication on exposes sshd to
+  # LAN-wide brute force for no benefit. Requires ~/.ssh/authorized_keys to be
+  # populated before switching, or you will not be able to log in over SSH.
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+      MaxAuthTries = 3;
+      AllowUsers = [username];
+    };
+  };
 
   fonts.packages = with pkgs; [
     noto-fonts
