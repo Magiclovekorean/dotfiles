@@ -292,6 +292,7 @@ in {
       };
       colors-dark = {
         alpha = 0.6;
+        blur = "yes";
 
         foreground = "c0caf5";
         background = "1a1b26";
