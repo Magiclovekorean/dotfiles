@@ -10,3 +10,4 @@ home/config/Stretchly/*
 # own vfs-backed version if run manually.
 home/config/quickshell/.qmlls.ini
 
+home/config/anki/
