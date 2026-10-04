@@ -465,6 +465,8 @@ in {
     batsignal
     hypridle
 
+    libnotify
+
     polychromatic
 
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
