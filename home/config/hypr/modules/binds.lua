@@ -38,6 +38,7 @@ local screenshot_ocr = os.getenv("HOME") .. "/.config/hypr/scripts/ocr.sh"
 local next_wallpaper = "wpaperctl next"
 local previous_wallpaper = "wpaperctl previous"
 local toggle_cycling_wallpaper = "wpaperctl toggle-pause"
+
 -- toggle blur
 local blur_enabled = true
 local toggle_blur = function()
