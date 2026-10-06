@@ -280,7 +280,7 @@ in {
     enable = true;
     settings = {
       main = {
-        font = "JetBrainsMono NF:size=16";
+        font = "JetBrainsMono NF:size=14";
         pad = "10x10";
       };
       cursor = {
