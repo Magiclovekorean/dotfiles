@@ -201,31 +201,26 @@ in {
     };
   };
 
-  # Nothing in this session pulls in graphical-session.target, but
-  # xdg-desktop-portal.service is Requisite= it, so the portal never started and
-  # libadwaita apps (Nautilus) never learned the system color scheme. Worse,
-  # AdwStyleManager then overwrites GtkSettings:gtk-interface-color-scheme, so
-  # gtk4.extraConfig / settings.ini could not win either. libadwaita only reads
-  # org.gnome.desktop.interface itself when the portal is disabled, which is why
-  # that was needed as a workaround.
+  # xdg-desktop-portal.service has Requisite=graphical-session.target, so the
+  # portal (Settings for libadwaita's color scheme, ScreenCast for OBS —
+  # issue #14) only comes up while the target is active. The stock target is
+  # static with RefuseManualStart=yes and StopWhenUnneeded=yes, so it can
+  # only be activated by being wanted; redefining it here (user unit files
+  # override the system ones) drops those flags and pulls in the portal.
   #
-  # The stock unit is static with RefuseManualStart=yes and StopWhenUnneeded=yes,
-  # so it can only be activated by being wanted. Redefining it here lets
-  # default.target want it, which keeps it active for the whole session so the
-  # portal can start and answer the Settings interface.
-  #
-  # Note the spelling: systemd.user.targets has no `wantedBy` option. Its type is
-  # freeform attrsOf (attrsOf (either primitive (listOf primitive))), so
-  # `wantedBy."default.target" = true;` type-checks and passes `nix eval` but gets
-  # rendered as a literal [wantedBy] INI section instead of [Install]. Home
-  # Manager builds the enablement symlink with
-  #   map (install "wants") (serviceCfg.Install.WantedBy or [ ])
-  # so with Install.WantedBy unset no default.target.wants symlink is created, the
-  # target is never started, and `systemctl --user enable` reports "The unit files
-  # have no installation config". Install.WantedBy must be a list of strings.
+  # Do NOT want it from default.target: the user manager starts before
+  # Hyprland, so the portal would start before Hyprland has imported
+  # WAYLAND_DISPLAY / XDG_CURRENT_DESKTOP into the user manager. It would
+  # then never select hyprland.portal (UseIn=Hyprland) and never register
+  # org.freedesktop.portal.ScreenCast, and units gated on
+  # ConditionEnvironment=WAYLAND_DISPLAY (hyprsunset, wpaperd) would be
+  # skipped for the whole login. autostart.lua imports the session
+  # environment and starts the target from hyprland.start instead — hence
+  # the missing [Install] section. (If you ever re-add installation
+  # config: systemd.user.targets has no `wantedBy` option, and
+  # Install.WantedBy must be a list of strings, or HM silently drops it.)
   systemd.user.targets.graphical-session = {
     Unit.Wants = ["xdg-desktop-portal.service"];
-    Install.WantedBy = ["default.target"];
   };
 
   services.playerctld.enable = true;
