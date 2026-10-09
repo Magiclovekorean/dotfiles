@@ -588,6 +588,7 @@ in {
     jre
     tex
     system-config-printer
+    simple-scan
 
     cliamp
 
