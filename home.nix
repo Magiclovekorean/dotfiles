@@ -466,7 +466,7 @@ in {
 
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.freebuff
-    llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.opencode
+    opencode
     wlogout
     localsend
     papirus-icon-theme
