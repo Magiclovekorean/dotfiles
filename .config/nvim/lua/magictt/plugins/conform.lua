@@ -10,8 +10,21 @@ return {
         css = { "prettier" },
         svelte = { "prettier" },
         json = { "prettier" },
+        lua = { "stylua" },
+        python = { "ruff_organize_imports", "ruff_format" },
+        nix = { "alejandra" }
       },
+        
+    formatters = {
+        prettier = {
+          prepend_args = { "--tab-width", "4" },
+        },
+        stylua = {
+          prepend_args = { "--indent-type", "Spaces", "--indent-width", "4" },
+        },
     },
+},
+
     config = function(_, opts)
       require("conform").setup(opts)
 
