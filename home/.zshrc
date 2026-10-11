@@ -13,6 +13,7 @@
 [[ $- != *i* ]] && return
 
 export SUDO_PROMPT="Deploying root access for %u. Password pls: "
+export EDITOR="nvim"
 export BAT_THEME="base16"
 
     if [ -d "$HOME/.local/bin" ] ;
