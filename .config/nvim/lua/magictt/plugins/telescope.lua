@@ -41,5 +41,13 @@ return {
         vim.keymap.set("n", "<leader>fg", builtin.git_files, { desc = "Telescope find git files" })
         vim.keymap.set("n", "<leader>fs", builtin.live_grep, { desc = "Telescope live grep" })
         vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope buffers" })
+
+        vim.keymap.set("n", "<leader>9p", function()
+            require("99.extensions.telescope").select_provider()
+        end)
+        vim.keymap.set("n", "<leader>9m", function()
+            require("99.extensions.telescope").select_model()
+        end)
+        
     end,
 }
