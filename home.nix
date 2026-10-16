@@ -5,7 +5,6 @@
   gitName,
   gitEmail,
   zen-browser,
-  llm-agents,
   ...
 }: let
   tex = pkgs.texliveMedium.withPackages (
@@ -465,7 +464,6 @@ in {
     polychromatic
 
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
-    llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.freebuff
     opencode
     wlogout
     localsend

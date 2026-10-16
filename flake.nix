@@ -13,8 +13,6 @@
       url = "github:youwen5/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
   outputs = {
@@ -22,7 +20,6 @@
     nixpkgs,
     home-manager,
     zen-browser,
-    llm-agents,
     ...
   }: let
     lib = nixpkgs.lib;
@@ -37,7 +34,7 @@
         system = "x86_64-linux";
 
         specialArgs = {
-          inherit zen-browser llm-agents username gitName gitEmail;
+          inherit zen-browser username gitName gitEmail;
         };
 
         modules = [
@@ -52,7 +49,7 @@
               useUserPackages = true;
 
               extraSpecialArgs = {
-                inherit zen-browser llm-agents username gitName gitEmail;
+                inherit zen-browser username gitName gitEmail;
               };
 
               users.${username} = import ./home.nix;
