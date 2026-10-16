@@ -5,7 +5,6 @@
   username,
   ...
 }: {
-
   networking.networkmanager.enable = true;
 
   zramSwap = {
@@ -48,7 +47,6 @@
   # Unlock gnome-keyring with the login password (ly does not do this by default).
   security.pam.services.ly.enableGnomeKeyring = true;
 
-  services.displayManager.ly.enable = true;
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
