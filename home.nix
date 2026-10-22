@@ -428,6 +428,9 @@ in {
   }) (builtins.readDir ./home/config);
 
   home.packages = with pkgs; [
+    krita
+    gimp
+
     gnumake
     tree-sitter
     ripgrep
