@@ -1,0 +1,26 @@
+-b
+-w
+20
+-W
+Battery low (20%)
+-c
+10
+-C
+Battery critically low (10%)
+-d
+5
+-D
+systemctl suspend
+-f
+95
+-F
+Battery full (95%)
+-p
+-P
+Battery charging
+-U
+Battery discharging
+-m
+60
+-a
+batsignal
