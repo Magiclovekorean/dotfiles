@@ -7,6 +7,8 @@
 }: {
   networking.networkmanager.enable = true;
 
+  boot.kernelPackages = pkgs.linuxPackages_zen;
+
   zramSwap = {
     enable = true;
     priority = 100;
@@ -97,10 +99,12 @@
   ];
 
   # List services that you want to enable:
-  hardware.openrazer.enable = true;
-  hardware.openrazer.users = [username];
-  services.input-remapper.enable = true;
+  hardware.openrazer = {
+    enable = true;
+    users = [username];
+  };
 
+  services.input-remapper.enable = true;
   services.udisks2.enable = true;
 
   # GIO has no built-in udisaks2 backend, so nothing in GTK/GLib apps (Nautilus)
