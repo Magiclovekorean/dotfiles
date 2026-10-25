@@ -128,6 +128,10 @@ hl.bind(mainMod .. " + S", hl.dsp.exec_cmd(screenshot))
 hl.bind(secondMod .. " + S", hl.dsp.exec_cmd(screenshot_and_edit))
 hl.bind(mainMod .. " + O", hl.dsp.exec_cmd(screenshot_ocr))
 
+-- mako notifications
+hl.bind(mainMod .. " + X", hl.dsp.exec_cmd("makoctl dismiss"))
+hl.bind(secondMod .. " + X", hl.dsp.exec_cmd("makoctl dismiss -a"))
+
 hl.bind(mainMod .. " + T", hl.dsp.exec_cmd(kb_toggle))
 
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
