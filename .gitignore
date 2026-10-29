@@ -23,3 +23,7 @@ home/config/anki/sync-key
 # qtdeclarative, so it is generated state, not config worth sharing.
 home/config/quickshell/.qmlls.ini
 
+# opencode writes this runtime file (mode 600) containing a plaintext server
+# password. It is generated per machine and must never be committed.
+home/config/opencode/service.json
+
