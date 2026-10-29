@@ -1,21 +1,22 @@
 # AGENTS.md
 
-NixOS dotfiles repo (flake). `flake.nix` **auto-discovers hosts**: every directory under `hosts/` becomes a `nixosConfiguration` (built via `genAttrs` over `readDir`). No flake edit needed to add a host. `README.md` is the (stale-ish) install guide; trust `flake.nix` and `configuration.nix`.
+NixOS dotfiles repo (flake). `flake.nix` **auto-discovers hosts**: every directory under `hosts/` becomes a `nixosConfiguration` (built via `genAttrs` over `readDir`). No flake edit needed to add a host. Current hosts: `hp-nixos-btw` (this machine, per `~/.hostname`), `hp-red-laptop`, plus the non-buildable `example` template. `README.md` is the (stale-ish) install guide; trust `flake.nix` and `configuration.nix`.
 
 ## Structure
 
 - Each `hosts/<host>/configuration.nix` holds host-only settings (imports its own `hardware-configuration.nix`); shared system options live in `configuration.nix`; home-manager config (`user <username>`) in `home.nix`. Each host also carries a `hosts/<host>/username` text file (placeholder `<USERNAME>` in `hosts/example`) that `flake.nix` reads and threads into `configuration.nix`/`home.nix` as `username`; `home-manager.users.${username}` follows from it.
 - `home.nix` auto-maps whole directories:
   - `home/config/*` → `~/.config/*` via out-of-store symlinks (`config.lib.file.mkOutOfStoreSymlink`) — add a config by dropping a dir under `home/config/<name>`, no manual entry.
+  - `home/claude/{agents,commands}/*` → `~/.claude/{agents,commands}/*` — linked per file, not per directory, because Claude Code keeps runtime state in `~/.claude`.
   - `bin/*` → `~/.local/bin/*` (executable).
-- Symlinks are **absolute pointers to `~/Desktop/repos/dotfiles/home/config`** — the repo must stay at that path or the links break.
+- Symlinks are **absolute pointers into `~/Desktop/repos/dotfiles/home/{config,claude}`** — the repo must stay at that path or the links break.
 - NOT auto-linked, edited in place: `home/.zshrc` and `home/.tmux.conf` are inlined into `home.nix` via `builtins.readFile`; `home/rofi/*` is referenced directly.
 - `home/config/opencode` is **opencode's own global config** (agents/, commands/, plugin deps) symlinked to `~/.config/opencode`, not an app dotdir.
 
 ## Build / switch
 
 ```bash
-sudo nixos-rebuild switch --flake .#hp-nixos-laptop   # or .#hp-red-laptop
+sudo nixos-rebuild switch --flake .#hp-nixos-btw   # or .#hp-red-laptop
 ```
 
 - The zsh aliases `nrs` / `nix-upgrade` (in `home/.zshrc`) instead resolve the host from `~/.hostname`: `nixos-rebuild switch --flake $HOME/Desktop/repos/dotfiles#$(< $HOME/.hostname)`. Prefer those aliases; the hostname is not committed anywhere else.
