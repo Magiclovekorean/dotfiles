@@ -515,38 +515,32 @@ in {
 
     polychromatic
 
-    # extraPolicies on the package is a silent no-op (zen-browser.nix drops it).
-    # Inject through wrapFirefox instead so distribution/policies.json is populated.
     (zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
-      wrapFirefox = browser: attrs:
-        pkgs.wrapFirefox browser (attrs
-          // {
-            extraPolicies = {
-              ExtensionSettings = {
-                "uBlock0@raymondhill.net" = {
-                  installation_mode = "force_installed";
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-                };
-                "78272b6fa58f4a1abaac99321d503a20@proton.me" = {
-                  installation_mode = "force_installed";
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi";
-                };
-                "addon@darkreader.org" = {
-                  installation_mode = "force_installed";
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
-                };
-                "extension@kimchi-reader.app" = {
-                  installation_mode = "force_installed";
-                  install_url = "https://addons.mozilla.org/firefox/downloads/latest/kimchi-reader/latest.xpi";
-                };
-              };
-              Preferences = {
-                # Best-effort: Zen may override its own theme handling.
-                "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
-              };
-              PasswordManagerEnabled = false;
-            };
-          });
+      extraPolicies = {
+        ExtensionSettings = {
+          "uBlock0@raymondhill.net" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+          };
+          "78272b6fa58f4a1abaac99321d503a20@proton.me" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi";
+          };
+          "addon@darkreader.org" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+          };
+          "extension@kimchi-reader.app" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/kimchi-reader/latest.xpi";
+          };
+        };
+        Preferences = {
+          # Start with the built-in dark theme; Dark Reader covers page content.
+          "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+        };
+        PasswordManagerEnabled = false;
+      };
     })
     opencode
     wlogout
