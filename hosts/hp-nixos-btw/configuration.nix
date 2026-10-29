@@ -9,11 +9,15 @@
   ];
 
   boot.loader = {
-    systemd-boot = {
-      enable = true;
-      consoleMode = "keep";
-    };
     efi.canTouchEfiVariables = true;
+    grub = {
+      enable = true;
+      efiSupport = true;
+      device = "nodev";
+      useOSProber = true;
+      configurationLimit = 10;
+      default = 2;
+    };
   };
 
   networking.hostName = "hp-nixos-btw";
