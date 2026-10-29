@@ -474,6 +474,7 @@ in {
 
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     opencode
+    claude-code
     wlogout
     localsend
     papirus-icon-theme
