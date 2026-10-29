@@ -27,6 +27,14 @@
   dotfiles = "${config.home.homeDirectory}/Desktop/repos/dotfiles/home/config";
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
   bin_dir = ".local/bin";
+  claude_dir = "${config.home.homeDirectory}/Desktop/repos/dotfiles/home/claude";
+  # Claude Code keeps runtime state in ~/.claude, so link each agent/command file
+  # instead of the whole directory.
+  claude_links = sub:
+    builtins.listToAttrs (map (name: {
+      name = ".claude/${sub}/${name}";
+      value.source = create_symlink "${claude_dir}/${sub}/${name}";
+    }) (builtins.attrNames (builtins.readDir ./home/claude/${sub})));
 in {
   home.username = username;
   home.homeDirectory = "/home/${username}";
@@ -250,11 +258,14 @@ in {
     Install.WantedBy = ["default.target"];
   };
 
-  home.file = builtins.mapAttrs (name: _: {
-    source = ./bin/${name};
-    target = "${bin_dir}/${name}";
-    executable = true;
-  }) (builtins.readDir ./bin);
+  home.file =
+    builtins.mapAttrs (name: _: {
+      source = ./bin/${name};
+      target = "${bin_dir}/${name}";
+      executable = true;
+    }) (builtins.readDir ./bin)
+    // claude_links "agents"
+    // claude_links "commands";
 
   programs.obs-studio.enable = true;
 
