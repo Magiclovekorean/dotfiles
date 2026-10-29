@@ -21,4 +21,15 @@
   };
 
   networking.hostName = "hp-nixos-btw";
+
+  # Intel Iris Xe (TigerLake-LP GT2) OpenCL: ocl-icd loader + NEO compute runtime
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      ocl-icd
+      intel-compute-runtime
+      intel-media-driver
+      vpl-gpu-rt
+    ];
+  };
 }
