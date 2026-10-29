@@ -6,6 +6,10 @@ reuse=0
 # Ask for hostname
 read -rp "Enter hostname: " user_hostname
 [[ -n "$user_hostname" ]] || { echo "hostname cannot be empty" >&2; exit 1; }
+# Hostname is used as a path under hosts/, so keep it to a single RFC 1123 label
+[[ "$user_hostname" =~ ^[A-Za-z0-9][A-Za-z0-9-]{0,62}$ ]] || { echo "invalid hostname: $user_hostname" >&2; exit 1; }
+# The template itself can't be installed or removed
+[[ "$user_hostname" != "example" ]] || { echo "'example' is the template, pick another hostname" >&2; exit 1; }
 
 if [[ -d "hosts/$user_hostname" ]]; then
     echo "hosts/$user_hostname already exists. What do you want to do?"
@@ -21,9 +25,13 @@ if [[ -d "hosts/$user_hostname" ]]; then
 fi
 
 if (( reuse )); then
-    # Keep the committed host files as they are; only the username is needed here
+    # Keep the committed host files as they are; only read the identity from them
     username=$(tr -d '[:space:]' < "hosts/$user_hostname/username")
     [[ -n "$username" && "$username" != "<USERNAME>" ]] || { echo "hosts/$user_hostname/username is not set" >&2; exit 1; }
+    git_name=$(< "hosts/$user_hostname/git-name")
+    [[ -n "$git_name" && "$git_name" != "<GITNAME>" ]] || { echo "hosts/$user_hostname/git-name is not set" >&2; exit 1; }
+    git_email=$(tr -d '[:space:]' < "hosts/$user_hostname/git-email")
+    [[ -n "$git_email" && "$git_email" != "<GITEMAIL>" ]] || { echo "hosts/$user_hostname/git-email is not set" >&2; exit 1; }
 else
     # Add device to hosts/
     cp -r hosts/example "hosts/$user_hostname"
@@ -65,7 +73,8 @@ fi
 # repo owned by another user would trip git's "dubious ownership" check.
 git config --global --add safe.directory "$PWD"
 if (( reuse )); then
-    git add "hosts/$user_hostname/hardware-configuration.nix"
+    # Stage the whole host dir so untracked files from an earlier run reach the flake
+    git add "hosts/$user_hostname"
 else
     git add .
 fi
