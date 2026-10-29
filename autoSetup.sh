@@ -6,9 +6,10 @@ reuse=0
 # Ask for hostname
 read -rp "Enter hostname: " user_hostname
 [[ -n "$user_hostname" ]] || { echo "hostname cannot be empty" >&2; exit 1; }
-# Hostname is used as a path under hosts/, so keep it to a single RFC 1123 label
-[[ "$user_hostname" =~ ^[A-Za-z0-9][A-Za-z0-9-]{0,62}$ ]] || { echo "invalid hostname: $user_hostname" >&2; exit 1; }
-# The template itself can't be installed or removed
+# Hostname is used as a path under hosts/. Allow RFC 1123 labels plus underscore
+# (accepted by NixOS for compatibility). Must not start or end with hyphen.
+# Max 63 chars (single label). 'example' is reserved as the template.
+[[ "$user_hostname" =~ ^[A-Za-z0-9]([A-Za-z0-9_-]{0,61}[A-Za-z0-9])?$ ]] || { echo "invalid hostname: $user_hostname" >&2; exit 1; }
 [[ "$user_hostname" != "example" ]] || { echo "'example' is the template, pick another hostname" >&2; exit 1; }
 
 if [[ -d "hosts/$user_hostname" ]]; then
@@ -29,6 +30,7 @@ if (( reuse )); then
     username=$(tr -d '[:space:]' < "hosts/$user_hostname/username")
     [[ -n "$username" && "$username" != "<USERNAME>" ]] || { echo "hosts/$user_hostname/username is not set" >&2; exit 1; }
     git_name=$(< "hosts/$user_hostname/git-name")
+    git_name=$(echo "$git_name" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
     [[ -n "$git_name" && "$git_name" != "<GITNAME>" ]] || { echo "hosts/$user_hostname/git-name is not set" >&2; exit 1; }
     git_email=$(tr -d '[:space:]' < "hosts/$user_hostname/git-email")
     [[ -n "$git_email" && "$git_email" != "<GITEMAIL>" ]] || { echo "hosts/$user_hostname/git-email is not set" >&2; exit 1; }
@@ -73,8 +75,12 @@ fi
 # repo owned by another user would trip git's "dubious ownership" check.
 git config --global --add safe.directory "$PWD"
 if (( reuse )); then
-    # Stage the whole host dir so untracked files from an earlier run reach the flake
-    git add "hosts/$user_hostname"
+    # Verify required host files are tracked (they should have been committed)
+    for f in "hosts/$user_hostname/username" "hosts/$user_hostname/git-name" "hosts/$user_hostname/git-email" "hosts/$user_hostname/configuration.nix"; do
+        git ls-files --error-unmatch "$f" >/dev/null 2>&1 || { echo "required file $f is not tracked by git" >&2; exit 1; }
+    done
+    # Stage only the regenerated hardware-configuration.nix
+    git add "hosts/$user_hostname/hardware-configuration.nix"
 else
     git add .
 fi
