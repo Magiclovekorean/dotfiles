@@ -37,5 +37,5 @@ sudo nixos-rebuild switch --flake .#hp-nixos-btw   # or .#hp-red-laptop
 - Username and git identity are per-host (`hosts/<host>/username`, `git-name`, `git-email`; username is `magictt` everywhere except `example`, git identity is Martí Forn / magiclovekorean@gmail.com). `flake.nix` reads all three and threads them via `specialArgs`/`extraSpecialArgs`. The nvim config namespace (`magictt.core`) is unrelated to the account. Runtime files use `$HOME` (`.zshrc`, `.tmux.conf`, waybar on-click) so they stay username-agnostic.
 - `home/config/hypr` uses `hyprland.lua` (+ hyprlock/hypridle confs), not `hyprland.conf`.
 - `tmp/` is gitignored — safe scratch space.
-- `home.nix` pins rev+hash for several `fetchFromGitHub` / Cargo deps (waybar, zscroll, nmrs-gui, ohmyzsh `sudo` plugin); bump the lock-style hashes when upgrading.
+- `home.nix` pins rev+hash for several `fetchFromGitHub` / Cargo deps (waybar, zscroll, nmrs-gui, ohmyzsh `sudo` plugin, `better-claude` for the Claude Code image-preview/context-meter/time-machine plugins via `programs.claude-code.plugins`); bump the lock-style hashes when upgrading.
 - Working tree may have uncommitted changes; check `git status` before assuming what's committed.

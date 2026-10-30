@@ -28,6 +28,12 @@
   create_symlink = path: config.lib.file.mkOutOfStoreSymlink path;
   bin_dir = ".local/bin";
   claude_dir = "${config.home.homeDirectory}/Desktop/repos/dotfiles/home/claude";
+  better_claude = pkgs.fetchFromGitHub {
+    owner = "midudev";
+    repo = "better-claude";
+    rev = "5abacf0ff67a0f6e343a400d7953f78afba57017";
+    hash = "sha256-hc+tyN34s+iqXgDzUNJBS04khZY7+bbwG95RW4SLRyw=";
+  };
   # Claude Code keeps runtime state in ~/.claude, so link each agent/command file
   # instead of the whole directory.
   claude_links = sub:
@@ -272,15 +278,23 @@ in {
   # mutableSettings merges these keys into the writable ~/.claude/settings.json
   # at activation instead of linking it read-only from the store, so /model and
   # /config can still write to it. Keys not declared here (the gateway token in
-  # `env`, model, theme, plugins) are left untouched and never enter git or the
-  # store. Don't declare secrets or model/theme here: declared values win.
+  # `env`, model, theme, enabledPlugins) are left untouched and never enter git
+  # or the store. Don't declare secrets or model/theme here: declared values win
+  # (so `tui` below is pinned and /config can't keep a different value).
+  # The better-claude mods are linked via `plugins`, not `enabledPlugins`.
   programs.claude-code = {
     enable = true;
     mutableSettings = true;
     configDir = "${config.home.homeDirectory}/.claude";
-    settings.statusLine = {
-      type = "command";
-      command = "${config.home.homeDirectory}/${bin_dir}/claude-statusline";
+    plugins =
+      pkgs.lib.genAttrs ["image-preview" "context-meter" "time-machine"]
+      (name: "${better_claude}/plugins/${name}");
+    settings = {
+      statusLine = {
+        type = "command";
+        command = "${config.home.homeDirectory}/${bin_dir}/claude-statusline";
+      };
+      tui = "fullscreen"; # Image Preview's hover needs the mouse
     };
   };
 
