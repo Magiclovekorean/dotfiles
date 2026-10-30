@@ -32,9 +32,10 @@ function extractGenerationIds(transcriptPath) {
     for (const line of readFileSync(transcriptPath, 'utf-8').split('\n')) {
       if (!line.trim()) continue;
       try {
-        const messageId = JSON.parse(line)?.message?.id;
-        if (typeof messageId === 'string' && messageId.startsWith('gen-')) {
-          ids.push(messageId);
+        const entry = JSON.parse(line);
+        // OpenRouter's gen- id is in requestId on current Claude Code, message.id on older ones.
+        for (const id of [entry?.requestId, entry?.message?.id]) {
+          if (typeof id === 'string' && id.startsWith('gen-')) ids.push(id);
         }
       } catch {
         // Skip malformed lines
