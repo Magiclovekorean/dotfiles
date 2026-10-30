@@ -269,6 +269,21 @@ in {
 
   programs.obs-studio.enable = true;
 
+  # mutableSettings merges these keys into the writable ~/.claude/settings.json
+  # at activation instead of linking it read-only from the store, so /model and
+  # /config can still write to it. Keys not declared here (the gateway token in
+  # `env`, model, theme, plugins) are left untouched and never enter git or the
+  # store. Don't declare secrets or model/theme here: declared values win.
+  programs.claude-code = {
+    enable = true;
+    mutableSettings = true;
+    configDir = "${config.home.homeDirectory}/.claude";
+    settings.statusLine = {
+      type = "command";
+      command = "${config.home.homeDirectory}/${bin_dir}/claude-statusline";
+    };
+  };
+
   programs.waybar = {
     enable = true;
     package = pkgs.waybar.overrideAttrs (old: {
@@ -485,7 +500,6 @@ in {
 
     zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default
     opencode
-    claude-code
     wlogout
     localsend
     papirus-icon-theme

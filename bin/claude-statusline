@@ -1,0 +1,140 @@
+#!/usr/bin/env node
+
+// OpenRouter cost tracking statusline for Claude Code.
+// Displays: Provider: model - $cost - cache discount: $saved
+//
+// Adapted from
+// https://github.com/OpenRouterTeam/openrouter-examples/tree/main/claude-code
+// as a single plain-JS file so it can be linked into ~/.local/bin on its own.
+//
+// Requires ANTHROPIC_AUTH_TOKEN or ANTHROPIC_API_KEY set to the OpenRouter key.
+
+const { existsSync, readFileSync, writeFileSync } = require('node:fs');
+
+async function fetchGeneration(id, apiKey) {
+  try {
+    const res = await fetch(`https://openrouter.ai/api/v1/generation?id=${id}`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+    });
+    if (!res.ok) return null;
+
+    const data = (await res.json())?.data;
+    if (!data || typeof data.total_cost !== 'number') return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function extractGenerationIds(transcriptPath) {
+  try {
+    const ids = [];
+    for (const line of readFileSync(transcriptPath, 'utf-8').split('\n')) {
+      if (!line.trim()) continue;
+      try {
+        const messageId = JSON.parse(line)?.message?.id;
+        if (typeof messageId === 'string' && messageId.startsWith('gen-')) {
+          ids.push(messageId);
+        }
+      } catch {
+        // Skip malformed lines
+      }
+    }
+    return [...new Set(ids)];
+  } catch {
+    return [];
+  }
+}
+
+function loadState(statePath) {
+  const defaultState = {
+    seen_ids: [],
+    total_cost: 0,
+    total_cache_discount: 0,
+    last_provider: '',
+    last_model: '',
+  };
+  if (!existsSync(statePath)) return defaultState;
+
+  try {
+    const content = readFileSync(statePath, 'utf-8');
+    if (!content.trim()) return defaultState;
+
+    const parsed = JSON.parse(content);
+    if (!Array.isArray(parsed.seen_ids)) return defaultState;
+
+    return {
+      seen_ids: parsed.seen_ids,
+      total_cost: typeof parsed.total_cost === 'number' ? parsed.total_cost : 0,
+      total_cache_discount:
+        typeof parsed.total_cache_discount === 'number' ? parsed.total_cache_discount : 0,
+      last_provider: typeof parsed.last_provider === 'string' ? parsed.last_provider : '',
+      last_model: typeof parsed.last_model === 'string' ? parsed.last_model : '',
+    };
+  } catch {
+    return defaultState;
+  }
+}
+
+const shortModelName = (model) => model.replace(/^[^/]+\//, '').replace(/-\d{8}$/, '');
+
+async function main() {
+  const apiKey = process.env.ANTHROPIC_AUTH_TOKEN ?? process.env.ANTHROPIC_API_KEY ?? '';
+  if (!apiKey) {
+    process.stdout.write('Set ANTHROPIC_AUTH_TOKEN or ANTHROPIC_API_KEY to use the OpenRouter statusline');
+    return;
+  }
+
+  let inputData = '';
+  for await (const chunk of process.stdin) inputData += chunk;
+
+  const input = JSON.parse(inputData);
+  const sessionId = input?.session_id;
+  const transcriptPath = input?.transcript_path;
+  if (typeof sessionId !== 'string' || typeof transcriptPath !== 'string') {
+    process.stdout.write('Invalid statusline input');
+    return;
+  }
+
+  const statePath = `/tmp/claude-openrouter-cost-${sessionId}.json`;
+  const state = loadState(statePath);
+
+  const seen = new Set(state.seen_ids);
+  const newIds = extractGenerationIds(transcriptPath).filter((id) => !seen.has(id));
+
+  let fetchFailed = 0;
+  for (const id of newIds) {
+    const gen = await fetchGeneration(id, apiKey);
+    if (!gen) {
+      fetchFailed++;
+      continue;
+    }
+
+    state.total_cost += gen.total_cost ?? 0;
+    state.total_cache_discount += gen.cache_discount ?? 0;
+    if (gen.provider_name) state.last_provider = gen.provider_name;
+    if (gen.model) state.last_model = gen.model;
+    state.seen_ids.push(id);
+  }
+
+  writeFileSync(statePath, JSON.stringify(state, null, 2));
+
+  let statusIndicator = '';
+  if (newIds.length > 0) {
+    const [green, red, reset] = ['\x1b[32m', '\x1b[31m', '\x1b[0m'];
+    statusIndicator =
+      fetchFailed === 0
+        ? `\nusage tracking: ${green}up-to-date${reset}`
+        : `\nusage tracking: ${red}behind${reset}`;
+  }
+
+  const totals = `$${state.total_cost.toFixed(4)} - cache discount: $${state.total_cache_discount.toFixed(2)}`;
+  const prefix = state.last_provider
+    ? `${state.last_provider}: ${shortModelName(state.last_model)} - `
+    : '';
+  process.stdout.write(`${prefix}${totals}${statusIndicator}`);
+}
+
+main().catch((err) => {
+  process.stdout.write(`error: ${err.message}`);
+});
