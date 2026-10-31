@@ -642,6 +642,7 @@ in {
     cliamp
 
     davinci-resolve
+    ffmpeg-full
     proton-authenticator
   ];
 }
