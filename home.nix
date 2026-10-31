@@ -527,6 +527,7 @@ in {
     })
 
     pavucontrol
+    yt-dlp
 
     ghostty
 
