@@ -517,6 +517,8 @@ in {
 
     (zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
       extraPolicies = {
+      # Ask where to save each downloaded file.
+      PromptForDownloadLocation = true;
         ExtensionSettings = {
           "uBlock0@raymondhill.net" = {
             installation_mode = "force_installed";
