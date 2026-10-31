@@ -290,7 +290,6 @@ in {
     marketplaces.better-claude = better_claude;
     settings = {
       enabledPlugins = {
-        "image-preview@better-claude" = true;
         "context-meter@better-claude" = true;
         "time-machine@better-claude" = true;
       };
