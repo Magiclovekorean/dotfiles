@@ -538,6 +538,7 @@ in {
         Preferences = {
           # Start with the built-in dark theme; Dark Reader covers page content.
           "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+          "zen.widget.linux.transparency" = true;
         };
         PasswordManagerEnabled = false;
       };
