@@ -10,6 +10,7 @@ in="$1"
 out="${2:-${in%.*}-resolve.mov}"
 
 ffmpeg -i "$in" \
+  -map 0:v:0 -map 0:a \
   -c:v dnxhd -profile:v dnxhr_hq -pix_fmt yuv422p \
   -c:a pcm_s16le \
   "$out"
