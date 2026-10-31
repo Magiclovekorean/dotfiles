@@ -298,7 +298,6 @@ in {
         type = "command";
         command = "${config.home.homeDirectory}/${bin_dir}/claude-statusline";
       };
-      tui = "fullscreen"; # Image Preview's hover needs the mouse
     };
   };
 
