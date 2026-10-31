@@ -291,6 +291,7 @@ in {
     settings = {
       enabledPlugins = {
         "context-meter@better-claude" = true;
+        "commit@better-claude" = true;
         "time-machine@better-claude" = true;
       };
       statusLine = {
