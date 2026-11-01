@@ -19,6 +19,19 @@
       default = 2;
     };
   };
+  fileSystems."/mnt/windows" = {
+    device = "/dev/disk/by-uuid/003AE5583AE54B6C";
+    fsType = "ntfs3";
+    options = [
+      "rw"
+      "uid=1000"
+      "gid=100"
+      "umask=022"
+      "nofail"
+      "x-systemd.automount"
+      "x-systemd.device-timeout=5s"
+    ];
+  };
 
   networking.hostName = "hp-nixos-btw";
 
