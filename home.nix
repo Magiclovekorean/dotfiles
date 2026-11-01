@@ -552,6 +552,9 @@ in {
         pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");
         pref("zen.widget.linux.transparency", true);
         pref("zen.theme.disable-lightweight", false);
+        lockPref("zen.view.use-single-toolbar", false);
+        lockPref("zen.view.compact.enable-at-startup", false);
+        lockPref("browser.uiCustomization.state", "{\"placements\":{\"widget-overflow-fixed-list\":[],\"unified-extensions-area\":[],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"vertical-spacer\",\"urlbar-container\",\"customizableui-special-spring2\",\"unified-extensions-button\",\"78272b6fa58f4a1abaac99321d503a20_proton_me-browser-action\",\"extension_kimchi-reader_app-browser-action\",\"ublock0_raymondhill_net-browser-action\",\"addon_darkreader_org-browser-action\",\"myallychou_gmail_com-browser-action\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\",\"smartwindow-group-tabs-button\",\"ai-window-toggle\",\"zen-media-controls-toolbar\"],\"vertical-tabs\":[],\"PersonalToolbar\":[\"import-button\",\"personal-bookmarks\"],\"zen-sidebar-top-buttons\":[\"zen-toggle-compact-mode\"],\"zen-sidebar-foot-buttons\":[\"zen-library-button\",\"zen-workspaces-button\",\"zen-create-new-button\"]},\"seen\":[\"smartwindow-group-tabs-button\",\"ai-window-toggle\",\"developer-button\",\"screenshot-button\",\"ublock0_raymondhill_net-browser-action\",\"78272b6fa58f4a1abaac99321d503a20_proton_me-browser-action\",\"myallychou_gmail_com-browser-action\",\"extension_kimchi-reader_app-browser-action\",\"addon_darkreader_org-browser-action\"],\"dirtyAreaCache\":[\"nav-bar\",\"vertical-tabs\",\"zen-sidebar-foot-buttons\",\"TabsToolbar\",\"PersonalToolbar\",\"unified-extensions-area\",\"toolbar-menubar\",\"zen-sidebar-top-buttons\"],\"currentVersion\":28,\"newElementCount\":2}");
       '';
     })
     opencode
