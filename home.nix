@@ -517,8 +517,8 @@ in {
 
     (zen-browser.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
       extraPolicies = {
-      # Ask where to save each downloaded file.
-      PromptForDownloadLocation = true;
+        # Ask where to save each downloaded file.
+        PromptForDownloadLocation = true;
         ExtensionSettings = {
           "uBlock0@raymondhill.net" = {
             installation_mode = "force_installed";
@@ -537,13 +537,13 @@ in {
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/kimchi-reader/latest.xpi";
           };
         };
-        Preferences = {
-          # Start with the built-in dark theme; Dark Reader covers page content.
-          "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
-          "zen.widget.linux.transparency" = true;
-        };
         PasswordManagerEnabled = false;
       };
+      extraPrefs = ''
+        pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");
+        pref("zen.widget.linux.transparency", true);
+        pref("zen.theme.disable-lightweight", false);
+      '';
     })
     opencode
     wlogout
