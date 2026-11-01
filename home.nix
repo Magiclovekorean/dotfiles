@@ -523,18 +523,27 @@ in {
           "uBlock0@raymondhill.net" = {
             installation_mode = "force_installed";
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+            default_area = "navbar";
           };
           "78272b6fa58f4a1abaac99321d503a20@proton.me" = {
             installation_mode = "force_installed";
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/proton-pass/latest.xpi";
+            default_area = "navbar";
           };
           "addon@darkreader.org" = {
             installation_mode = "force_installed";
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/darkreader/latest.xpi";
+            default_area = "navbar";
           };
           "extension@kimchi-reader.app" = {
             installation_mode = "force_installed";
             install_url = "https://addons.mozilla.org/firefox/downloads/latest/kimchi-reader/latest.xpi";
+            default_area = "navbar";
+          };
+          "myallychou@gmail.com" = {
+            installation_mode = "force_installed";
+            install_url = "https://addons.mozilla.org/firefox/downloads/latest/youtube-recommended-videos/latest.xpi";
+            default_area = "navbar";
           };
         };
         PasswordManagerEnabled = false;
