@@ -552,6 +552,8 @@ in {
         pref("extensions.activeThemeID", "firefox-compact-dark@mozilla.org");
         pref("zen.widget.linux.transparency", true);
         pref("zen.theme.disable-lightweight", false);
+        lockPref("zen.view.use-single-toolbar", false);
+        lockPref("zen.view.compact.enable-at-startup", false);
       '';
     })
     opencode
