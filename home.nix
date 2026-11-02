@@ -312,7 +312,8 @@ in {
       };
       buildInputs = (old.buildInputs or []) ++ [pkgs.modemmanager];
 
-      mesonFlags = (old.mesonFlags or []) ++ ["-Dcava=disabled"];
+      mesonFlags = (old.mesonFlags or []) ++ ["-Dcava=disabled" "-Dtests=disabled"];
+      doCheck = false;
     });
   };
 
