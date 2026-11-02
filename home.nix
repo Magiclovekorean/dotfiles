@@ -327,6 +327,10 @@ in {
         font = "JetBrainsMono NF:size=14";
         pad = "10x10";
       };
+      bell = {
+        system = "no";
+        urgent = "no";
+      };
       cursor = {
         style = "block";
         blink = "no";
