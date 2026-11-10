@@ -479,7 +479,7 @@ in {
     krita
     gimp
 
-    pipewire.jack  # provides pw-jack wrapper for JACK apps on PipeWire
+    pipewire.jack # provides pw-jack wrapper for JACK apps on PipeWire
 
     gnumake
     tree-sitter
