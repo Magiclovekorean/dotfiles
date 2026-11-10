@@ -22,6 +22,16 @@
 
   nixpkgs.config.allowUnfree = true;
 
+  # Hyprland binary cache (pre-built binaries, avoids building from source)
+  nix.settings.substituters = [
+    "https://cache.nixos.org"
+    "https://hyprland.cachix.org"
+  ];
+  nix.settings.trusted-public-keys = [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+  ];
+
   security.polkit.enable = true;
   # pkexec needs the setuid wrapper for input-remapper's GUI
   # (pkexec not setuid root -> "pkexec must be setuid root", exit 32512)
@@ -61,8 +71,7 @@
     alsa.support32Bit = true;
 
     pulse.enable = true;
-
-    jack.enable = true;
+    # jack.enable = true;  # deprecated: use pw-jack wrapper instead
   };
 
   security.sudo.extraRules = [
@@ -96,6 +105,7 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
+    pipewire.jack # provides pw-jack wrapper for JACK apps
   ];
 
   # List services that you want to enable:
