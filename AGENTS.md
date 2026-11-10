@@ -22,7 +22,7 @@ sudo nixos-rebuild switch --flake .#hp-nixos-btw   # or .#hp-red-laptop
 - The zsh aliases `nrs` / `nix-upgrade` (in `home/.zshrc`) instead resolve the host from `~/.hostname`: `nixos-rebuild switch --flake $HOME/Desktop/repos/dotfiles#$(< $HOME/.hostname)`. Prefer those aliases; the hostname is not committed anywhere else.
 - No CI or test suite. The only verification is a full build: `sudo nixos-rebuild build --flake .#<host>` (builds without switching). It's slow — don't run it casually.
 - `hosts/example/` is the install template copied by `autoSetup.sh` — it imports a missing `hardware-configuration.nix`, so it is **not a buildable host** (never run a build for it).
-- Inputs pinned in `flake.lock`: `nixpkgs` (nixos-unstable), `home-manager`, `zen-browser` (via `specialArgs`/`extraSpecialArgs`). `home-manager` uses `useGlobalPkgs`/`useUserPackages`, `overwriteBackup = true`, `backupFileExtension = "backup"`.
+- Inputs pinned in `flake.lock`: `nixpkgs` (nixos-unstable), `home-manager`, `zen-browser` (via `specialArgs`/`extraSpecialArgs`), and `hyprland` (`github:hyprwm/Hyprland`, passed through `specialArgs` only, not `home-manager.extraSpecialArgs`, so it is not available in `home.nix`; `configuration.nix` sets `programs.hyprland.package` from it). `home-manager` uses `useGlobalPkgs`/`useUserPackages`, `overwriteBackup = true`, `backupFileExtension = "backup"`.
 - Formatters: Nix → `alejandra`, Lua → `stylua` (both in `home.packages`).
 
 ## Install flow
@@ -39,3 +39,4 @@ sudo nixos-rebuild switch --flake .#hp-nixos-btw   # or .#hp-red-laptop
 - `tmp/` is gitignored — safe scratch space.
 - `home.nix` pins rev+hash for several `fetchFromGitHub` / Cargo deps (waybar, zscroll, nmrs-gui, ohmyzsh `sudo` plugin, `better-claude` marketplace for the Claude Code context-meter/time-machine plugins via `programs.claude-code.marketplaces`); bump the lock-style hashes when upgrading.
 - Working tree may have uncommitted changes; check `git status` before assuming what's committed.
+- Hyprland must come from its own flake, not nixpkgs. The `hyprland` input must **not** `follows` the root `nixpkgs`: `hyprland.cachix.org` is built against Hyprland's pinned nixpkgs, so following ours makes the cache miss and Hyprland compiles from source again. Keep the `hyprland.cachix.org` substituter and key in `configuration.nix`; removing it has the same effect.
