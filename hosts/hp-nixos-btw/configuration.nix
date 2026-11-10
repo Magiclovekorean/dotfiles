@@ -14,6 +14,7 @@
       enable = true;
       efiSupport = true;
       device = "nodev";
+      copyKernels = false;
       useOSProber = true;
       configurationLimit = 10;
       default = 2;
@@ -34,6 +35,8 @@
   };
 
   networking.hostName = "hp-nixos-btw";
+
+  boot.kernelModules = ["snd-aloop"];
 
   # Intel Iris Xe (TigerLake-LP GT2) OpenCL: ocl-icd loader + NEO compute runtime
   hardware.graphics = {
