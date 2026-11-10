@@ -9,6 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    hyprland.url = "github:hyprwm/Hyprland";
+
     zen-browser = {
       url = "github:Magiclovekorean/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,6 +22,7 @@
     nixpkgs,
     home-manager,
     zen-browser,
+    hyprland,
     ...
   }: let
     lib = nixpkgs.lib;
@@ -34,7 +37,7 @@
         system = "x86_64-linux";
 
         specialArgs = {
-          inherit zen-browser username gitName gitEmail;
+          inherit zen-browser hyprland username gitName gitEmail;
         };
 
         modules = [

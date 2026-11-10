@@ -3,6 +3,7 @@
   lib,
   pkgs,
   username,
+  hyprland,
   ...
 }: {
   networking.networkmanager.enable = true;
@@ -62,6 +63,7 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
+    package = hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   };
 
   services.pipewire = {
