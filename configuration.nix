@@ -71,7 +71,6 @@
     alsa.support32Bit = true;
 
     pulse.enable = true;
-    # jack.enable = true;  # deprecated: use pw-jack wrapper instead
   };
 
   security.sudo.extraRules = [
