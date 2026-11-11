@@ -159,5 +159,16 @@
   ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
+
+  # Keep the store from filling the disk: deduplicate on write, collect
+  # garbage weekly, and collect during builds when free space drops below min-free.
+  nix.settings.auto-optimise-store = true;
+  nix.settings.min-free = 10 * 1024 * 1024 * 1024; # 10 GiB
+  nix.settings.max-free = 20 * 1024 * 1024 * 1024; # 20 GiB
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 14d";
+  };
   system.stateVersion = "26.05"; # Do NOT modfy this
 }
