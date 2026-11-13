@@ -482,7 +482,6 @@ in {
     pipewire.jack # provides pw-jack wrapper for JACK apps on PipeWire
 
     gnumake
-    go
     tree-sitter
     ripgrep
     neovim
@@ -503,6 +502,8 @@ in {
     stylua
     ruff
     alejandra
+
+    bootdev-cli
 
     unzip
     psmisc # Provides killall
