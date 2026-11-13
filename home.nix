@@ -695,6 +695,7 @@ in {
     xournalpp
     libreoffice
 
+    go
     python3
     python3Packages.pip
 
