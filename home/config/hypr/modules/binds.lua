@@ -79,7 +79,7 @@ local reboot = "systemctl reboot"
 local sleep = "systemctl suspend"
 local lock = "hyprlock"
 local logout = "hyprshutdown"
-local hibernate = "systemctl hibernate"
+local hibernate = "hyprlock & systemctl hibernate"
 
 ---------------------
 ---- KEYBINDINGS ----
