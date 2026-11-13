@@ -79,6 +79,7 @@ local reboot = "systemctl reboot"
 local sleep = "systemctl suspend"
 local lock = "hyprlock"
 local logout = "hyprshutdown"
+local hibernate = "systemctl hibernate"
 
 ---------------------
 ---- KEYBINDINGS ----
@@ -236,6 +237,7 @@ hl.define_submap("system", function()
     hl.bind("S", hl.dsp.exec_cmd(shutdown))
     hl.bind("R", hl.dsp.exec_cmd(reboot))
     hl.bind("SHIFT + S", hl.dsp.exec_cmd(sleep))
+    hl.bind("H", hl.dsp.exec_cmd(hibernate))
     hl.bind("L", hl.dsp.exec_cmd(lock))
     hl.bind("SHIFT + L", hl.dsp.exec_cmd(logout))
     hl.bind("W", hl.dsp.exec_cmd("wlogout"))
