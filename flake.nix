@@ -15,6 +15,11 @@
       url = "github:Magiclovekorean/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -23,6 +28,7 @@
     home-manager,
     zen-browser,
     hyprland,
+    spicetify-nix,
     ...
   }: let
     lib = nixpkgs.lib;
@@ -51,8 +57,12 @@
               useGlobalPkgs = true;
               useUserPackages = true;
 
+              sharedModules = [
+                spicetify-nix.homeManagerModules.default
+              ];
+
               extraSpecialArgs = {
-                inherit zen-browser username gitName gitEmail;
+                inherit zen-browser spicetify-nix username gitName gitEmail;
               };
 
               users.${username} = import ./home.nix;
