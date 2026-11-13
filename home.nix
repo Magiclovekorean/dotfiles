@@ -5,6 +5,7 @@
   gitName,
   gitEmail,
   zen-browser,
+  spicetify-nix,
   ...
 }: let
   tex = pkgs.texliveMedium.withPackages (
@@ -272,6 +273,22 @@ in {
     }) (builtins.readDir ./bin)
     // claude_links "agents"
     // claude_links "commands";
+
+  # Spotify via spicetify-nix (patched build). Hides the Home page's shelves
+  # while keeping its header/filter chips. Selectors are unverified against the
+  # live client; check with `spicetify enable-devtools` after a rebuild.
+  programs.spicetify = {
+    enable = true;
+    theme =
+      spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system}.themes.default
+      // {
+        additionalCss = ''
+          [data-testid="home-page"] .main-home-content > section {
+            display: none !important;
+          }
+        '';
+      };
+  };
 
   programs.obs-studio.enable = true;
 
@@ -591,7 +608,6 @@ in {
     imv
     mpv
     vlc
-    spotify
     hyprpicker
     grim
     slurp
