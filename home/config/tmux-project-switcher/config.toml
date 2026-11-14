@@ -2,6 +2,7 @@
 roots = [
     "~/Desktop/repos",
     "~/Desktop/boot.dev/",
-    { path = "~/Desktop/boot.dev/", depth = 2 },
+    { path = "~/Desktop/boot.dev/", depth = 5 },
+    { path = "~/Desktop/boot.dev/python-data-structures", depth = 1 },
 ]
 
