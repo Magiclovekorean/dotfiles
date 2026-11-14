@@ -87,7 +87,7 @@ alias ll='eza --icons=always --color=always -la'
 
 alias oc='opencode'
 alias lg='lazygit'
-alias tmuxs='tmux-sessionizer'
+alias tmuxs='tmux-project-switcher'
 alias tmuxd='tmux kill-server'
 alias tmuxe='tmux detach'
 

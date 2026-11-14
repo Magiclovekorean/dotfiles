@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    tmux-project-switcher = {
+      url = "github:Magiclovekorean/tmux-project-switcher";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     spicetify-nix = {
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -28,6 +33,7 @@
     home-manager,
     zen-browser,
     hyprland,
+    tmux-project-switcher,
     spicetify-nix,
     ...
   }: let
@@ -43,7 +49,7 @@
         system = "x86_64-linux";
 
         specialArgs = {
-          inherit zen-browser hyprland username gitName gitEmail;
+          inherit zen-browser hyprland tmux-project-switcher username gitName gitEmail;
         };
 
         modules = [
@@ -62,7 +68,7 @@
               ];
 
               extraSpecialArgs = {
-                inherit zen-browser spicetify-nix username gitName gitEmail;
+                inherit zen-browser tmux-project-switcher spicetify-nix username gitName gitEmail;
               };
 
               users.${username} = import ./home.nix;

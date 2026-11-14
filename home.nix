@@ -5,6 +5,7 @@
   gitName,
   gitEmail,
   zen-browser,
+  tmux-project-switcher,
   spicetify-nix,
   ...
 }: let
@@ -495,6 +496,8 @@ in {
   home.packages = with pkgs; [
     krita
     gimp
+
+    tmux-project-switcher.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     pipewire.jack # provides pw-jack wrapper for JACK apps on PipeWire
 
