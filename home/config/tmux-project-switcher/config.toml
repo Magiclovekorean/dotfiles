@@ -2,5 +2,6 @@
 roots = [
     "~/Desktop/repos",
     "~/Desktop/boot.dev/",
+    { path = "~/Desktop/boot.dev/", depth = 2 },
 ]
 
