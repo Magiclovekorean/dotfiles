@@ -20,6 +20,11 @@
       url = "github:Magiclovekorean/tmux-project-switcher";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -29,6 +34,7 @@
     zen-browser,
     hyprland,
     tmux-project-switcher,
+    spicetify-nix,
     ...
   }: let
     lib = nixpkgs.lib;
@@ -57,8 +63,12 @@
               useGlobalPkgs = true;
               useUserPackages = true;
 
+              sharedModules = [
+                spicetify-nix.homeManagerModules.default
+              ];
+
               extraSpecialArgs = {
-                inherit zen-browser tmux-project-switcher username gitName gitEmail;
+                inherit zen-browser tmux-project-switcher spicetify-nix username gitName gitEmail;
               };
 
               users.${username} = import ./home.nix;
