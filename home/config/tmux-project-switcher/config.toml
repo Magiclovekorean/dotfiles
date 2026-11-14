@@ -1,0 +1,6 @@
+# Directories whose children are projects. Plain strings mean depth 1.
+roots = [
+    "~/Desktop/repos",
+    "~/Desktop/boot.dev/",
+]
+
