@@ -443,6 +443,7 @@
         "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nixpkgs": "nixpkgs_2",
+        "tmux-project-switcher": "tmux-project-switcher",
         "zen-browser": "zen-browser"
       }
     },
@@ -458,6 +459,26 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default-linux",
+        "type": "github"
+      }
+    },
+    "tmux-project-switcher": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1794689780,
+        "narHash": "sha256-N3PF0y6UPcCUM47YeElxbezQIna7AdxD/X50XiIlKEQ=",
+        "owner": "Magiclovekorean",
+        "repo": "tmux-project-switcher",
+        "rev": "d914cce08f757db95cd632c66f45cc6496816d63",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Magiclovekorean",
+        "repo": "tmux-project-switcher",
         "type": "github"
       }
     },

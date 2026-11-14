@@ -15,6 +15,11 @@
       url = "github:Magiclovekorean/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    tmux-project-switcher = {
+      url = "github:Magiclovekorean/tmux-project-switcher";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -23,6 +28,7 @@
     home-manager,
     zen-browser,
     hyprland,
+    tmux-project-switcher,
     ...
   }: let
     lib = nixpkgs.lib;
@@ -37,7 +43,7 @@
         system = "x86_64-linux";
 
         specialArgs = {
-          inherit zen-browser hyprland username gitName gitEmail;
+          inherit zen-browser hyprland tmux-project-switcher username gitName gitEmail;
         };
 
         modules = [
@@ -52,7 +58,7 @@
               useUserPackages = true;
 
               extraSpecialArgs = {
-                inherit zen-browser username gitName gitEmail;
+                inherit zen-browser tmux-project-switcher username gitName gitEmail;
               };
 
               users.${username} = import ./home.nix;
