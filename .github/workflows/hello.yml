@@ -1,10 +1,6 @@
 name: Hello
 
-on:
-    push:
-        branches:
-            - main
-            - feat/Add-github-actions
+on: [push]
 
 jobs:
     hello-world:
