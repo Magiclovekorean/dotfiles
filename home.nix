@@ -713,6 +713,7 @@ in {
     cliamp
 
     davinci-resolve
+    audacity
     ffmpeg-full
     proton-authenticator
   ];
