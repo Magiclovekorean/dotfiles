@@ -1,0 +1,14 @@
+name: Update flake
+
+on: [pull_request]
+
+jobs:
+  download-repo:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Download repo
+        uses: actions/checkout@v7
+      
+      - name: list files
+        run: |
+          ls -la
