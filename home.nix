@@ -321,18 +321,6 @@ in {
 
   programs.waybar = {
     enable = true;
-    package = pkgs.waybar.overrideAttrs (old: {
-      src = pkgs.fetchFromGitHub {
-        owner = "Alexays";
-        repo = "Waybar";
-        rev = "6d60c8e02be67bb85bb9b1ea803f2fbcf0722002";
-        hash = "sha256-G6AcGuevhkYflQHhJq9GnLhEMgcI51Y6MYKBQvdRPDc=";
-      };
-      buildInputs = (old.buildInputs or []) ++ [pkgs.modemmanager];
-
-      mesonFlags = (old.mesonFlags or []) ++ ["-Dcava=disabled" "-Dtests=disabled"];
-      doCheck = false;
-    });
   };
 
   programs.librewolf.enable = true;
