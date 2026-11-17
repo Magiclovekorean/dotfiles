@@ -9,6 +9,5 @@ jobs:
       - name: Download repo
         uses: actions/checkout@v7
       
-      - name: list files
-        run: |
-          ls -la
+      - name: Update flake.lock
+      
