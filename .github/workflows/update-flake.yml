@@ -13,4 +13,4 @@ jobs:
         uses: DeterminateSystems/determinate-nix-action@v3
       
       - name: Check if nix is installed
-        run: nix --help
+        run: nix
