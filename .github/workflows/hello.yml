@@ -15,8 +15,10 @@ jobs:
     repo-files:
       runs-on: ubuntu-26.04
       steps:
+        - uses: DeterminateSystems/determinate-nix-action@v3
         - name: Download repo
           uses: actions/checkout@v7
-        - name: List files
-          run: ls -la
+        - name: Check if nix is installes
+          run: nix --help
+        
 
