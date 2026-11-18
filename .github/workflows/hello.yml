@@ -10,15 +10,5 @@ jobs:
               run: echo "Hello, world!"
 
             - name: Check time
-              run: date
+              run: "echo Date: $(date)"
     
-    repo-files:
-      runs-on: ubuntu-26.04
-      steps:
-        - uses: DeterminateSystems/determinate-nix-action@v3
-        - name: Download repo
-          uses: actions/checkout@v7
-        - name: Check if nix is installes
-          run: nix --help
-        
-
