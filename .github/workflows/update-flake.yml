@@ -3,11 +3,14 @@ name: Update flake
 on: [pull_request]
 
 jobs:
-  download-repo:
+  update-flake:
     runs-on: ubuntu-22.04
     steps:
       - name: Download repo
         uses: actions/checkout@v7
+
+      - name: Install nix
+        uses: DeterminateSystems/determinate-nix-action@v3
       
-      - name: Update flake.lock
-      
+      - name: Check if nix is installed
+        run: nix --help
