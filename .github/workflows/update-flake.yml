@@ -26,7 +26,7 @@ jobs:
       - name: Build for all hosts
         run: |
           for host in hosts/*/; do
-            host={host%/}
+            host=${host%/}
             host=${host#hosts/}
             [[ host == "example" ]] && continue
             echo "Building $host"
