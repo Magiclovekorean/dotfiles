@@ -20,4 +20,17 @@ jobs:
       - name: Update flake.lock
         run: nix flake update
 
+      - name: Check flake
+        run:  nix flake check
+
+      - name: Build for all hosts
+        run: |
+          for host in hosts/*/; do
+            host={host%/}
+            host=${host#hosts/}
+            [[ host == "example" ]] && continue
+            echo "Buiding $host"
+            nix build --no-link ".#nixosConfigurations.$host.config.system.build.toplevel"
+          done
+
 
