@@ -13,5 +13,5 @@
     efi.canTouchEfiVariables = true;
   };
 
-  networking.hostName = "<HOSTNAME>";
+  networking.hostName = "changeme-host";
 }

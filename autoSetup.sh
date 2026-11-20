@@ -37,7 +37,7 @@ if (( reuse )); then
 else
     # Add device to hosts/
     cp -r hosts/example "hosts/$user_hostname"
-    sed -i "s/<HOSTNAME>/$user_hostname/g" hosts/$user_hostname/*.nix
+    sed -i "s/changeme-host/$user_hostname/g" hosts/$user_hostname/*.nix
 fi
 
 # Generate hardware-configuration.nix and move it to dotfiles dir
