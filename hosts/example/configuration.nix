@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    (builtins.pathExists ./hardware-configuration.nix && ./hardware-configuration.nix || { })
+    (if builtins.pathExists ./hardware-configuration.nix then ./hardware-configuration.nix else { })
   ];
 
   boot.loader = {
