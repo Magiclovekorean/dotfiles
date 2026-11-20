@@ -1,3 +1,16 @@
 {
-  "$schema": "https://opencode.ai/config.json"
+  "$schema": "https://opencode.ai/config.json",
+  // Keep OpenCode's context accounting in sync with the Ollama server's
+  // OLLAMA_CONTEXT_LENGTH (set in home.nix). The launcher-injected config
+  // (OPENCODE_CONFIG_CONTENT from `ollama launch opencode`) sets no limits,
+  // so these per-model limits merge in without conflict.
+  "provider": {
+    "ollama": {
+      "models": {
+        "qwen3-coder:30b": {
+          "limit": { "context": 16384, "output": 4096 }
+        }
+      }
+    }
+  }
 }

@@ -248,6 +248,22 @@ in {
   services.cliphist.enable = true;
   services.mako.enable = true;
 
+  services.ollama = {
+    enable = true;
+    # Vulkan-enabled build so the Iris Xe iGPU can be used (plain pkgs.ollama
+    # ships CPU backends only). Same version, from the binary cache.
+    package = pkgs.ollama-vulkan;
+    environmentVariables = {
+      # Default 4096 (VRAM-tier fallback) truncates OpenCode/Claude Code
+      # prompts (~6k tokens) and defeats the prompt cache. 16384 costs
+      # ~1.5 GiB KV cache for qwen3-coder:30b (96 KiB/token).
+      OLLAMA_CONTEXT_LENGTH = "16384";
+      # Ollama drops integrated GPUs by default; the startup log explicitly
+      # says: "dropping integrated GPU; to enable, set OLLAMA_IGPU_ENABLE=1".
+      OLLAMA_IGPU_ENABLE = "1";
+    };
+  };
+
   programs.hyprlock.enable = true;
   services.hyprsunset.enable = true;
 
