@@ -20,6 +20,4 @@ jobs:
       - name: Update flake.lock
         run: nix flake update
 
-      - name: Test flake
-        run: nix 
 
