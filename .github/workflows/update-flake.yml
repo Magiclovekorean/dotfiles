@@ -10,7 +10,16 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Install nix
-        uses: DeterminateSystems/determinate-nix-action@v3
-      
-      - name: Check if nix is installed
-        run: echo TODO
+        uses: DeterminateSystems/determinate-nix-action@v3 
+
+      - name: Set cachix name
+        uses: cachix/cachix-action@v14
+        with:
+          name: hyprland
+
+      - name: Update flake.lock
+        run: nix flake update
+
+      - name: Test flake
+        run: nix 
+
