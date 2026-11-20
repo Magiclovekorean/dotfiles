@@ -64,7 +64,7 @@ echo "$username" > "/mnt/home/$username/.username"
 if (( ! reuse )); then
     # Substitute the username into the copied host; the flake reads
     # hosts/<host>/username at evaluation time
-    sed -i "s/<USERNAME>/$username/g" "hosts/$user_hostname/username" hosts/$user_hostname/*.nix
+    sed -i "s/changeme/$username/g" "hosts/$user_hostname/username" hosts/$user_hostname/*.nix
 
     # Substitute the git identity; same pattern, separate files
     sed -i "s/<GITNAME>/$git_name/g" "hosts/$user_hostname/git-name"
