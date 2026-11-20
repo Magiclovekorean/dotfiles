@@ -21,7 +21,7 @@ jobs:
         run: nix flake update
 
       - name: Check flake
-        run:  nix flake check
+        run: nix flake check
 
       - name: Build for all hosts
         run: |
@@ -29,7 +29,7 @@ jobs:
             host={host%/}
             host=${host#hosts/}
             [[ host == "example" ]] && continue
-            echo "Buiding $host"
+            echo "Building $host"
             nix build --no-link ".#nixosConfigurations.$host.config.system.build.toplevel"
           done
 
