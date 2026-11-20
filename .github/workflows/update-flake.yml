@@ -28,7 +28,7 @@ jobs:
           for host in hosts/*/; do
             host=${host%/}
             host=${host#hosts/}
-            [[ host == "example" ]] && continue
+            [[ $host == "example" ]] && continue
             echo "Building $host"
             nix build --no-link ".#nixosConfigurations.$host.config.system.build.toplevel"
           done
