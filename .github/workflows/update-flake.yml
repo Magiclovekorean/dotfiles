@@ -1,10 +1,18 @@
 name: Update flake
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 1'
 
 jobs:
   update-flake:
     runs-on: ubuntu-22.04
+    permissions: 
+      contents: write
+      pull-requests: write
+
     steps:
       - name: Download repo
         uses: actions/checkout@v7
@@ -32,5 +40,23 @@ jobs:
             echo "Building $host"
             nix build --no-link ".#nixosConfigurations.$host.config.system.build.toplevel"
           done
+
+
+      - name: Create Pull Request
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet flake.lock; then
+            echo "flake.lock unchanged"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B update-flake-lock
+          git add flake.lock
+          git commit -m "Update flake.lock"
+          git push -u origin HEAD --force-with-lease
+          gh pr view update-flake-lock >/dev/null 2>&1 || \
+            gh pr create --title "Update flake.lock" --body "Automated weekly flake.lock update."
 
 
