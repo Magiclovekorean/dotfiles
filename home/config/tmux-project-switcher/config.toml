@@ -1,5 +1,6 @@
 # Directories whose children are projects. Plain strings mean depth 1.
 roots = [
+    "~/Desktop",
     "~/Desktop/repos",
     "~/Desktop/boot.dev/",
     { path = "~/Desktop/boot.dev/", depth = 5 },
