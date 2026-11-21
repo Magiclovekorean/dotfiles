@@ -48,4 +48,10 @@
       vpl-gpu-rt
     ];
   };
+
+  # Ollama: force CPU-only (Intel Iris Xe has no VRAM for 18GB models, causes ErrorDeviceLost)
+  services.ollama = {
+    enable = true;
+    package = pkgs.ollama-cpu;
+  };
 }
