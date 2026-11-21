@@ -87,7 +87,7 @@
     hosts = builtins.attrNames (
       lib.filterAttrs (
         name: type:
-          type == "directory"
+          type == "directory" && name != "example"
       ) (builtins.readDir ./hosts)
     );
   in {
