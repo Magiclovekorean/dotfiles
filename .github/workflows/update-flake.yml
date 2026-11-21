@@ -17,7 +17,7 @@ jobs:
       - name: Download repo
         uses: actions/checkout@v7
         with:
-          ref: ${{ github.event.repository.default_branch }}
+          ref: ${{ github.head_ref || github.ref_name }}
 
       - name: Install nix
         uses: DeterminateSystems/determinate-nix-action@v3 
