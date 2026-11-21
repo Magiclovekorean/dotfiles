@@ -40,3 +40,50 @@ sudo nixos-rebuild switch --flake .#hp-nixos-btw   # or .#hp-red-laptop
 - `home.nix` pins rev+hash for several `fetchFromGitHub` / Cargo deps (waybar, zscroll, nmrs-gui, ohmyzsh `sudo` plugin, `better-claude` marketplace for the Claude Code context-meter/time-machine plugins via `programs.claude-code.marketplaces`); bump the lock-style hashes when upgrading.
 - Working tree may have uncommitted changes; check `git status` before assuming what's committed.
 - Hyprland must come from its own flake, not nixpkgs. The `hyprland` input must **not** `follows` the root `nixpkgs`: `hyprland.cachix.org` is built against Hyprland's pinned nixpkgs, so following ours makes the cache miss and Hyprland compiles from source again. Keep the `hyprland.cachix.org` substituter and key in `configuration.nix`; removing it has the same effect.
+
+## Commands
+
+```bash
+# Rebuild current host (reads ~/.hostname)
+nrs                          # alias: sudo nixos-rebuild switch --flake .#$(< ~/.hostname)
+nix-upgrade                  # alias: nix flake update + rebuild
+
+# Explicit host rebuild
+sudo nixos-rebuild switch --flake .#hp-nixos-btw
+sudo nixos-rebuild switch --flake .#hp-red-laptop
+
+# Build only (no switch) — slow, use for verification
+sudo nixos-rebuild build --flake .#hp-nixos-btw
+
+# Flake maintenance
+nix flake update              # Update all inputs
+nix flake update nixpkgs      # Update only nixpkgs
+nix flake check               # Validate flake outputs
+nix flake update --dry-run    # Show what would change
+
+# Formatting
+alejandra .                   # Nix formatter
+stylua .                      # Lua formatter
+```
+
+## Common Tasks
+
+| Task | Command |
+|------|---------|
+| Add new host | `cp -r hosts/example hosts/<newhost>` then edit files |
+| Add new ~/.config dir | `mkdir -p home/config/<name>` (auto-linked) |
+| Add Claude agent/command | Add file to `home/claude/agents/` or `home/claude/commands/` |
+| Add bin script | Add executable to `bin/` |
+| Update flake inputs | `nix flake update` then rebuild |
+| Check for errors before rebuild | `nix flake check && nixos-rebuild build --flake .#hp-nixos-btw` |
+
+## File Locations for Common Edits
+
+- **System packages/services:** `configuration.nix`
+- **User packages/dotfiles:** `home.nix`
+- **Host-specific hardware:** `hosts/<host>/hardware-configuration.nix`
+- **Host-specific system config:** `hosts/<host>/configuration.nix`
+- **Waybar:** `home/config/waybar/config.jsonc`
+- **Hyprland:** `home/config/hypr/hyprland.lua`
+- **Zsh:** `home/.zshrc` (inlined into home.nix)
+- **Tmux:** `home/.tmux.conf` (inlined into home.nix)
