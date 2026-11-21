@@ -3,12 +3,26 @@ return {
   dependencies = "nvim-tree/nvim-web-devicons",
   config = function()
     local nvimtree = require("nvim-tree")
+    local api = require("nvim-tree.api")
 
     -- recommended settings from nvim-tree documentation
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
 
+    local function on_attach(bufnr)
+      local function opts(desc)
+        return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+      end
+
+      -- default mappings
+      api.config.mappings.default_on_attach(bufnr)
+
+      -- unmap 's' so flash.nvim can use it (was: system_open)
+      vim.keymap.del("n", "s", { buffer = bufnr })
+    end
+
     nvimtree.setup({
+      on_attach = on_attach,
       view = {
         width = 35,
         relativenumber = true,
