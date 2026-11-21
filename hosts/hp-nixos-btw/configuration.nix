@@ -37,9 +37,13 @@
     ];
   };
 
-  # Ollama: force CPU-only (Intel Iris Xe has no VRAM for 18GB models, causes ErrorDeviceLost)
+  # Ollama: use Vulkan-enabled build with iGPU support (main branch config)
   services.ollama = {
     enable = true;
-    package = pkgs.ollama-cpu;
+    package = pkgs.ollama-vulkan;
+    environmentVariables = {
+      OLLAMA_CONTEXT_LENGTH = "16384";
+      OLLAMA_IGPU_ENABLE = "1";
+    };
   };
 }
