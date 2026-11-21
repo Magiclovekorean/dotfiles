@@ -5,12 +5,35 @@
     "mode": "system"
   },
   "diffs": {
-    "wrap": "word"
+    "wrap": "word",
+    "view": "auto"
   },
   "session": {
     "sidebar": "auto",
     "scrollbar": true,
-    "thinking": "hide"
+    "thinking": "show",
+    "markdown": "rendered",
+    "grouping": "none",
+    "verbosity": "medium",
+    "image_preview": true,
+    "tps": false,
+    "new_location": "launch"
   },
-  "animations": true
+  "animations": true,
+  "tabs": {
+    "mode": "off",
+    "layout": "horizontal",
+    "indicators": "status"
+  },
+  "prompt": {
+    "image_preview": true
+  },
+  "attention": {
+    "sound": true,
+    "notifications": true,
+    "volume": 0.9999999999999999
+  },
+  "terminal": {
+    "copy": "select"
+  }
 }
