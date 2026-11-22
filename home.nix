@@ -289,7 +289,22 @@ in {
       executable = true;
     }) (builtins.readDir ./bin)
     // claude_links "agents"
-    // claude_links "commands";
+    // claude_links "commands"
+    // {
+      ".local/share/applications/open-webui.desktop" = {
+        text = ''
+          [Desktop Entry]
+          Name=Open WebUI
+          Comment=Web GUI for Ollama
+          Exec=${pkgs.xdg-utils}/bin/xdg-open http://localhost:8080
+          Terminal=false
+          Type=Application
+          Categories=Network;Development;
+          Icon=web-browser
+          StartupNotify=true
+        '';
+      };
+    };
 
   # Spotify via spicetify-nix (patched build). Hides the Home page's shelves
   # while keeping its header/filter chips. Selectors are unverified against the

@@ -6,28 +6,28 @@
 @define-color dark-5 rgba(113, 113, 122, 1);
 
 * {
-  /* `otf-font-awesome` is required to be installed for icons */
-  font-family: JetBrainsMono Nerd Font Propo;
-  font-size: 15px;
+    /* `otf-font-awesome` is required to be installed for icons */
+    font-family: JetBrainsMono Nerd Font Propo;
+    font-size: 15px;
 }
 
 window#waybar {
-  background-color: @dark-9;
-  color: white;
+    background-color: @dark-9;
+    color: white;
 }
 
 #workspaces button {
-  padding: 3px;
-  margin: 7px 0px 7px 7px;
-  background: transparent;
-  border-radius: 2px;
-  color: white;
+    padding: 3px;
+    margin: 7px 0px 7px 7px;
+    background: transparent;
+    border-radius: 2px;
+    color: white;
 }
 
 #workspaces button.active {
-  background: @highlight;
-  color: black;
-  font-weight: 700;
+    background: @highlight;
+    color: black;
+    font-weight: 700;
 }
 
 #submap,
@@ -40,71 +40,71 @@ window#waybar {
 #custom-wlogout,
 #custom-airplane-mode,
 #custom-kb-toggle {
-  border-radius: 8px;
-  padding: 5px 8px;
-  background: @dark-8;
-  margin: 5px 10px 5px 0px;
+    border-radius: 8px;
+    padding: 5px 8px;
+    background: @dark-8;
+    margin: 5px 10px 5px 0px;
 }
 
 #submap,
 #workspaces button.urgent {
-  background: rgba(227, 81, 73, 1);
-  color: black;
+    background: rgba(227, 81, 73, 1);
+    color: black;
 }
 
 #pulseaudio-slider {
-  padding: 0px;
-  margin: 0px;
-  margin-left: 8px;
+    padding: 0px;
+    margin: 0px;
+    margin-left: 8px;
 }
 
 #pulseaudio-slider slider {
-  all: unset;
-  min-height: 0;
-  min-width: 0;
-  opacity: 0;
-  background-image: none;
-  border: none;
-  box-shadow: none;
+    all: unset;
+    min-height: 0;
+    min-width: 0;
+    opacity: 0;
+    background-image: none;
+    border: none;
+    box-shadow: none;
 }
 
 #pulseaudio-slider trough {
-  min-height: 8px;
-  min-width: 75px;
-  border-radius: 5px;
-  background: @dark-7;
+    min-height: 8px;
+    min-width: 75px;
+    border-radius: 5px;
+    background: @dark-7;
 }
 
 #pulseaudio-slider highlight {
-  min-width: 10px;
-  border-radius: 5px;
-  background: @highlight;
+    min-width: 10px;
+    border-radius: 5px;
+    background: @highlight;
 }
 
 #media {
-  color: #42ff9f;
-  margin: 7px 0px 7px 80px;
+    color: #42ff9f;
+    margin: 7px 0px 7px 80px;
 }
 
 #custom-media-animation {
-  font-size: 13px;
-  margin-right: 10px;
+    font-size: 13px;
+    margin-right: 10px;
 }
 
 #custom-media-now-playing {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 
 #custom-media-time {
-  color: @dark-5;
-  font-size: 14px;
+    color: @dark-5;
+    font-size: 15px;
 }
 
 tooltip {
-  background: @dark-9;
-  border-radius: 5px;
+    background: @dark-9;
+    border-radius: 5px;
 }
 
 tooltip label {
-  color: white;
+    color: white;
 }
