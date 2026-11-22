@@ -149,6 +149,17 @@
     };
   };
 
+  # Open WebUI — web GUI for Ollama (and other backends)
+  # Access at http://localhost:8080
+  services.open-webui = {
+    enable = true;
+    host = "127.0.0.1";
+    port = 8080;
+    environment = {
+      OLLAMA_BASE_URL = "http://127.0.0.1:11434";
+    };
+  };
+
   fonts.packages = with pkgs; [
     noto-fonts
     noto-fonts-cjk-sans
