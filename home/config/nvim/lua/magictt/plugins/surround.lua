@@ -1,6 +1,13 @@
 return {
-  "kylechui/nvim-surround",
-  event = { "BufReadPre", "BufNewFile" },
-  version = "*", -- Use for stability; omit to use `main` branch for the latest features
-  config = true,
+	"kylechui/nvim-surround",
+	event = { "BufReadPre", "BufNewFile" },
+	version = "*",
+	config = function()
+		require("nvim-surround").setup({
+			keymaps = {
+				visual = "<leader>s",
+				visual_line = "<leader>S",
+			},
+		})
+	end,
 }
