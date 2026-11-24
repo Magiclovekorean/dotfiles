@@ -608,6 +608,7 @@ in {
     opencode
     wlogout
     localsend
+    lmstudio
     papirus-icon-theme
 
     # Hyprland is not a DE Electron recognizes; without this Cursor skips the OS keyring.
