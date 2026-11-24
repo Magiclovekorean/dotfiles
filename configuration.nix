@@ -149,6 +149,15 @@
     };
   };
 
+  # Ollama — local LLM server (CPU-only for Iris Xe compatibility)
+  services.ollama = {
+    enable = true;
+    environmentVariables = {
+      OLLAMA_GPU_LAYERS = "0";
+      OLLAMA_NUM_CTX = "4096";
+    };
+  };
+
   # Open WebUI — web GUI for Ollama (and other backends)
   # Access at http://localhost:8080
   services.open-webui = {
