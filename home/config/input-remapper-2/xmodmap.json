@@ -177,7 +177,7 @@
     "XF86AudioMicMute": 190,
     "XF86TouchpadToggle": 191,
     "XF86TouchpadOn": 192,
-    "F23": 193,
+    "XF86TouchpadOff": 193,
     "ISO_Level5_Shift": 195,
     "NoSymbol": 199,
     "XF86AudioPause": 201,
