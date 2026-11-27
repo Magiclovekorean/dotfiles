@@ -90,6 +90,7 @@ alias lg='lazygit'
 alias tmuxs='tmux-project-switcher'
 alias tmuxd='tmux kill-server'
 alias tmuxe='tmux detach'
+alias wm='workmux'
 
 alias l='clear'
 

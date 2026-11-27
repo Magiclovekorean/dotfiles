@@ -1,0 +1,12 @@
+mode: window
+
+panes:
+  - command: nvim
+    name: nvim
+    focus: true
+  - command: 
+    name: shell
+    split: vertical
+  - command: opencode
+    name: opencode
+    split: horizontal

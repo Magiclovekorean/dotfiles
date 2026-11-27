@@ -30,6 +30,11 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    workmux = {
+      url = "github:raine/workmux";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -40,6 +45,7 @@
     hyprland,
     tmux-project-switcher,
     spicetify-nix,
+    workmux,
     ...
   }: let
     lib = nixpkgs.lib;
@@ -54,7 +60,7 @@
         system = "x86_64-linux";
 
         specialArgs = {
-          inherit zen-browser hyprland tmux-project-switcher username gitName gitEmail;
+          inherit zen-browser hyprland tmux-project-switcher workmux username gitName gitEmail;
         };
 
         modules = [
@@ -73,7 +79,7 @@
               ];
 
               extraSpecialArgs = {
-                inherit zen-browser tmux-project-switcher spicetify-nix username gitName gitEmail;
+                inherit zen-browser tmux-project-switcher spicetify-nix workmux username gitName gitEmail;
               };
 
               users.${username} = import ./home.nix;
