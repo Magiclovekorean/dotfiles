@@ -7,6 +7,7 @@
   zen-browser,
   tmux-project-switcher,
   spicetify-nix,
+  workmux,
   ...
 }: let
   tex = pkgs.texliveMedium.withPackages (
@@ -524,6 +525,8 @@ in {
     tree-sitter
     ripgrep
     neovim
+
+    workmux.packages.${pkgs.stdenv.hostPlatform.system}.default
 
     # Nvim LSP's
     typescript-language-server # Typescript LSP

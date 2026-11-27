@@ -432,6 +432,7 @@
         "nixpkgs": "nixpkgs",
         "spicetify-nix": "spicetify-nix",
         "tmux-project-switcher": "tmux-project-switcher",
+        "workmux": "workmux",
         "zen-browser": "zen-browser"
       }
     },
@@ -503,6 +504,26 @@
       "original": {
         "owner": "Magiclovekorean",
         "repo": "tmux-project-switcher",
+        "type": "github"
+      }
+    },
+    "workmux": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1795723046,
+        "narHash": "sha256-LsYoCFcw5swN2hpLlAlvqWK8FnrY8XX65Z3ULdavMaU=",
+        "owner": "raine",
+        "repo": "workmux",
+        "rev": "ac4cb781ea6e4fa47233f52664f6a84c0522e5d9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "raine",
+        "repo": "workmux",
         "type": "github"
       }
     },
