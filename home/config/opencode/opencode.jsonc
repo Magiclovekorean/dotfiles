@@ -1,3 +1,35 @@
 {
-  "$schema": "https://opencode.ai/config.json"
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "ollama": {
+      "models": {
+        "qwen3.6:27b-coding": {
+          "limit": { "context": 16384, "output": 8192 },
+          "options": {
+            "num_predict": 8192,
+            "temperature": 0.3,
+            "top_p": 0.95,
+            "reasoning_effort": "none"
+          }
+        },
+        "qwen3.8:27b-q4_K_M": {
+          "limit": { "context": 16384, "output": 8192 },
+          "options": {
+            "num_predict": 8192,
+            "temperature": 0.3,
+            "top_p": 0.95,
+            "reasoning_effort": "none"
+          }
+        },
+        "gpt-oss:20b": {
+          "limit": { "context": 16384, "output": 8192 },
+          "options": {
+            "num_predict": 8192,
+            "temperature": 0.3,
+            "top_p": 0.95
+          }
+        }
+      }
+    }
+  }
 }
